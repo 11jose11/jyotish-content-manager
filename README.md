@@ -1,215 +1,195 @@
-# 🌙 Jyotish Panchanga + Yogas - Versión Estable
+# 🌙 Jyotish Content Manager - Versión 2.0
 
-## 📖 Descripción
+**Sistema completo de gestión de contenido Jyotish con frontend y backend conectados**
 
-Aplicación web estable para el cálculo y visualización de **Pañchāṅga** (los cinco elementos del tiempo) y **Yogas especiales** según la astrología védica. Esta versión incluye:
+## 🚀 **Estado Actual - Versión 2.0**
 
-- 📅 **Calendario Panchanga** mensual con los 5 elementos
-- 🧘 **Yogas especiales** con colores según auspiciosidad
-- 🌍 **Integración con Google Places API** para ubicaciones
-- ⚡ **API optimizada** con cálculos precisos
-- 🎨 **Interfaz moderna** con shadcn/ui y Tailwind CSS
+### ✅ **Funcionalidades Implementadas:**
 
-## ✨ Características Principales
+#### **Frontend (React + TypeScript + Vite)**
+- **🌐 Páginas principales:**
+  - **Panchanga Calendar**: Calendario mensual con elementos panchanga
+  - **Transits**: Posiciones planetarias de los 9 planetas con nakshatras y padas
+  - **Positions**: Visualización de posiciones planetarias
+  - **Navatara**: Cálculos de navatara
+  - **Diagnostics**: Estado del sistema y API
 
-### 📅 Calendario Panchanga
-- **Tithi** (fase lunar) con número y nombre
-- **Vara** (día de la semana) 
-- **Nakshatra** (mansión lunar) con pada
-- **Yoga** (combinación Sol-Luna)
-- **Karana** (medio tithi)
+- **🎨 UI/UX:**
+  - Diseño moderno con Tailwind CSS
+  - Componentes animados y responsivos
+  - Autocompletado de ubicaciones
+  - Interfaz intuitiva y accesible
 
-### 🧘 Yogas Especiales
-- **Detección automática** de yogas auspiciosos e inauspiciosos
-- **Visualización en el calendario** con colores distintivos
-- **Panel detallado** con descripciones y recomendaciones
-- **Carga automática** de yogas del mes completo
+#### **Backend (FastAPI + Python)**
+- **🔧 API Endpoints:**
+  - `/v1/calendar/month` - Calendario mensual con posiciones planetarias
+  - `/v1/panchanga/precise/daily` - Panchanga diario preciso
+  - `/v1/panchanga/yogas/detect` - Detección de yogas especiales
+  - `/v1/chesta-bala/calculate` - Cálculo de Chesta Bala
+  - `/health` - Estado del sistema
 
-### 🌍 Funcionalidades de Ubicación
-- **Autocompletado** de ciudades con Google Places API
-- **Cálculo automático** de coordenadas y timezone
-- **Persistencia** de ubicación favorita
-- **Cambio dinámico** de ubicación
+- **🌍 CORS configurado** para múltiples dominios Vercel
+- **📊 True Citra Paksha Ayanamsa** para cálculos astronómicamente precisos
+- **🔮 Swiss Ephemeris** para posiciones planetarias exactas
 
-## 🚀 Tecnologías
+### 🌟 **Características Destacadas:**
 
-### Frontend
+1. **Posiciones Planetarias Precisas:**
+   - 9 planetas (Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Rahu, Ketu)
+   - Nakshatras y padas calculados con True Citra Paksha
+   - Estados de movimiento (retrógrado, directo)
+   - Longitudes eclípticas precisas
+
+2. **Calendario Panchanga:**
+   - Tithi, Vara, Nakshatra, Yoga, Karana
+   - Yogas especiales detectados automáticamente
+   - Cálculos basados en sunrise como referencia
+
+3. **Sistema de Ubicaciones:**
+   - Autocompletado de ciudades
+   - Coordenadas geográficas automáticas
+   - Zonas horarias precisas
+
+## 🛠 **Tecnologías Utilizadas:**
+
+### **Frontend:**
 - **React 18** con TypeScript
 - **Vite** para build y desarrollo
-- **shadcn/ui** para componentes
 - **Tailwind CSS** para estilos
-- **TanStack Query** para manejo de estado
-- **React Router** para navegación
-- **Framer Motion** para animaciones
+- **TanStack Query** para gestión de estado
+- **Shadcn/ui** para componentes
+- **Vercel** para despliegue
 
-### APIs
-- **Jyotish API** (Google Cloud Run) para cálculos astrológicos
-- **Google Places API** para autocompletado de ubicaciones
-- **Google Timezone API** para timezones
+### **Backend:**
+- **FastAPI** con Python
+- **Swiss Ephemeris** para cálculos astronómicos
+- **Google Cloud Run** para despliegue
+- **CORS** configurado para frontend
 
-## 📦 Instalación
+## 📦 **Estructura del Proyecto:**
 
-### Prerrequisitos
-- Node.js 18+ 
-- pnpm (recomendado) o npm
-
-### Pasos de instalación
-
-1. **Clonar el repositorio**
-```bash
-git clone https://github.com/11jose11/jyotish-panchanga-stable.git
-cd jyotish-panchanga-stable
+```
+Jyotish content manager/
+├── apps/
+│   ├── frontend/          # React frontend
+│   │   ├── src/
+│   │   │   ├── components/    # Componentes UI
+│   │   │   ├── pages/         # Páginas principales
+│   │   │   └── lib/           # Utilidades y API
+│   │   └── ...
+│   └── backend/           # FastAPI backend
+│       ├── main.py        # API principal
+│       ├── data/          # Datos JSON
+│       └── ...
+├── json-database/         # Base de datos JSON
+└── ...
 ```
 
-2. **Instalar dependencias**
+## 🚀 **Despliegue:**
+
+### **Frontend:**
+- **URL**: https://jyotish-content-manager.vercel.app
+- **Plataforma**: Vercel
+- **Build**: Automático desde GitHub
+
+### **Backend:**
+- **URL**: https://jyotish-api-273065401301.us-central1.run.app
+- **Plataforma**: Google Cloud Run
+- **CORS**: Configurado para frontend
+
+## 🔧 **Configuración Local:**
+
+### **Prerrequisitos:**
+- Node.js 18+
+- Python 3.11+
+- pnpm
+
+### **Instalación:**
 ```bash
+# Clonar repositorio
+git clone <repository-url>
+cd "Jyotish content manager"
+
+# Instalar dependencias
 pnpm install
+
+# Configurar variables de entorno
+cp env.example .env
+# Editar .env con tus configuraciones
+
+# Ejecutar setup
+./setup.sh
 ```
 
-3. **Configurar variables de entorno**
+### **Desarrollo:**
 ```bash
-cp .env.example .env.local
-```
-
-Editar `.env.local`:
-```env
-VITE_API_BASE_URL=https://jyotish-api-ndcfqrjivq-uc.a.run.app
-VITE_API_KEY=tu_api_key_aqui
-VITE_GOOGLE_PLACES_API_KEY=tu_google_places_api_key_aqui
-```
-
-4. **Ejecutar en desarrollo**
-```bash
+# Frontend
+cd apps/frontend
 pnpm dev
+
+# Backend
+cd apps/backend
+uvicorn main:app --reload
 ```
 
-5. **Build para producción**
-```bash
-pnpm build
+## 📊 **Endpoints API Principales:**
+
+### **Calendario Mensual:**
+```
+GET /v1/calendar/month
+Parámetros: year, month, place_id, format, anchor
 ```
 
-## 🌐 Despliegue
-
-### Vercel (Recomendado)
-```bash
-npm install -g vercel
-vercel --prod
+### **Panchanga Diario:**
+```
+GET /v1/panchanga/precise/daily
+Parámetros: date, latitude, longitude, reference_time
 ```
 
-### Variables de entorno en Vercel
-- `VITE_API_BASE_URL`
-- `VITE_API_KEY` 
-- `VITE_GOOGLE_PLACES_API_KEY`
-
-## 📱 Uso
-
-### Navegación
-- **Página principal**: Información general
-- **Panchanga**: Calendario mensual con los 5 elementos
-- **Transits**: Posiciones planetarias (en desarrollo)
-- **Navatara**: Cálculos de Navatara (en desarrollo)
-
-### Funcionalidades del Calendario
-1. **Seleccionar año/mes** en los controles superiores
-2. **Cambiar ubicación** usando el selector de ciudad
-3. **Ver yogas especiales** haciendo click en el icono ℹ️ de cada día
-4. **Panel detallado** se abre mostrando todos los yogas del día
-
-### Colores de Yogas
-- 🟢 **Verde**: Yogas auspiciosos (favorables)
-- 🔴 **Rojo**: Yogas inauspiciosos (desfavorables)
-
-## 🔧 Configuración de APIs
-
-### Jyotish API
-- **URL**: https://jyotish-api-ndcfqrjivq-uc.a.run.app
-- **Autenticación**: X-API-Key header
-- **Endpoints principales**:
-  - `GET /v1/panchanga/precise/daily` - Panchanga diario
-  - `GET /v1/panchanga/yogas/detect` - Detección de yogas
-
-### Google Places API
-- **Habilitar**: Places API, Geocoding API, Timezone API
-- **Configurar**: Restricciones de dominio para seguridad
-
-## 📊 Estructura del Proyecto
-
+### **Yogas Especiales:**
 ```
-src/
-├── components/          # Componentes reutilizables
-│   ├── ui/             # Componentes shadcn/ui
-│   ├── Layout.tsx      # Layout principal
-│   └── LocationAutocomplete.tsx
-├── lib/                # Utilidades y configuración
-│   ├── api.ts          # Cliente API y hooks
-│   └── utils.ts        # Funciones utilitarias
-├── pages/              # Páginas de la aplicación
-│   ├── Home.tsx        # Página principal
-│   ├── Panchanga.tsx   # Calendario Panchanga
-│   ├── Transits.tsx    # Tránsitos (en desarrollo)
-│   └── Navatara.tsx    # Navatara (en desarrollo)
-└── main.tsx            # Punto de entrada
+GET /v1/panchanga/yogas/detect
+Parámetros: date, latitude, longitude
 ```
 
-## 🧪 Testing
+## 🌟 **Mejoras en Versión 2.0:**
 
-```bash
-# Tests unitarios
-pnpm test
+1. **✅ Conexión Frontend-Backend:**
+   - Endpoints reales en lugar de mock data
+   - Datos astronómicamente precisos
+   - Manejo robusto de errores
 
-# Tests E2E (requiere Playwright)
-pnpm test:e2e
-```
+2. **✅ Página de Tránsitos Funcional:**
+   - 9 planetas con nakshatras y padas
+   - Posiciones calculadas con True Citra Paksha
+   - Visualización clara y organizada
 
-## 📈 Estado del Proyecto
+3. **✅ CORS Configurado:**
+   - Múltiples dominios Vercel permitidos
+   - Comunicación segura frontend-backend
 
-### ✅ Completado
-- [x] Calendario Panchanga funcional
-- [x] Detección de yogas especiales
-- [x] Integración con Google Places API
-- [x] Interfaz responsive y moderna
-- [x] Despliegue en Vercel
-- [x] Manejo de errores y loading states
+4. **✅ Sistema de Ubicaciones:**
+   - Autocompletado funcional
+   - Coordenadas automáticas
+   - Zonas horarias precisas
 
-### 🚧 En Desarrollo
-- [ ] Página de Transits
-- [ ] Página de Navatara
-- [ ] Tests E2E completos
-- [ ] PWA (Progressive Web App)
+## 🔮 **Próximas Mejoras:**
 
-### 📋 Roadmap
-- [ ] Exportación de datos (PDF, CSV)
-- [ ] Notificaciones push
-- [ ] Modo offline
-- [ ] Múltiples idiomas
-- [ ] Temas personalizables
+- [ ] Integración con Google Places API para place_id dinámico
+- [ ] Panel detallado de panchanga diario
+- [ ] Exportación de datos a CSV/PDF
+- [ ] Más opciones de ayanamsa
+- [ ] Cálculos de horóscopo natal
 
-## 🤝 Contribución
+## 📝 **Licencia:**
 
-1. Fork el proyecto
-2. Crear una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abrir un Pull Request
+MIT License - Ver [LICENSE](LICENSE) para más detalles.
 
-## 📄 Licencia
+## 🤝 **Contribución:**
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
-
-## 🙏 Agradecimientos
-
-- **Swiss Ephemeris** para cálculos astronómicos precisos
-- **shadcn/ui** por los componentes de UI
-- **Google APIs** por servicios de ubicación
-- **Comunidad Jyotish** por el conocimiento védico
-
-## 📞 Contacto
-
-- **Desarrollador**: José
-- **GitHub**: [@11jose11](https://github.com/11jose11)
-- **Proyecto**: [Jyotish Panchanga Stable](https://github.com/11jose11/jyotish-panchanga-stable)
+Las contribuciones son bienvenidas. Por favor, abre un issue o pull request.
 
 ---
 
-**🌙 Que la sabiduría védica ilumine tu camino** ✨
+**🌙 Jyotish Content Manager v2.0 - Conectando tradición védica con tecnología moderna** ✨
 
