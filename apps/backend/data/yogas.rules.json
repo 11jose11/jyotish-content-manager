@@ -1,0 +1,206 @@
+[
+  {
+    "name": "Amrita Yoga",
+    "polarity": "auspicious",
+    "rule": "vara=='Thursday' && nakshatraIndex in [8, 12, 16, 20, 24]",
+    "explain": "Jupiter in auspicious nakshatras on Thursday creates Amrita Yoga, highly beneficial for spiritual activities and learning"
+  },
+  {
+    "name": "Siddha Yoga",
+    "polarity": "auspicious",
+    "rule": "vara=='Friday' && nakshatraIndex in [4, 8, 12, 16, 20, 24]",
+    "explain": "Venus in auspicious nakshatras on Friday creates Siddha Yoga, excellent for success in arts and relationships"
+  },
+  {
+    "name": "Ganda Yoga",
+    "polarity": "inauspicious",
+    "rule": "vara=='Saturday' && nakshatraIndex in [6, 9, 18, 19, 24]",
+    "explain": "Saturn in malefic nakshatras on Saturday creates Ganda Yoga, avoid important activities during this period"
+  },
+  {
+    "name": "Ravi Yoga",
+    "polarity": "auspicious",
+    "rule": "vara=='Sunday' && nakshatraIndex in [1, 10, 19, 28]",
+    "explain": "Sun in specific nakshatras on Sunday creates Ravi Yoga, beneficial for leadership and authority"
+  },
+  {
+    "name": "Chandra Yoga",
+    "polarity": "auspicious",
+    "rule": "vara=='Monday' && nakshatraIndex in [2, 7, 11, 15, 22, 26]",
+    "explain": "Moon in auspicious nakshatras on Monday creates Chandra Yoga, excellent for emotional well-being and intuition"
+  },
+  {
+    "name": "Mangala Yoga",
+    "polarity": "auspicious",
+    "rule": "vara=='Tuesday' && nakshatraIndex in [3, 8, 13, 17, 21, 25]",
+    "explain": "Mars in specific nakshatras on Tuesday creates Mangala Yoga, beneficial for courage and martial activities"
+  },
+  {
+    "name": "Budha Yoga",
+    "polarity": "auspicious",
+    "rule": "vara=='Wednesday' && nakshatraIndex in [5, 9, 14, 18, 22, 26]",
+    "explain": "Mercury in auspicious nakshatras on Wednesday creates Budha Yoga, excellent for communication and business"
+  },
+  {
+    "name": "Guru Yoga",
+    "polarity": "auspicious",
+    "rule": "vara=='Thursday' && nakshatraIndex==8",
+    "explain": "Jupiter in Pushya nakshatra on Thursday creates Guru Yoga, highly auspicious for spiritual activities and learning"
+  },
+  {
+    "name": "Shukra Yoga",
+    "polarity": "auspicious",
+    "rule": "vara=='Friday' && nakshatraIndex in [4, 8, 12, 16, 20, 24]",
+    "explain": "Venus in auspicious nakshatras on Friday creates Shukra Yoga, excellent for love, beauty, and artistic pursuits"
+  },
+  {
+    "name": "Shani Yoga",
+    "polarity": "inauspicious",
+    "rule": "vara=='Saturday' && nakshatraIndex==8",
+    "explain": "Saturn in Pushya nakshatra on Saturday creates Shani Yoga, avoid important activities during this period"
+  },
+  {
+    "name": "Guru Pushya Yoga",
+    "polarity": "auspicious",
+    "rule": "vara=='Thursday' && nakshatraIndex==8",
+    "explain": "Jupiter in Pushya nakshatra on Thursday is highly auspicious for spiritual activities and learning"
+  },
+  {
+    "name": "Shani Pushya Yoga",
+    "polarity": "inauspicious",
+    "rule": "vara=='Saturday' && nakshatraIndex==8",
+    "explain": "Saturn in Pushya nakshatra on Saturday is inauspicious"
+  },
+  {
+    "name": "Mangal Pushya Yoga",
+    "polarity": "auspicious",
+    "rule": "vara=='Tuesday' && nakshatraIndex==8",
+    "explain": "Mars in Pushya nakshatra on Tuesday is auspicious for martial activities"
+  },
+  {
+    "name": "Nanda Tithi Yoga",
+    "polarity": "auspicious",
+    "rule": "tithiGroup=='Nanda' && vara in ['Monday', 'Wednesday', 'Friday']",
+    "explain": "Nanda tithi on Monday, Wednesday, or Friday is auspicious"
+  },
+  {
+    "name": "Bhadra Tithi Yoga",
+    "polarity": "inauspicious",
+    "rule": "tithiGroup=='Bhadra' && vara in ['Tuesday', 'Saturday']",
+    "explain": "Bhadra tithi on Tuesday or Saturday is inauspicious"
+  },
+  {
+    "name": "Jaya Tithi Yoga",
+    "polarity": "auspicious",
+    "rule": "tithiGroup=='Jaya' && vara in ['Thursday', 'Friday']",
+    "explain": "Jaya tithi on Thursday or Friday is auspicious for victory"
+  },
+  {
+    "name": "Rikta Tithi Yoga",
+    "polarity": "inauspicious",
+    "rule": "tithiGroup=='Rikta' && vara in ['Sunday', 'Tuesday']",
+    "explain": "Rikta tithi on Sunday or Tuesday is inauspicious"
+  },
+  {
+    "name": "Purna Tithi Yoga",
+    "polarity": "auspicious",
+    "rule": "tithiGroup=='Purna' && vara in ['Sunday', 'Thursday']",
+    "explain": "Purna tithi on Sunday or Thursday is highly auspicious"
+  },
+  {
+    "name": "Rohini Nakshatra Yoga",
+    "polarity": "auspicious",
+    "rule": "nakshatraIndex==4 && vara=='Friday'",
+    "explain": "Rohini nakshatra on Friday is auspicious for love and relationships"
+  },
+  {
+    "name": "Mrigashira Nakshatra Yoga",
+    "polarity": "auspicious",
+    "rule": "nakshatraIndex==5 && vara=='Wednesday'",
+    "explain": "Mrigashira nakshatra on Wednesday is auspicious for learning"
+  },
+  {
+    "name": "Ardra Nakshatra Yoga",
+    "polarity": "inauspicious",
+    "rule": "nakshatraIndex==6 && vara=='Saturday'",
+    "explain": "Ardra nakshatra on Saturday is inauspicious"
+  },
+  {
+    "name": "Punarvasu Nakshatra Yoga",
+    "polarity": "auspicious",
+    "rule": "nakshatraIndex==7 && vara=='Thursday'",
+    "explain": "Punarvasu nakshatra on Thursday is auspicious for spiritual activities"
+  },
+  {
+    "name": "Ashlesha Nakshatra Yoga",
+    "polarity": "inauspicious",
+    "rule": "nakshatraIndex==9 && vara=='Tuesday'",
+    "explain": "Ashlesha nakshatra on Tuesday is inauspicious"
+  },
+  {
+    "name": "Magha Nakshatra Yoga",
+    "polarity": "auspicious",
+    "rule": "nakshatraIndex==10 && vara=='Sunday'",
+    "explain": "Magha nakshatra on Sunday is auspicious for ceremonies"
+  },
+  {
+    "name": "Chitra Nakshatra Yoga",
+    "polarity": "auspicious",
+    "rule": "nakshatraIndex==14 && vara=='Tuesday'",
+    "explain": "Chitra nakshatra on Tuesday is auspicious for creative activities"
+  },
+  {
+    "name": "Swati Nakshatra Yoga",
+    "polarity": "auspicious",
+    "rule": "nakshatraIndex==15 && vara=='Friday'",
+    "explain": "Swati nakshatra on Friday is auspicious for business"
+  },
+  {
+    "name": "Vishakha Nakshatra Yoga",
+    "polarity": "auspicious",
+    "rule": "nakshatraIndex==16 && vara=='Thursday'",
+    "explain": "Vishakha nakshatra on Thursday is auspicious for success"
+  },
+  {
+    "name": "Anuradha Nakshatra Yoga",
+    "polarity": "auspicious",
+    "rule": "nakshatraIndex==17 && vara=='Saturday'",
+    "explain": "Anuradha nakshatra on Saturday is auspicious for friendship"
+  },
+  {
+    "name": "Jyeshtha Nakshatra Yoga",
+    "polarity": "inauspicious",
+    "rule": "nakshatraIndex==18 && vara=='Tuesday'",
+    "explain": "Jyeshtha nakshatra on Tuesday is inauspicious"
+  },
+  {
+    "name": "Mula Nakshatra Yoga",
+    "polarity": "inauspicious",
+    "rule": "nakshatraIndex==19 && vara=='Saturday'",
+    "explain": "Mula nakshatra on Saturday is inauspicious"
+  },
+  {
+    "name": "Shravana Nakshatra Yoga",
+    "polarity": "auspicious",
+    "rule": "nakshatraIndex==22 && vara=='Thursday'",
+    "explain": "Shravana nakshatra on Thursday is auspicious for learning"
+  },
+  {
+    "name": "Dhanishta Nakshatra Yoga",
+    "polarity": "auspicious",
+    "rule": "nakshatraIndex==23 && vara=='Friday'",
+    "explain": "Dhanishta nakshatra on Friday is auspicious for wealth"
+  },
+  {
+    "name": "Shatabhisha Nakshatra Yoga",
+    "polarity": "inauspicious",
+    "rule": "nakshatraIndex==24 && vara=='Saturday'",
+    "explain": "Shatabhisha nakshatra on Saturday is inauspicious"
+  },
+  {
+    "name": "Revati Nakshatra Yoga",
+    "polarity": "auspicious",
+    "rule": "nakshatraIndex==27 && vara=='Thursday'",
+    "explain": "Revati nakshatra on Thursday is auspicious for travel"
+  }
+]

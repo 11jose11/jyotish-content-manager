@@ -1,0 +1,906 @@
+{
+  "meta": {
+    "titulo": "NAKSHATRA",
+    "tema": "Azul (aire/mente)",
+    "nota_regencia": "El Nakshatra que ocupa la Luna al amanecer gobierna el día; abajo, actividades favorables y desfavorables por Nakshatra."
+  },
+  "nakshatras": [
+    {
+      "nombre": "Aśvinī",
+      "favorables": [
+        "inicios/proyectos",
+        "aprender habilidades",
+        "tratamientos, salud, rejuvenecimiento",
+        "acciones rápidas",
+        "ecuestre, viajes, compra/venta",
+        "reparar vehículos",
+        "joyas/ropa nueva",
+        "ocultismo/leyes",
+        "sthāpana (instalar ídolo)",
+        "agricultura",
+        "excavar estanques/pozos",
+        "manejo de venenos",
+        "uso de armas",
+        "cambio de nombre"
+      ],
+      "desfavorables": [
+        "matrimonio",
+        "cerrar/proyectos finales",
+        "tareas que requieren paciencia",
+        "exceso emocional/sexual",
+        "intoxicación"
+      ]
+    },
+    {
+      "nombre": "Bharaṇī",
+      "favorables": [
+        "creatividad marciana (severo/competitivo)",
+        "sexo/amor/procreación",
+        "rituales de fertilidad/agricultura",
+        "fuego",
+        "retomar pendientes",
+        "ascetismo/ayuno/purificación",
+        "trato con niños"
+      ],
+      "desfavorables": [
+        "viajes (embotellamientos/accidentes)",
+        "iniciaciones",
+        "nuevos comienzos (mejor cerrar)"
+      ]
+    },
+    {
+      "nombre": "Kṛttikā",
+      "favorables": [
+        "adoración del fuego/purificación",
+        "decisiones ejecutivas",
+        "cocina/bordado/costura",
+        "aseo (afeitado/corte)",
+        "honestidad/franqueza",
+        "debatir/discusión",
+        "tambores/actividades extra"
+      ],
+      "desfavorables": [
+        "diplomacia/redes sociales",
+        "relajación/descanso",
+        "actividades acuáticas"
+      ]
+    },
+    {
+      "nombre": "Rohiṇī",
+      "favorables": [
+        "nuevos negocios",
+        "agricultura",
+        "comercio/finanzas",
+        "matrimonio/romance/sexualidad",
+        "curación/auto-mejora",
+        "viajes/exploración",
+        "construcción",
+        "comprar joyas/vehículo/ropa"
+      ],
+      "desfavorables": [
+        "demolición/destrucción",
+        "finales/cierres de ciclos",
+        "terminar relaciones"
+      ]
+    },
+    {
+      "nombre": "Mṛgaśirā",
+      "favorables": [
+        "diversión/alegría",
+        "viajes/exploración/aventura",
+        "sexualidad",
+        "artes (música/visual/escritura)",
+        "curación/rejuvenecimiento",
+        "educación/socializar",
+        "mudanza/cambio de hogar",
+        "comunicación",
+        "religión/espiritualidad",
+        "ventas/publicidad",
+        "cambio de nombre",
+        "jardinería"
+      ],
+      "desfavorables": [
+        "matrimonio",
+        "acciones duras/agresivas",
+        "ceremonias prenupciales",
+        "decisiones muy a largo plazo"
+      ]
+    },
+    {
+      "nombre": "Ārdrā",
+      "favorables": [
+        "demoler/destruir (físico/simbólico)",
+        "confrontar/investigar",
+        "creatividad",
+        "propiciar deidades feroces",
+        "gestionar crisis/tomar decisiones",
+        "disolver negatividad"
+      ],
+      "desfavorables": [
+        "iniciar proyectos",
+        "bodas/ceremonias religiosas",
+        "honores",
+        "viajes"
+      ]
+    },
+    {
+      "nombre": "Punarvasu",
+      "favorables": [
+        "viajes/peregrinación",
+        "imaginación/innovación",
+        "altares/adoración Diosa Madre",
+        "cuidado de niños",
+        "comprar casa/auto",
+        "agricultura/jardinería",
+        "comenzar construcción/cimientos",
+        "matrimonio/educación/meditación",
+        "nuevos comienzos"
+      ],
+      "desfavorables": [
+        "prestar/pedir dinero",
+        "asuntos legales/ley",
+        "conflictos/agresión"
+      ]
+    },
+    {
+      "nombre": "Puṣya",
+      "favorables": [
+        "iniciar proyectos",
+        "cimientos/construcción",
+        "reuniones sociales/negocios",
+        "creatividad/música/baile",
+        "viajes",
+        "planificación financiera",
+        "consultas legales",
+        "confrontar adversarios",
+        "cocina/jardinería",
+        "niños/mascotas",
+        "sanación/cuidado",
+        "buscar guía",
+        "religión/espiritualidad",
+        "actividades con la madre"
+      ],
+      "desfavorables": [
+        "matrimonio",
+        "acciones crueles/duras"
+      ]
+    },
+    {
+      "nombre": "Aśleṣā",
+      "favorables": [
+        "litigios/demandas",
+        "estrategia contra enemigos",
+        "actividad sexual",
+        "perspectiva corto plazo",
+        "Kundalini Yoga",
+        "juego",
+        "control de plagas",
+        "deshacerse de lo inútil"
+      ],
+      "desfavorables": [
+        "préstamos/finanzas",
+        "iniciar proyectos positivos",
+        "comercio/negocios (bajo)"
+      ]
+    },
+    {
+      "nombre": "Maghā",
+      "favorables": [
+        "ceremonias/pompa",
+        "actos públicos/coronaciones/desfiles/premios",
+        "genealogía/linaje",
+        "estrategia de carrera",
+        "subir estatus/adquirir posesiones",
+        "religión/autoridades",
+        "estudios históricos/equipos/ascensos",
+        "donar/adorar ancestros",
+        "resolver disputas"
+      ],
+      "desfavorables": [
+        "prestar dinero",
+        "servilismo",
+        "planificación a futuro (tecnología/innovación)",
+        "procesos tecnológicos"
+      ]
+    },
+    {
+      "nombre": "Pūrvaphālgunī",
+      "favorables": [
+        "matrimonio/romance/sexo",
+        "descanso/relajación/placer",
+        "lúdico/arte/canto",
+        "inversiones inmobiliarias",
+        "persuasión/carisma",
+        "resolver disputas",
+        "confrontar adversarios",
+        "tratar con poder"
+      ],
+      "desfavorables": [
+        "bajar el ego",
+        "iniciar proyectos",
+        "humildad",
+        "actividades intelectuales",
+        "tratamientos de salud (recuperación)"
+      ]
+    },
+    {
+      "nombre": "Uttaraphālgunī",
+      "favorables": [
+        "matrimonio/sexualidad",
+        "nuevos comienzos",
+        "fundar organización",
+        "autoridades/administración",
+        "comprar/inaugurar casa",
+        "ceremonias",
+        "caridad",
+        "diplomacia",
+        "ropa/joyas nuevas",
+        "celebraciones"
+      ],
+      "desfavorables": [
+        "finales/cierres",
+        "confrontaciones/represalias",
+        "dureza/retribución",
+        "combate",
+        "prestar dinero"
+      ]
+    },
+    {
+      "nombre": "Hastā",
+      "favorables": [
+        "risa/alegría",
+        "cerámica/joyería",
+        "lingüística/curación holística",
+        "magia/habilidad manual",
+        "niños/cambios de hogar",
+        "artesanías/trabajo doméstico",
+        "juegos/negocios con tacto",
+        "matrimonio/viajes/mudanzas",
+        "organización/yoga/meditación",
+        "comercio/jardinería/sol"
+      ],
+      "desfavorables": [
+        "planificación a largo plazo",
+        "sexo",
+        "inactividad/relajación excesiva",
+        "madurez ejecutiva",
+        "actividades nocturnas"
+      ]
+    },
+    {
+      "nombre": "Citrā",
+      "favorables": [
+        "salud/fitness",
+        "artesanía/diseño interior",
+        "espiritualidad/meditación/yoga",
+        "recolección de hierbas",
+        "atractivo/carisma/eloquencia",
+        "cuidado personal/ropa nueva",
+        "reparaciones del hogar/decoración",
+        "mecánica/actuaciones"
+      ],
+      "desfavorables": [
+        "confrontación/conflicto",
+        "investigación (difícil)",
+        "matrimonio"
+      ]
+    },
+    {
+      "nombre": "Svāti",
+      "favorables": [
+        "negocios/comercio",
+        "socialización",
+        "compra/venta",
+        "arte/ciencia",
+        "diplomacia",
+        "aseo personal",
+        "acuerdos comerciales",
+        "inicio educación",
+        "eventos sociales/públicos",
+        "transacciones monetarias",
+        "respiración/meditación",
+        "actividades de paz/calma"
+      ],
+      "desfavorables": [
+        "viajes",
+        "confrontación",
+        "conducta feroz/agresiva"
+      ]
+    },
+    {
+      "nombre": "Viśākhā",
+      "favorables": [
+        "guerra/estrategia",
+        "habilidad ejecutiva/argumentativa",
+        "dureza/enfoque en objetivos",
+        "ceremonias/fiestas/premios/decoración",
+        "romance/sexualidad/penitencia",
+        "resoluciones/tareas",
+        "vestirse elegante"
+      ],
+      "desfavorables": [
+        "matrimonio",
+        "viajes",
+        "inicios/ iniciaciones",
+        "tacto/diplomacia"
+      ]
+    },
+    {
+      "nombre": "Anurādhā",
+      "favorables": [
+        "investigación científica",
+        "meditación/ocultismo",
+        "asuntos extranjeros/viajes/inmigración",
+        "curación",
+        "amistades/actividades grupales",
+        "revisión de cuentas/inversiones",
+        "prosperidad financiera",
+        "introspección/secretismo",
+        "acciones encubiertas"
+      ],
+      "desfavorables": [
+        "matrimonio",
+        "confrontación",
+        "inauguraciones/nuevos comienzos",
+        "rutinas/comunes (menos productivas)"
+      ]
+    },
+    {
+      "nombre": "Jyeṣṭhā",
+      "favorables": [
+        "dureza/determinación",
+        "espionaje/intrigas",
+        "control/autoridad",
+        "administración/cuidado",
+        "decisiones importantes",
+        "ocultismo/monitoreo",
+        "responsabilidad/familia/ancianos",
+        "temas serios/planificación/disciplina",
+        "protección/tomar control"
+      ],
+      "desfavorables": [
+        "depresión/ira",
+        "infidelidad/egoísmo/explotación",
+        "matrimonio/recuperación/ocio",
+        "tacto/sensibilidad/diplomacia",
+        "viajes",
+        "aprovecharse de otros",
+        "excesos/descanso excesivo",
+        "curación"
+      ]
+    },
+    {
+      "nombre": "Mūla",
+      "favorables": [
+        "ir a la raíz/conocimiento",
+        "hierbas/medicina",
+        "plantación/jardinería/agricultura",
+        "diseño",
+        "oratoria/fuerza/dinamismo",
+        "cimientos/construcción",
+        "compra/venta de casas",
+        "sexualidad/contemplación/meditación",
+        "ciencia/astrología",
+        "aventuras"
+      ],
+      "desfavorables": [
+        "equilibrio/tacto/diplomacia",
+        "bodas/eventos matrimoniales",
+        "préstamos/deudas/materialismo",
+        "comienzos/inicios",
+        "transacciones financieras"
+      ]
+    },
+    {
+      "nombre": "Pūrvāṣāḍhā",
+      "favorables": [
+        "valentía/coraje",
+        "pagar deudas/declaraciones",
+        "acción/confrontación",
+        "revitalizar/sanar",
+        "lugares acuáticos/actividades acuáticas",
+        "aventura/espiritualidad",
+        "caballos/arte/sitios antiguos",
+        "matrimonio/sexualidad",
+        "confianza",
+        "adorar deidades femeninas"
+      ],
+      "desfavorables": [
+        "tacto/diplomacia",
+        "reflexión tranquila/promesas/cierres",
+        "viajes por tierra"
+      ]
+    },
+    {
+      "nombre": "Uttarāṣāḍhā",
+      "favorables": [
+        "planear eventos",
+        "espiritualidad/rituales religiosos",
+        "discernimiento",
+        "negocios/contratos/promociones",
+        "autoridades",
+        "arte/política/ley",
+        "cimientos/edificios/mudanza",
+        "matrimonios/política/asuntos legales"
+      ],
+      "desfavorables": [
+        "viajar",
+        "conclusiones/finalizaciones",
+        "actividades ilegales/inmorales/criminales",
+        "acciones impulsivas",
+        "conducta grosera"
+      ]
+    },
+    {
+      "nombre": "Śravaṇa",
+      "favorables": [
+        "nuevas empresas",
+        "consejería/escucha",
+        "viajes/exploración",
+        "comprar propiedades",
+        "tratamiento médico",
+        "socializar/aprendizaje",
+        "idiomas/lectura/escritura",
+        "música/filosofía",
+        "meditación/religión",
+        "política/humanitario"
+      ],
+      "desfavorables": [
+        "agresión/litigios/batallas/guerras",
+        "riesgos innecesarios",
+        "promesas/juramentos",
+        "completar actividades importantes",
+        "préstamos/matrimonio/adopción"
+      ]
+    },
+    {
+      "nombre": "Dhaniṣṭhā",
+      "favorables": [
+        "rituales/ceremonias",
+        "trabajo en grupo/comunidad",
+        "arte (música/danza/conciertos)",
+        "pompa/ceremonia",
+        "propiedades (muebles/inmuebles)",
+        "viajes",
+        "enfoques proactivos",
+        "moda/ropa/joyería (diseño)",
+        "préstamos",
+        "sanación",
+        "fama/alta tecnología",
+        "finanzas/creatividad",
+        "meditación/yoga/jardinería",
+        "salud/educación"
+      ],
+      "desfavorables": [
+        "matrimonio/sexualidad",
+        "dejar hábitos/formar nuevas asociaciones",
+        "trabajo doméstico/restricciones",
+        "tacto/ingenio/ternura"
+      ]
+    },
+    {
+      "nombre": "Śatabhiṣā",
+      "favorables": [
+        "negocios/contratos",
+        "bienes raíces",
+        "educación/conocimiento",
+        "recreación",
+        "vehículos (bicis/nuevos)",
+        "viajar",
+        "astronomía/astrología",
+        "medicina/rejuvenecimiento",
+        "meditación/yoga",
+        "mar/tecnología/medios/costa"
+      ],
+      "desfavorables": [
+        "matrimonio/parto/fertilidad",
+        "demandas/argumentos",
+        "acciones negativas/nuevos comienzos",
+        "socialización/finanzas",
+        "comprar ropa/joyas",
+        "actividades domésticas"
+      ]
+    },
+    {
+      "nombre": "Pūrvabhādrapadā",
+      "favorables": [
+        "actividades con riesgo",
+        "mecánica/tecnología",
+        "funerales/cierres",
+        "agricultura/agua"
+      ],
+      "desfavorables": [
+        "iniciar proyectos/actividades/relaciones",
+        "matrimonio/sexualidad",
+        "tratar con autoridades superiores"
+      ]
+    },
+    {
+      "nombre": "Uttarabhādrapadā",
+      "favorables": [
+        "paz/meditación/investigación",
+        "desarrollo psíquico/introspección",
+        "matrimonio/sexualidad",
+        "transacciones financieras",
+        "arte/salud/tratamientos",
+        "nombrar hijos",
+        "jardinería/construcción",
+        "compromisos serios"
+      ],
+      "desfavorables": [
+        "viajes",
+        "demandas/litigios/confrontaciones",
+        "rapidez/especulación",
+        "préstamos",
+        "esfuerzo físico excesivo",
+        "conducta feroz/agresiva"
+      ]
+    },
+    {
+      "nombre": "Revatī",
+      "favorables": [
+        "iniciaciones",
+        "matrimonio/sexualidad",
+        "transacciones/negocios",
+        "música/arte",
+        "ocultismo/espiritualidad",
+        "sanación/salud",
+        "ocio/jardinería",
+        "cierres/conclusiones",
+        "caridad/estudios espirituales",
+        "drama/creatividad",
+        "tratamiento de enfermedades",
+        "terminar/completar"
+      ],
+      "desfavorables": [
+        "tácticas severas/acciones audaces",
+        "superar obstáculos por fuerza",
+        "confrontar enemistades/calamidades",
+        "cirugías/esfuerzo físico",
+        "dos últimos padas: NO iniciar"
+      ]
+    }
+  ],
+  "mirada_de_las_nakshatras": [
+    {
+      "tipo": "ADHOMUKHA",
+      "nakshatras": ["PPhālgunī", "PĀṣāṛhā", "PBhādra", "Maghā", "Aśleṣā", "Kṛttikā", "Viśākhā", "Bharaṇī", "Mūla"],
+      "actividades_favorables": "Cuevas, diagramas/matemáticas, arquitectura, pozos, recuperar tesoros",
+      "referencia": "Nāradapurāṇa 56.171-172"
+    },
+    {
+      "tipo": "TIRYAGMUKHA",
+      "nakshatras": ["Anurādhā", "Mṛgaśirā", "Citrā", "Hastā", "Jyeṣṭhā", "Punarvasu", "Revatī", "Aśvinī", "Svāti"],
+      "actividades_favorables": "Arado, viajar, montar vehículos, operar máquinas/elefantes/camellos, carros/naval",
+      "referencia": "Nāradapurāṇa 56.173-174"
+    },
+    {
+      "tipo": "URDHVAMUKHA",
+      "nakshatras": ["Rohiṇī", "Śravaṇa", "Ārdrā", "Puṣya", "Śatabhiṣā", "Dhaniṣṭhā", "UPhālgunī", "UĀṣāṛhā", "UBhādra"],
+      "actividades_favorables": "Consagración real, matrimonio, izar bandera, construir palacios/arcos/jardines/fortalezas",
+      "referencia": "Nāradapurāṇa 56.175a-176"
+    }
+  ],
+  "yogatara": {
+    "Aśvinī": 3, "Bharaṇī": 3, "Kṛttikā": 6, "Rohiṇī": 5, "Mṛgaśirā": 3, "Ārdrā": 1, "Punarvasu": 4, "Puṣya": 3, "Aśleṣā": 5, "Maghā": 5, "PPhālgunī": 2, "UPhālgunī": 2, "Hastā": 5, "Citrā": 1, "Svāti": 1, "Viśākhā": 2, "Anurādhā": 4, "Jyeṣṭhā": 3, "Mūla": 11, "PĀṣāṛhā": 4, "UĀṣāṛhā": 2, "Śravaṇa": 4, "Dhaniṣṭhā": 3, "Śatabhiṣā": 100, "PBhādra": 2, "UBhādra": 2, "Revatī": 32
+  },
+  "arboles_favoritos": [
+    {"nakshatra":"Aśvinī","arbol":"Vṛṣa vṛkṣa (el mejor)","cientifico":"-"},
+    {"nakshatra":"Bharaṇī","arbol":"Yamaka vṛkṣa (dos árboles)","cientifico":"-"},
+    {"nakshatra":"Kṛttikā","arbol":"Udumbara vṛkṣa","cientifico":"Ficus racemose; Ficus glomerata"},
+    {"nakshatra":"Rohiṇī","arbol":"Tambuka vṛkṣa","cientifico":"Syzygium cumini"},
+    {"nakshatra":"Mṛgaśirā","arbol":"Khadira vṛkṣa","cientifico":"Syzygium cumini"},
+    {"nakshatra":"Ārdrā","arbol":"Kṛsṇaplakṣa vṛkṣa","cientifico":"Ficus religiosa"},
+    {"nakshatra":"Punarvasu","arbol":"Vamśa (bambú)","cientifico":"Bambusoideae"},
+    {"nakshatra":"Puṣya","arbol":"Pīpal","cientifico":"Ficus religiosa"},
+    {"nakshatra":"Aśleṣā","arbol":"Nāgakesar","cientifico":"Mesua ferrea"},
+    {"nakshatra":"Maghā","arbol":"Vāta vṛkṣa","cientifico":"Ficus benghalensis"},
+    {"nakshatra":"Pūrvaphālgunī","arbol":"Palāsa vṛkṣa","cientifico":"Butea monosperma"},
+    {"nakshatra":"Uttaraphālgunī","arbol":"Rudrākṣa vṛkṣa","cientifico":"Elaeocarpus ganitrus"},
+    {"nakshatra":"Hastā","arbol":"Ariṣṭa vṛkṣa","cientifico":"Sapindus saponaria"},
+    {"nakshatra":"Citrā","arbol":"Śrī vṛkṣa","cientifico":"Aegle marmelos"},
+    {"nakshatra":"Svāti","arbol":"Arjuna vṛkṣa","cientifico":"Terminalia arjuna"},
+    {"nakshatra":"Viśākhā","arbol":"Vikankata vṛkṣa","cientifico":"Flacourtia indica; Flacourtia ramontchi"},
+    {"nakshatra":"Anurādhā","arbol":"Bakula","cientifico":"Mimusops elengi"},
+    {"nakshatra":"Jyeṣṭhā","arbol":"Visti vṛkṣa","cientifico":"Aporusa lindleyana"},
+    {"nakshatra":"Mūla","arbol":"Sarja vṛkṣa","cientifico":"Shorea robusta"},
+    {"nakshatra":"Pūrvāṣāṛhā","arbol":"Banjula vṛkṣa","cientifico":"Saraca asoca"},
+    {"nakshatra":"Uttarāṣāṛhā","arbol":"Kathal vṛkṣa","cientifico":"Artocarpus heterophyllus"},
+    {"nakshatra":"Śravaṇa","arbol":"Aak vṛkṣa","cientifico":"Calotropis gigantea; Calotropis procera"},
+    {"nakshatra":"Dhaniṣṭhā","arbol":"Śami vṛkṣa","cientifico":"Prosopis cineraria"},
+    {"nakshatra":"Śatabhiṣā","arbol":"Kadamba vṛkṣa","cientifico":"Neolamarckia cadamba"},
+    {"nakshatra":"Pūrvābhādra","arbol":"Āmra vṛkṣa","cientifico":"Mangifera indica"},
+    {"nakshatra":"Uttarābhādra","arbol":"Picumanda vṛkṣa","cientifico":"Azadirachta indica"},
+    {"nakshatra":"Revatī","arbol":"Mahua vṛkṣa","cientifico":"Madhuca longifolia"}
+  ],
+  "dhruvadi_sangjna": [
+    {"clase":"Kṣipra 🐦","calificacion":"corta duración","nakshatras":["Hastā","Aśvinī","Puṣya"]},
+    {"clase":"Ugra 🔥","calificacion":"eventos violentos","nakshatras":["PPhālgunī","PĀṣāṛhā","PBhādra","Maghā","Bharaṇī"]},
+    {"clase":"Miśra ⧈","calificacion":"eventos mixtos","nakshatras":["Viśākhā","Kṛttikā"]},
+    {"clase":"Dhruva 🗻","calificacion":"permanencia","nakshatras":["Rohiṇī","UPhālgunī","UĀṣāṛhā","UBhādra"]},
+    {"clase":"Mṛdu 🌹","calificacion":"suave/gentil","nakshatras":["Mṛgaśirā","Anurādhā","Citrā","Revatī"]},
+    {"clase":"Tīkṣṇa 🔱","calificacion":"afilado/incisivo","nakshatras":["Mūla","Ārdrā","Aśleṣā","Jyeṣṭhā"]},
+    {"clase":"Cara ✈","calificacion":"cambio/movilidad","nakshatras":["Dhaniṣṭhā","Punarvasu","Śatabhiṣā","Svāti","Śravaṇa"]}
+  ],
+  "clasificaciones": {
+    "por_tipo_detallado": [
+      {
+        "tipo":"Dhruva 🗻 (Fijas/Permanentes)",
+        "nakshatras":["UPhālgunī","UĀṣāṛhā","UBhādra","Rohiṇī"],
+        "actividades_favorables":"Coronación, expiaciones, plantar árboles, construir ciudades/obras públicas, siembra, acciones de efecto permanente"
+      },
+      {
+        "tipo":"Tīkṣṇa 🔱 (Afiladas/Duras/Terribles)",
+        "nakshatras":["Mūla","Ārdrā","Jyeṣṭha","Aśleṣā"],
+        "actividades_favorables":"Castigo, mesmerismo, exorcismo, encarcelar, tortura, separación/unión"
+      },
+      {
+        "tipo":"Ugra 🔥 (Agresivas/Apasionadas)",
+        "nakshatras":["PPhālgunī","PĀṣāṛhā","PBhādra","Bharaṇī","Maghā"],
+        "actividades_favorables":"Desgracia/destrucción/engaño, encarcelamiento, veneno, quemaduras, golpes con armas"
+      },
+      {
+        "tipo":"Kṣipra 🐦 (Ligeras/Rápidas)",
+        "nakshatras":["Hastā","Aśvinī","Puṣya"],
+        "actividades_favorables":"Ventas, sexo, adquirir conocimiento, ornamentos, artes/escultura, medicina, compra de carros"
+      },
+      {
+        "tipo":"Mṛdu 🌹 (Suaves/Tiernas)",
+        "nakshatras":["Anurādhā","Citrā","Revatī","Mṛgaśirā"],
+        "actividades_favorables":"Amistad, unión sexual, ropa/ornamentos, Śubhakarmas, música"
+      },
+      {
+        "tipo":"Miśra ⧈ (Mixtas)",
+        "nakshatras":["Kṛttikā","Viśākhā"],
+        "actividades_favorables":"Efectos mixtos"
+      },
+      {
+        "tipo":"Cara ✈ (Móviles)",
+        "nakshatras":["Śravaṇa","Dhaniṣṭhā","Śatabhiṣā","Hastā","Svāti"],
+        "actividades_favorables":"Trabajos de carácter móvil"
+      }
+    ],
+    "otra_clasificacion": {
+      "Dhruva o Sthira (Fijas)": ["Rohini","Pushya","Uttara Phalguni","Uttara Ashadha","Uttara Bhadrapada"],
+      "Chara (Móviles)": ["Punarvasu","Swati","Purva Ashadha","Purva Bhadrapada"],
+      "Tikshna (Duras/Terribles)": ["Ardra","Ashlesha","Chitra","Jyeshtha","Moola","Shatabhisha"],
+      "Ugra (Agresivas)": ["Bharani","Magha"],
+      "Laghu & Kshpira (Ligeras/Rápidas)": ["Ashwini","Hasta","Dhanishta"],
+      "Mridu (Suaves/Tiernas)": ["Mrigashira","Purva Phalguni","Anuradha","Shravana","Revati"],
+      "Misra (Mixtas)": ["Krittika","Vishakha"]
+    }
+  },
+  "actividades_sanscrito": [
+    {"nakshatra":"Aśvinī","actividad":"Sthāpana","significado":"Instalación de un ídolo de una Devatā"},
+    {"nakshatra":"Aśvinī","actividad":"Aśvādi yānaṁ","significado":"Montar caballos y vehículos"},
+    {"nakshatra":"Aśvinī","actividad":"Kṛṣi","significado":"Agricultura"},
+    {"nakshatra":"Aśvinī","actividad":"Vidyādayoasvibhe","significado":"Iniciar estudios/actividades académicas"},
+    {"nakshatra":"Aśvinī","actividad":"Vāpīkūpataḍāgādi","significado":"Excavar estanque/pozo"},
+    {"nakshatra":"Aśvinī","actividad":"Viṣa","significado":"Manejo de veneno"},
+    {"nakshatra":"Aśvinī","actividad":"Śaśrogradāruṇaṁ","significado":"Uso de armas"},
+
+    {"nakshatra":"Bharaṇī","actividad":"Bilapraveśa","significado":"Entrar a cueva/lugar oscuro"},
+    {"nakshatra":"Bharaṇī","actividad":"Gaṇita","significado":"Matemáticas"},
+    {"nakshatra":"Bharaṇī","actividad":"Nikṣepa","significado":"Actos violentos/nefastos"},
+    {"nakshatra":"Bharaṇī","actividad":"Agnyādhānāsraśastra","significado":"Agni empuñando armas"},
+    {"nakshatra":"Bharaṇī","actividad":"Ugra","significado":"Actividades violentas"},
+    {"nakshatra":"Bharaṇī","actividad":"Sandhi","significado":"Negociaciones"},
+    {"nakshatra":"Bharaṇī","actividad":"Vigrahadāruṇā","significado":"Guerra bifurcada"},
+
+    {"nakshatra":"Kṛttikā","actividad":"Saṅgrāma","significado":"Batalla"},
+    {"nakshatra":"Kṛttikā","actividad":"Auṣadha","significado":"Uso de medicinas"},
+    {"nakshatra":"Kṛttikā","actividad":"Vāditrakriya","significado":"Instrumentos musicales"},
+    {"nakshatra":"Kṛttikā","actividad":"Śaśtrāśca","significado":"Uso de armas"},
+
+    {"nakshatra":"Rohiṇī","actividad":"Sīmantakarma","significado":"Partición del cabello"},
+    {"nakshatra":"Rohiṇī","actividad":"Upanayana","significado":"Hilo sagrado"},
+    {"nakshatra":"Rohiṇī","actividad":"Vivāha","significado":"Matrimonio"},
+    {"nakshatra":"Rohiṇī","actividad":"Vastrakarma","significado":"Ropa nueva"},
+    {"nakshatra":"Rohiṇī","actividad":"Ābhūṣaṇa","significado":"Ornamentos"},
+    {"nakshatra":"Rohiṇī","actividad":"Sthirakarma","significado":"Acciones de fijación"},
+    {"nakshatra":"Rohiṇī","actividad":"Compra de elefantes","significado":"Compra de elefantes"},
+    {"nakshatra":"Rohiṇī","actividad":"Vāstu-Karma","significado":"Obras de vāstu"},
+    {"nakshatra":"Rohiṇī","actividad":"Abhiṣeka","significado":"Coronación"},
+    {"nakshatra":"Rohiṇī","actividad":"Prāṇa-Pratiṣṭhā","significado":"Instalación de ídolo"},
+
+    {"nakshatra":"Mṛgaśirā","actividad":"Pratiṣṭhā","significado":"Instalar ídolo"},
+    {"nakshatra":"Mṛgaśirā","actividad":"Ābhūṣaṇa","significado":"Adornos"},
+    {"nakshatra":"Mṛgaśirā","actividad":"Vivāha","significado":"Matrimonio"},
+    {"nakshatra":"Mṛgaśirā","actividad":"Sīmantakarma","significado":"Partición del cabello"},
+    {"nakshatra":"Mṛgaśirā","actividad":"Upanayana","significado":"Hilo sagrado"},
+    {"nakshatra":"Mṛgaśirā","actividad":"Kṣaurakarma","significado":"Afeitado"},
+    {"nakshatra":"Mṛgaśirā","actividad":"Vāstukarma","significado":"Vāstu"},
+    {"nakshatra":"Mṛgaśirā","actividad":"Gajoṣṭra yātrā","significado":"Viaje con elefantes/camellos"},
+
+    {"nakshatra":"Ārdrā","actividad":"Dhvajā","significado":"Izar bandera"},
+    {"nakshatra":"Ārdrā","actividad":"Torana","significado":"Torana"},
+    {"nakshatra":"Ārdrā","actividad":"Sandhi","significado":"Reconciliación/negociación"},
+    {"nakshatra":"Ārdrā","actividad":"Vigraha","significado":"Guerra de dos frentes"},
+    {"nakshatra":"Ārdrā","actividad":"Mandapa","significado":"Entrada a templo"},
+    {"nakshatra":"Ārdrā","actividad":"Rasakrya","significado":"Química/alquimia"},
+
+    {"nakshatra":"Punarvasu","actividad":"Pratiṣṭhā","significado":"Instalar ídolo"},
+    {"nakshatra":"Punarvasu","actividad":"Sīmantakarma","significado":"Partición del cabello"},
+    {"nakshatra":"Punarvasu","actividad":"Vastrakarma","significado":"Ropa nueva"},
+    {"nakshatra":"Punarvasu","actividad":"Vāstukarma","significado":"Vāstu"},
+    {"nakshatra":"Punarvasu","actividad":"Upanayana","significado":"Hilo sagrado"},
+    {"nakshatra":"Punarvasu","actividad":"Kṣaurakarma","significado":"Afeitado"},
+    {"nakshatra":"Punarvasu","actividad":"Astrakarma","significado":"Trabajar armas"},
+    {"nakshatra":"Punarvasu","actividad":"Dhānya","significado":"Ganancias"},
+    {"nakshatra":"Punarvasu","actividad":"Ābhūṣaṇa","significado":"Adornos"},
+
+    {"nakshatra":"Puṣya","actividad":"Yātrā","significado":"Viajes"},
+    {"nakshatra":"Puṣya","actividad":"Pratiṣṭhā","significado":"Instalar ídolo"},
+    {"nakshatra":"Puṣya","actividad":"Sīmantakarma","significado":"Partición del cabello"},
+    {"nakshatra":"Puṣya","actividad":"Upanayana","significado":"Hilo sagrado"},
+    {"nakshatra":"Puṣya","actividad":"Gṛhapraveśa","significado":"Entrar a nueva casa"},
+    {"nakshatra":"Puṣya","actividad":"Śubha functions","significado":"Todas Śubha excepto matrimonio"},
+
+    {"nakshatra":"Aśleṣā","actividad":"anṛta","significado":"Mentira"},
+    {"nakshatra":"Aśleṣā","actividad":"vyasana","significado":"Vicios"},
+    {"nakshatra":"Aśleṣā","actividad":"dyuta","significado":"Juego"},
+    {"nakshatra":"Aśleṣā","actividad":"krodha","significado":"Ira"},
+    {"nakshatra":"Aśleṣā","actividad":"Agni","significado":"Fuego"},
+    {"nakshatra":"Aśleṣā","actividad":"viṣa","significado":"Veneno"},
+    {"nakshatra":"Aśleṣā","actividad":"dāha","significado":"Quemar"},
+    {"nakshatra":"Aśleṣā","actividad":"vivāda","significado":"Conflictos/acuerdos"},
+    {"nakshatra":"Aśleṣā","actividad":"rasa","significado":"Alquimia"},
+    {"nakshatra":"Aśleṣā","actividad":"vānijya","significado":"Negocios"},
+
+    {"nakshatra":"Maghā","actividad":"kṛṣi","significado":"Agricultura"},
+    {"nakshatra":"Maghā","actividad":"vānijya","significado":"Negocios"},
+    {"nakshatra":"Maghā","actividad":"gau","significado":"Ganado"},
+    {"nakshatra":"Maghā","actividad":"dhānya","significado":"Granos"},
+    {"nakshatra":"Maghā","actividad":"raṇa","significado":"Batalla"},
+    {"nakshatra":"Maghā","actividad":"upakāraṇadikam","significado":"Recolección de materiales"},
+    {"nakshatra":"Maghā","actividad":"Vivāha","significado":"Matrimonio"},
+    {"nakshatra":"Maghā","actividad":"nṛtyagīta","significado":"Canto/baile"},
+
+    {"nakshatra":"PPhālgunī","actividad":"Vivāda","significado":"Conflictos/peleas"},
+    {"nakshatra":"PPhālgunī","actividad":"Viṣa","significado":"Veneno"},
+    {"nakshatra":"PPhālgunī","actividad":"Śastra","significado":"Armas"},
+    {"nakshatra":"PPhālgunī","actividad":"Agni","significado":"Fuego"},
+    {"nakshatra":"PPhālgunī","actividad":"Dāruṇa Ugrakarma","significado":"Actos violentos"},
+    {"nakshatra":"PPhālgunī","actividad":"Yuddha","significado":"Guerra"},
+
+    {"nakshatra":"UPhālgunī","actividad":"Vastra","significado":"Ropa nueva"},
+    {"nakshatra":"UPhālgunī","actividad":"Abhiṣeka","significado":"Coronación"},
+    {"nakshatra":"UPhālgunī","actividad":"Lohāśma","significado":"Hierro/piedras"},
+    {"nakshatra":"UPhālgunī","actividad":"Vivāha","significado":"Matrimonio"},
+    {"nakshatra":"UPhālgunī","actividad":"Upanayana","significado":"Hilo sagrado"},
+    {"nakshatra":"UPhālgunī","actividad":"Praveśa","significado":"Entrar nueva casa"},
+    {"nakshatra":"UPhālgunī","actividad":"Pratiṣṭhā","significado":"Instalar ídolo"},
+    {"nakshatra":"UPhālgunī","actividad":"Aśveva","significado":"Caballos/elefantes"},
+    {"nakshatra":"UPhālgunī","actividad":"Vāstukarma","significado":"Vāstu"},
+
+    {"nakshatra":"Hastā","actividad":"Pratiṣṭhā","significado":"Instalar ídolo"},
+    {"nakshatra":"Hastā","actividad":"Vivāha","significado":"Matrimonio"},
+    {"nakshatra":"Hastā","actividad":"Sīmantakarma","significado":"Partición del cabello"},
+    {"nakshatra":"Hastā","actividad":"Yāna","significado":"Montar vehículo"},
+    {"nakshatra":"Hastā","actividad":"Vastra","significado":"Ropa nueva"},
+    {"nakshatra":"Hastā","actividad":"Upanayana","significado":"Hilo sagrado"},
+    {"nakshatra":"Hastā","actividad":"Kṣaura","significado":"Afeitado"},
+    {"nakshatra":"Hastā","actividad":"Vāstukarma","significado":"Vāstu"},
+    {"nakshatra":"Hastā","actividad":"Abhiṣeka","significado":"Coronación"},
+    {"nakshatra":"Hastā","actividad":"Ābhūṣaṇa","significado":"Adornos"},
+
+    {"nakshatra":"Citrā","actividad":"Praveśa","significado":"Entrar nueva casa"},
+    {"nakshatra":"Citrā","actividad":"Vastra","significado":"Ropa nueva"},
+    {"nakshatra":"Citrā","actividad":"Sīmantakarma","significado":"Partición del cabello"},
+    {"nakshatra":"Citrā","actividad":"Pratiṣṭhā","significado":"Instalar ídolo"},
+    {"nakshatra":"Citrā","actividad":"Upanayana","significado":"Hilo sagrado"},
+    {"nakshatra":"Citrā","actividad":"Vāstukarma","significado":"Vāstu"},
+    {"nakshatra":"Citrā","actividad":"Ābhūṣaṇa","significado":"Adornos"},
+
+    {"nakshatra":"Svāti","actividad":"Pratiṣṭhā","significado":"Instalar ídolo"},
+    {"nakshatra":"Svāti","actividad":"Upanayana","significado":"Hilo sagrado"},
+    {"nakshatra":"Svāti","actividad":"Vivāha","significado":"Matrimonio"},
+    {"nakshatra":"Svāti","actividad":"Vastra","significado":"Ropa nueva"},
+    {"nakshatra":"Svāti","actividad":"Sīmantakarma","significado":"Partición del cabello"},
+    {"nakshatra":"Svāti","actividad":"Ābhūṣaṇa","significado":"Adornos"},
+    {"nakshatra":"Svāti","actividad":"Praveśa","significado":"Entrar nueva casa"},
+    {"nakshatra":"Svāti","actividad":"Aśveva","significado":"Caballos/elefantes"},
+    {"nakshatra":"Svāti","actividad":"Kṛṣikarma","significado":"Agricultura"},
+    {"nakshatra":"Svāti","actividad":"Kṣaurakarma","significado":"Afeitado"},
+
+    {"nakshatra":"Viśākhā","actividad":"Vastra","significado":"Ropa nueva"},
+    {"nakshatra":"Viśākhā","actividad":"Ābhūṣaṇa","significado":"Adornos"},
+    {"nakshatra":"Viśākhā","actividad":"Vāṇijya","significado":"Negocios"},
+    {"nakshatra":"Viśākhā","actividad":"Saṁgraha","significado":"Acopio de materiales/granos"},
+    {"nakshatra":"Viśākhā","actividad":"Nṛtyagīta","significado":"Cantar/baile"},
+    {"nakshatra":"Viśākhā","actividad":"Śilpakarma","significado":"Escultura/artesanía"},
+    {"nakshatra":"Viśākhā","actividad":"Lohāśma","significado":"Hierro/piedras"},
+    {"nakshatra":"Viśākhā","actividad":"Lekhanaṁ","significado":"Escritura"},
+
+    {"nakshatra":"Anurādhā","actividad":"Praveśa","significado":"Entrar nueva casa"},
+    {"nakshatra":"Anurādhā","actividad":"Pratiṣṭhā","significado":"Instalar ídolo"},
+    {"nakshatra":"Anurādhā","actividad":"Vivāha","significado":"Matrimonio"},
+    {"nakshatra":"Anurādhā","actividad":"Vratabandha","significado":"Ritos religiosos"},
+    {"nakshatra":"Anurādhā","actividad":"Aṣṭamaṅgalā","significado":"8 Śubhakarmas"},
+    {"nakshatra":"Anurādhā","actividad":"Vāstukarma","significado":"Vāstu"},
+    {"nakshatra":"Anurādhā","actividad":"Ābhūṣaṇa","significado":"Adornos"},
+    {"nakshatra":"Anurādhā","actividad":"Aśveva","significado":"Caballos/elefantes"},
+
+    {"nakshatra":"Jyeṣṭhā","actividad":"Kṣaurakarma","significado":"Afeitado"},
+    {"nakshatra":"Jyeṣṭhā","actividad":"Astra-śastra","significado":"Armas"},
+    {"nakshatra":"Jyeṣṭhā","actividad":"Vāṇijya","significado":"Negocios"},
+    {"nakshatra":"Jyeṣṭhā","actividad":"Gomahiṣi","significado":"Vaca/búfalo"},
+    {"nakshatra":"Jyeṣṭhā","actividad":"Ambukarma","significado":"Agua"},
+    {"nakshatra":"Jyeṣṭhā","actividad":"Gītavaditra","significado":"Canto/instrumentos"},
+    {"nakshatra":"Jyeṣṭhā","actividad":"Śilpakarma","significado":"Escultura/artesanía"},
+    {"nakshatra":"Jyeṣṭhā","actividad":"Lohāśma","significado":"Hierro/piedras"},
+    {"nakshatra":"Jyeṣṭhā","actividad":"Lekhanaṁ","significado":"Escritura"},
+
+    {"nakshatra":"Mūla","actividad":"Vivāha","significado":"Matrimonio"},
+    {"nakshatra":"Mūla","actividad":"Kṛṣikarma","significado":"Agricultura"},
+    {"nakshatra":"Mūla","actividad":"Vāṇijya","significado":"Negocios"},
+    {"nakshatra":"Mūla","actividad":"Dāruṇāhava","significado":"Extrema violencia"},
+    {"nakshatra":"Mūla","actividad":"Abheṣajaṁ","significado":"Curación"},
+    {"nakshatra":"Mūla","actividad":"Nṛtyaśilpa","significado":"Danza/artesanía"},
+    {"nakshatra":"Mūla","actividad":"Astraśastra","significado":"Armas"},
+    {"nakshatra":"Mūla","actividad":"Lohāśma","significado":"Hierro/piedras"},
+    {"nakshatra":"Mūla","actividad":"Lekhanaṁ","significado":"Escritura"},
+
+    {"nakshatra":"PĀṣāṛhā","actividad":"Vivāda","significado":"Conflictos/peleas"},
+    {"nakshatra":"PĀṣāṛhā","actividad":"Viṣa","significado":"Veneno"},
+    {"nakshatra":"PĀṣāṛhā","actividad":"Śastra","significado":"Armas"},
+    {"nakshatra":"PĀṣāṛhā","actividad":"Agni","significado":"Fuego"},
+    {"nakshatra":"PĀṣāṛhā","actividad":"Dāruṇa Ugrakarma","significado":"Actos violentos"},
+    {"nakshatra":"PĀṣāṛhā","actividad":"Yuddha","significado":"Guerra"},
+
+    {"nakshatra":"UĀṣāṛhā","actividad":"Vastra","significado":"Ropa nueva"},
+    {"nakshatra":"UĀṣāṛhā","actividad":"Abhiṣeka","significado":"Coronación"},
+    {"nakshatra":"UĀṣāṛhā","actividad":"Lohāśma","significado":"Hierro/piedras"},
+    {"nakshatra":"UĀṣāṛhā","actividad":"Vivāha","significado":"Matrimonio"},
+    {"nakshatra":"UĀṣāṛhā","actividad":"Upanayana","significado":"Hilo sagrado"},
+    {"nakshatra":"UĀṣāṛhā","actividad":"Praveśa","significado":"Entrar nueva casa"},
+    {"nakshatra":"UĀṣāṛhā","actividad":"Pratiṣṭhā","significado":"Instalar ídolo"},
+    {"nakshatra":"UĀṣāṛhā","actividad":"Aśveva","significado":"Caballos/elefantes"},
+    {"nakshatra":"UĀṣāṛhā","actividad":"Vāstukarma","significado":"Vāstu"},
+
+    {"nakshatra":"Śravaṇa","actividad":"Pratiṣṭhā","significado":"Instalar ídolo"},
+    {"nakshatra":"Śravaṇa","actividad":"Kṣaurakarma","significado":"Afeitado"},
+    {"nakshatra":"Śravaṇa","actividad":"Sīmantakarma","significado":"Partición del cabello"},
+    {"nakshatra":"Śravaṇa","actividad":"Yāna","significado":"Nuevo vehículo"},
+    {"nakshatra":"Śravaṇa","actividad":"Upanayana","significado":"Hilo sagrado"},
+    {"nakshatra":"Śravaṇa","actividad":"Auṣadha","significado":"Medicinas"},
+    {"nakshatra":"Śravaṇa","actividad":"Purāṇa","significado":"Cosas antiguas/artefactos"},
+    {"nakshatra":"Śravaṇa","actividad":"Gṛharambha","significado":"Iniciar casa familiar"},
+
+    {"nakshatra":"Dhaniṣṭhā","actividad":"Vastra","significado":"Ropa nueva"},
+    {"nakshatra":"Dhaniṣṭhā","actividad":"Upanayana","significado":"Hilo sagrado"},
+    {"nakshatra":"Dhaniṣṭhā","actividad":"Kṣaurakarma","significado":"Afeitado"},
+    {"nakshatra":"Dhaniṣṭhā","actividad":"Vāstukarma","significado":"Vāstu"},
+    {"nakshatra":"Dhaniṣṭhā","actividad":"Sīmantakarma","significado":"Partición del cabello"},
+    {"nakshatra":"Dhaniṣṭhā","actividad":"Gṛhapraveśa","significado":"Entrar nueva casa"},
+    {"nakshatra":"Dhaniṣṭhā","actividad":"Ābhūṣaṇa","significado":"Adornos"},
+    {"nakshatra":"Dhaniṣṭhā","actividad":"Auṣadha","significado":"Medicinas"},
+
+    {"nakshatra":"Śatabhiṣā","actividad":"Gṛhapraveśa","significado":"Entrar nueva casa"},
+    {"nakshatra":"Śatabhiṣā","actividad":"Pratiṣṭhā","significado":"Instalar ídolo"},
+    {"nakshatra":"Śatabhiṣā","actividad":"Kṣaurakarma","significado":"Afeitado"},
+    {"nakshatra":"Śatabhiṣā","actividad":"Mauṁjībandhana","significado":"Hilo sagrado"},
+    {"nakshatra":"Śatabhiṣā","actividad":"Auṣadha","significado":"Medicinas"},
+    {"nakshatra":"Śatabhiṣā","actividad":"Aśvārohaṇa","significado":"Montar a caballo"},
+    {"nakshatra":"Śatabhiṣā","actividad":"Sīmantakarma","significado":"Partición del cabello"},
+    {"nakshatra":"Śatabhiṣā","actividad":"Vāstukarma","significado":"Vāstu"},
+
+    {"nakshatra":"PBhādra","actividad":"Vivāda","significado":"Conflictos/peleas"},
+    {"nakshatra":"PBhādra","actividad":"Viṣa","significado":"Veneno"},
+    {"nakshatra":"PBhādra","actividad":"Śastra","significado":"Armas"},
+    {"nakshatra":"PBhādra","actividad":"Agni","significado":"Fuego"},
+    {"nakshatra":"PBhādra","actividad":"Dāruṇa Ugrakarma","significado":"Actos violentos"},
+    {"nakshatra":"PBhādra","actividad":"Yuddha","significado":"Guerra"},
+
+    {"nakshatra":"Revatī","actividad":"Vivāha","significado":"Matrimonio"},
+    {"nakshatra":"Revatī","actividad":"Vratabandha","significado":"Ritos religiosos"},
+    {"nakshatra":"Revatī","actividad":"Pratiṣṭhā","significado":"Instalar ídolo"},
+    {"nakshatra":"Revatī","actividad":"Yāna","significado":"Nuevo vehículo"},
+    {"nakshatra":"Revatī","actividad":"Abhūṣaṇa","significado":"Adornos"},
+    {"nakshatra":"Revatī","actividad":"Praveśa","significado":"Entrar nueva casa"},
+    {"nakshatra":"Revatī","actividad":"Vastra","significado":"Ropa nueva"},
+    {"nakshatra":"Revatī","actividad":"Sīmantakarma","significado":"Partición del cabello"},
+    {"nakshatra":"Revatī","actividad":"Kṣaurakarma","significado":"Afeitado"},
+    {"nakshatra":"Revatī","actividad":"Auṣadha","significado":"Medicinas"}
+  ]
+}

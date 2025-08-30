@@ -1,0 +1,95 @@
+{
+  "navatara": {
+    "description": "Sistema de Navatara (9 Taras) para determinar auspiciosidad",
+    "taras": [
+      {
+        "number": 1,
+        "name": "Janma Tara",
+        "polarity": "auspicious",
+        "description": "Tara natal - favorable para actividades personales y de inicio",
+        "activities": ["Actividades personales", "Inicios", "Autoconocimiento"],
+        "avoid": ["Actividades destructivas"]
+      },
+      {
+        "number": 2,
+        "name": "Sampat Tara",
+        "polarity": "auspicious",
+        "description": "Tara de riqueza - favorable para actividades comerciales y financieras",
+        "activities": ["Comercio", "Finanzas", "Actividades comerciales"],
+        "avoid": ["Pérdidas financieras"]
+      },
+      {
+        "number": 3,
+        "name": "Vipat Tara",
+        "polarity": "inauspicious",
+        "description": "Tara de peligro - evite actividades importantes",
+        "activities": ["Meditación", "Paciencia", "Actividades espirituales"],
+        "avoid": ["Actividades importantes", "Viajes", "Negocios"]
+      },
+      {
+        "number": 4,
+        "name": "Kshema Tara",
+        "polarity": "auspicious",
+        "description": "Tara de bienestar - favorable para actividades de salud y paz",
+        "activities": ["Salud", "Bienestar", "Paz", "Actividades curativas"],
+        "avoid": ["Actividades estresantes"]
+      },
+      {
+        "number": 5,
+        "name": "Pratyak Tara",
+        "polarity": "auspicious",
+        "description": "Tara de obstáculos - requiere paciencia y perseverancia",
+        "activities": ["Paciencia", "Perseverancia", "Superar obstáculos"],
+        "avoid": ["Actividades apresuradas"]
+      },
+      {
+        "number": 6,
+        "name": "Sadhana Tara",
+        "polarity": "inauspicious",
+        "description": "Tara de esfuerzo - requiere trabajo duro para el éxito",
+        "activities": ["Trabajo duro", "Esfuerzo", "Disciplina"],
+        "avoid": ["Actividades fáciles"]
+      },
+      {
+        "number": 7,
+        "name": "Naidhana Tara",
+        "polarity": "inauspicious",
+        "description": "Tara de destrucción - evite actividades importantes",
+        "activities": ["Meditación", "Actividades espirituales", "Paciencia"],
+        "avoid": ["Actividades importantes", "Viajes", "Negocios"]
+      },
+      {
+        "number": 8,
+        "name": "Maitra Tara",
+        "polarity": "auspicious",
+        "description": "Tara de amistad - favorable para actividades sociales y relaciones",
+        "activities": ["Amistad", "Relaciones", "Actividades sociales"],
+        "avoid": ["Conflictos"]
+      },
+      {
+        "number": 9,
+        "name": "Parama Maitra Tara",
+        "polarity": "auspicious",
+        "description": "Tara de gran amistad - altamente auspicioso",
+        "activities": ["Todas las actividades auspiciosas", "Celebraciones", "Ceremonias"],
+        "avoid": ["Actividades negativas"]
+      }
+    ],
+    "calculation": {
+      "method": "Diferencia entre nakshatra actual y nakshatra natal, módulo 9",
+      "formula": "(nakshatra_actual - nakshatra_natal) % 9 + 1",
+      "example": "Si nakshatra natal es 5 (Mrigashira) y actual es 12 (Uttara Phalguni): (12-5) % 9 + 1 = 8 (Maitra Tara)"
+    },
+    "recommendations": {
+      "auspicious_taras": [1, 2, 4, 5, 8, 9],
+      "inauspicious_taras": [3, 6, 7],
+      "general_advice": "Las taras auspiciosas son favorables para actividades importantes, mientras que las inauspiciosas requieren precaución y actividades espirituales"
+    }
+  }
+}
+
+
+
+
+
+

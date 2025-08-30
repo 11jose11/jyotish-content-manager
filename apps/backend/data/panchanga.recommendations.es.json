@@ -1,0 +1,453 @@
+{
+  "tithis": {
+    "Pratipada": {
+      "general": "Día auspicioso para comenzar nuevos proyectos y actividades",
+      "activities": ["Iniciar negocios", "Comenzar estudios", "Empezar viajes"],
+      "avoid": ["Actividades destructivas", "Conflictos"]
+    },
+    "Dwitiya": {
+      "general": "Favorable para actividades que requieren compañía y colaboración",
+      "activities": ["Reuniones", "Colaboraciones", "Actividades sociales"],
+      "avoid": ["Actividades solitarias"]
+    },
+    "Tritiya": {
+      "general": "Auspicioso para actividades creativas y artísticas",
+      "activities": ["Arte", "Música", "Danza", "Actividades culturales"],
+      "avoid": ["Actividades destructivas"]
+    },
+    "Chaturthi": {
+      "general": "Día para actividades que requieren planificación y estrategia",
+      "activities": ["Planificación", "Estrategia", "Meditación"],
+      "avoid": ["Actividades impulsivas"]
+    },
+    "Panchami": {
+      "general": "Favorable para actividades relacionadas con el conocimiento",
+      "activities": ["Estudios", "Investigación", "Enseñanza"],
+      "avoid": ["Actividades físicas intensas"]
+    },
+    "Shashthi": {
+      "general": "Auspicioso para actividades de salud y bienestar",
+      "activities": ["Ejercicio", "Yoga", "Medicina", "Cuidado personal"],
+      "avoid": ["Excesos"]
+    },
+    "Saptami": {
+      "general": "Día favorable para actividades espirituales y religiosas",
+      "activities": ["Puja", "Meditación", "Actividades religiosas"],
+      "avoid": ["Actividades materiales excesivas"]
+    },
+    "Ashtami": {
+      "general": "Auspicioso para actividades que requieren coraje y determinación",
+      "activities": ["Deportes", "Actividades físicas", "Liderazgo"],
+      "avoid": ["Actividades pasivas"]
+    },
+    "Navami": {
+      "general": "Favorable para actividades de transformación y cambio",
+      "activities": ["Renovación", "Cambios", "Transformaciones"],
+      "avoid": ["Rutinas excesivas"]
+    },
+    "Dashami": {
+      "general": "Día para actividades de limpieza y purificación",
+      "activities": ["Limpieza", "Purificación", "Desintoxicación"],
+      "avoid": ["Actividades contaminantes"]
+    },
+    "Ekadashi": {
+      "general": "Altamente auspicioso para actividades espirituales y ayuno",
+      "activities": ["Ayuno", "Meditación", "Actividades espirituales"],
+      "avoid": ["Actividades materiales"]
+    },
+    "Dwadashi": {
+      "general": "Favorable para actividades de aprendizaje y enseñanza",
+      "activities": ["Estudios", "Enseñanza", "Compartir conocimiento"],
+      "avoid": ["Actividades egoístas"]
+    },
+    "Trayodashi": {
+      "general": "Auspicioso para actividades de expansión y crecimiento",
+      "activities": ["Expansión de negocios", "Crecimiento personal", "Desarrollo"],
+      "avoid": ["Limitaciones"]
+    },
+    "Chaturdashi": {
+      "general": "Día para actividades de finalización y cierre",
+      "activities": ["Completar proyectos", "Finalizar asuntos", "Cerrar ciclos"],
+      "avoid": ["Iniciar nuevos proyectos"]
+    },
+    "Purnima": {
+      "general": "Altamente auspicioso para todas las actividades positivas",
+      "activities": ["Celebraciones", "Ceremonias", "Actividades auspiciosas"],
+      "avoid": ["Actividades negativas"]
+    },
+    "Amavasya": {
+      "general": "Día para actividades de introspección y limpieza",
+      "activities": ["Meditación", "Limpieza", "Introspección"],
+      "avoid": ["Actividades externas excesivas"]
+    }
+  },
+  "nakshatras": {
+    "Aśvinī": {
+      "general": "Nakshatra de inicio y movimiento rápido",
+      "activities": ["Iniciar viajes", "Actividades dinámicas", "Deportes"],
+      "avoid": ["Actividades lentas"]
+    },
+    "Bharaṇī": {
+      "general": "Nakshatra de transformación y cambio",
+      "activities": ["Transformaciones", "Cambios", "Renovación"],
+      "avoid": ["Rutinas excesivas"]
+    },
+    "Kṛttikā": {
+      "general": "Nakshatra de fuego y purificación",
+      "activities": ["Purificación", "Actividades de fuego", "Limpieza"],
+      "avoid": ["Actividades contaminantes"]
+    },
+    "Rohiṇī": {
+      "general": "Nakshatra de crecimiento y fertilidad",
+      "activities": ["Agricultura", "Crecimiento", "Fertilidad"],
+      "avoid": ["Actividades destructivas"]
+    },
+    "Mṛgaśira": {
+      "general": "Nakshatra de búsqueda y exploración",
+      "activities": ["Investigación", "Exploración", "Búsqueda"],
+      "avoid": ["Actividades rutinarias"]
+    },
+    "Ārdrā": {
+      "general": "Nakshatra de transformación profunda",
+      "activities": ["Transformaciones profundas", "Meditación", "Introspección"],
+      "avoid": ["Actividades superficiales"]
+    },
+    "Punarvasu": {
+      "general": "Nakshatra de renovación y retorno",
+      "activities": ["Renovación", "Retorno", "Reconexión"],
+      "avoid": ["Separaciones"]
+    },
+    "Puṣya": {
+      "general": "Nakshatra altamente auspicioso",
+      "activities": ["Todas las actividades auspiciosas", "Ceremonias", "Celebraciones"],
+      "avoid": ["Actividades negativas"]
+    },
+    "Āśleṣā": {
+      "general": "Nakshatra de transformación y cambio",
+      "activities": ["Transformaciones", "Cambios", "Renovación"],
+      "avoid": ["Actividades rutinarias"]
+    },
+    "Maghā": {
+      "general": "Nakshatra de autoridad y liderazgo",
+      "activities": ["Liderazgo", "Autoridad", "Actividades oficiales"],
+      "avoid": ["Actividades subordinadas"]
+    },
+    "Pūrva Phalgunī": {
+      "general": "Nakshatra de creatividad y arte",
+      "activities": ["Arte", "Creatividad", "Actividades culturales"],
+      "avoid": ["Actividades destructivas"]
+    },
+    "Uttara Phalgunī": {
+      "general": "Nakshatra de prosperidad y abundancia",
+      "activities": ["Prosperidad", "Abundancia", "Actividades comerciales"],
+      "avoid": ["Pérdidas"]
+    },
+    "Hasta": {
+      "general": "Nakshatra de habilidad y destreza",
+      "activities": ["Habilidades", "Destrezas", "Artesanía"],
+      "avoid": ["Actividades descuidadas"]
+    },
+    "Citrā": {
+      "general": "Nakshatra de belleza y creatividad",
+      "activities": ["Belleza", "Creatividad", "Arte"],
+      "avoid": ["Actividades feas"]
+    },
+    "Svātī": {
+      "general": "Nakshatra de independencia y libertad",
+      "activities": ["Independencia", "Libertad", "Actividades individuales"],
+      "avoid": ["Dependencias"]
+    },
+    "Viśākhā": {
+      "general": "Nakshatra de éxito y logro",
+      "activities": ["Éxito", "Logros", "Actividades exitosas"],
+      "avoid": ["Fracasos"]
+    },
+    "Anurādhā": {
+      "general": "Nakshatra de amistad y colaboración",
+      "activities": ["Amistad", "Colaboración", "Actividades sociales"],
+      "avoid": ["Conflictos"]
+    },
+    "Jyeṣṭhā": {
+      "general": "Nakshatra de autoridad y poder",
+      "activities": ["Autoridad", "Poder", "Liderazgo"],
+      "avoid": ["Sumisión"]
+    },
+    "Mūla": {
+      "general": "Nakshatra de transformación profunda",
+      "activities": ["Transformaciones profundas", "Meditación", "Introspección"],
+      "avoid": ["Actividades superficiales"]
+    },
+    "Pūrva Āṣāḍhā": {
+      "general": "Nakshatra de victoria y éxito",
+      "activities": ["Victoria", "Éxito", "Logros"],
+      "avoid": ["Derrotas"]
+    },
+    "Uttara Āṣāḍhā": {
+      "general": "Nakshatra de estabilidad y firmeza",
+      "activities": ["Estabilidad", "Firmeza", "Actividades estables"],
+      "avoid": ["Inestabilidad"]
+    },
+    "Śravaṇa": {
+      "general": "Nakshatra de aprendizaje y conocimiento",
+      "activities": ["Aprendizaje", "Conocimiento", "Estudios"],
+      "avoid": ["Ignorancia"]
+    },
+    "Dhaniṣṭhā": {
+      "general": "Nakshatra de riqueza y prosperidad",
+      "activities": ["Riqueza", "Prosperidad", "Actividades comerciales"],
+      "avoid": ["Pérdidas"]
+    },
+    "Śatabhiṣā": {
+      "general": "Nakshatra de curación y sanación",
+      "activities": ["Curación", "Sanación", "Medicina"],
+      "avoid": ["Enfermedades"]
+    },
+    "Pūrva Bhādrapada": {
+      "general": "Nakshatra de transformación espiritual",
+      "activities": ["Transformación espiritual", "Meditación", "Actividades espirituales"],
+      "avoid": ["Actividades materiales"]
+    },
+    "Uttara Bhādrapada": {
+      "general": "Nakshatra de sabiduría y conocimiento",
+      "activities": ["Sabiduría", "Conocimiento", "Enseñanza"],
+      "avoid": ["Ignorancia"]
+    },
+    "Revatī": {
+      "general": "Nakshatra de completitud y perfección",
+      "activities": ["Completitud", "Perfección", "Finalización"],
+      "avoid": ["Incompletitud"]
+    }
+  },
+  "yogas": {
+    "Viśkumbha": {
+      "general": "Yoga de obstáculos y bloqueos",
+      "activities": ["Superar obstáculos", "Meditación", "Paciencia"],
+      "avoid": ["Actividades apresuradas"]
+    },
+    "Priti": {
+      "general": "Yoga de amor y afecto",
+      "activities": ["Amor", "Afecto", "Relaciones"],
+      "avoid": ["Conflictos"]
+    },
+    "Āyuṣmān": {
+      "general": "Yoga de longevidad y salud",
+      "activities": ["Salud", "Longevidad", "Bienestar"],
+      "avoid": ["Actividades dañinas"]
+    },
+    "Saubhāgya": {
+      "general": "Yoga de buena fortuna",
+      "activities": ["Buena fortuna", "Prosperidad", "Celebraciones"],
+      "avoid": ["Actividades negativas"]
+    },
+    "Śobhana": {
+      "general": "Yoga de belleza y esplendor",
+      "activities": ["Belleza", "Esplendor", "Actividades estéticas"],
+      "avoid": ["Actividades feas"]
+    },
+    "Atigaṇḍa": {
+      "general": "Yoga de obstáculos mayores",
+      "activities": ["Superar obstáculos", "Paciencia", "Perseverancia"],
+      "avoid": ["Actividades apresuradas"]
+    },
+    "Sukarman": {
+      "general": "Yoga de buenas acciones",
+      "activities": ["Buenas acciones", "Caridad", "Servicio"],
+      "avoid": ["Actividades egoístas"]
+    },
+    "Dhṛti": {
+      "general": "Yoga de determinación y firmeza",
+      "activities": ["Determinación", "Firmeza", "Perseverancia"],
+      "avoid": ["Indecisión"]
+    },
+    "Śūla": {
+      "general": "Yoga de dolor y sufrimiento",
+      "activities": ["Meditación", "Paciencia", "Superación"],
+      "avoid": ["Actividades dolorosas"]
+    },
+    "Gaṇḍa": {
+      "general": "Yoga de obstáculos y problemas",
+      "activities": ["Superar obstáculos", "Paciencia", "Perseverancia"],
+      "avoid": ["Actividades apresuradas"]
+    },
+    "Vṛddhi": {
+      "general": "Yoga de crecimiento y expansión",
+      "activities": ["Crecimiento", "Expansión", "Desarrollo"],
+      "avoid": ["Limitaciones"]
+    },
+    "Dhruva": {
+      "general": "Yoga de estabilidad y firmeza",
+      "activities": ["Estabilidad", "Firmeza", "Actividades estables"],
+      "avoid": ["Inestabilidad"]
+    },
+    "Vyāghāta": {
+      "general": "Yoga de obstáculos y conflictos",
+      "activities": ["Superar obstáculos", "Paciencia", "Resolución de conflictos"],
+      "avoid": ["Conflictos"]
+    },
+    "Harṣaṇa": {
+      "general": "Yoga de alegría y felicidad",
+      "activities": ["Alegría", "Felicidad", "Celebraciones"],
+      "avoid": ["Tristeza"]
+    },
+    "Vajra": {
+      "general": "Yoga de fuerza y poder",
+      "activities": ["Fuerza", "Poder", "Actividades poderosas"],
+      "avoid": ["Debilidad"]
+    },
+    "Siddhi": {
+      "general": "Yoga de éxito y logro",
+      "activities": ["Éxito", "Logros", "Actividades exitosas"],
+      "avoid": ["Fracasos"]
+    },
+    "Vyatīpāta": {
+      "general": "Yoga de obstáculos y problemas",
+      "activities": ["Superar obstáculos", "Paciencia", "Perseverancia"],
+      "avoid": ["Actividades apresuradas"]
+    },
+    "Variyan": {
+      "general": "Yoga de excelencia y superioridad",
+      "activities": ["Excelencia", "Superioridad", "Actividades superiores"],
+      "avoid": ["Inferioridad"]
+    },
+    "Parigha": {
+      "general": "Yoga de obstáculos y bloqueos",
+      "activities": ["Superar obstáculos", "Paciencia", "Perseverancia"],
+      "avoid": ["Actividades apresuradas"]
+    },
+    "Śiva": {
+      "general": "Yoga auspicioso y benéfico",
+      "activities": ["Actividades auspiciosas", "Ceremonias", "Celebraciones"],
+      "avoid": ["Actividades negativas"]
+    },
+    "Siddha": {
+      "general": "Yoga de perfección y logro",
+      "activities": ["Perfección", "Logros", "Actividades perfectas"],
+      "avoid": ["Imperfecciones"]
+    },
+    "Sādhya": {
+      "general": "Yoga de logro y éxito",
+      "activities": ["Logros", "Éxito", "Actividades exitosas"],
+      "avoid": ["Fracasos"]
+    },
+    "Śubha": {
+      "general": "Yoga auspicioso y benéfico",
+      "activities": ["Actividades auspiciosas", "Ceremonias", "Celebraciones"],
+      "avoid": ["Actividades negativas"]
+    },
+    "Śukla": {
+      "general": "Yoga de pureza y claridad",
+      "activities": ["Pureza", "Claridad", "Actividades puras"],
+      "avoid": ["Impurezas"]
+    },
+    "Brahma": {
+      "general": "Yoga de conocimiento y sabiduría",
+      "activities": ["Conocimiento", "Sabiduría", "Estudios"],
+      "avoid": ["Ignorancia"]
+    },
+    "Indra": {
+      "general": "Yoga de poder y autoridad",
+      "activities": ["Poder", "Autoridad", "Liderazgo"],
+      "avoid": ["Sumisión"]
+    },
+    "Vaidhṛti": {
+      "general": "Yoga de obstáculos y problemas",
+      "activities": ["Superar obstáculos", "Paciencia", "Perseverancia"],
+      "avoid": ["Actividades apresuradas"]
+    }
+  },
+  "karanas": {
+    "Bava": {
+      "general": "Karana auspicioso para actividades dinámicas",
+      "activities": ["Actividades dinámicas", "Deportes", "Viajes"],
+      "avoid": ["Actividades pasivas"]
+    },
+    "Bālava": {
+      "general": "Karana favorable para actividades de fuerza",
+      "activities": ["Actividades de fuerza", "Deportes", "Trabajo físico"],
+      "avoid": ["Actividades débiles"]
+    },
+    "Kaulava": {
+      "general": "Karana auspicioso para actividades familiares",
+      "activities": ["Actividades familiares", "Celebraciones", "Reuniones"],
+      "avoid": ["Actividades solitarias"]
+    },
+    "Taitila": {
+      "general": "Karana favorable para actividades de aprendizaje",
+      "activities": ["Aprendizaje", "Estudios", "Enseñanza"],
+      "avoid": ["Ignorancia"]
+    },
+    "Garija": {
+      "general": "Karana auspicioso para actividades de crecimiento",
+      "activities": ["Crecimiento", "Desarrollo", "Expansión"],
+      "avoid": ["Limitaciones"]
+    },
+    "Vaṇija": {
+      "general": "Karana favorable para actividades comerciales",
+      "activities": ["Comercio", "Negocios", "Actividades comerciales"],
+      "avoid": ["Pérdidas"]
+    },
+    "Viṣṭi": {
+      "general": "Karana de obstáculos y problemas",
+      "activities": ["Superar obstáculos", "Paciencia", "Perseverancia"],
+      "avoid": ["Actividades apresuradas"]
+    },
+    "Śakuni": {
+      "general": "Karana de transformación y cambio",
+      "activities": ["Transformaciones", "Cambios", "Renovación"],
+      "avoid": ["Rutinas excesivas"]
+    },
+    "Catuṣpāda": {
+      "general": "Karana auspicioso para actividades estables",
+      "activities": ["Actividades estables", "Firmeza", "Estabilidad"],
+      "avoid": ["Inestabilidad"]
+    },
+    "Nāga": {
+      "general": "Karana favorable para actividades de sabiduría",
+      "activities": ["Sabiduría", "Conocimiento", "Actividades intelectuales"],
+      "avoid": ["Ignorancia"]
+    }
+  },
+  "varas": {
+    "Sunday": {
+      "general": "Día del Sol - favorable para actividades de liderazgo y autoridad",
+      "activities": ["Liderazgo", "Autoridad", "Actividades oficiales", "Deportes"],
+      "avoid": ["Actividades subordinadas"]
+    },
+    "Monday": {
+      "general": "Día de la Luna - favorable para actividades emocionales y creativas",
+      "activities": ["Actividades emocionales", "Creatividad", "Arte", "Meditación"],
+      "avoid": ["Actividades agresivas"]
+    },
+    "Tuesday": {
+      "general": "Día de Marte - favorable para actividades de coraje y energía",
+      "activities": ["Coraje", "Energía", "Deportes", "Actividades físicas"],
+      "avoid": ["Actividades pasivas"]
+    },
+    "Wednesday": {
+      "general": "Día de Mercurio - favorable para actividades de comunicación y aprendizaje",
+      "activities": ["Comunicación", "Aprendizaje", "Negocios", "Estudios"],
+      "avoid": ["Actividades de aislamiento"]
+    },
+    "Thursday": {
+      "general": "Día de Júpiter - favorable para actividades espirituales y de aprendizaje",
+      "activities": ["Actividades espirituales", "Aprendizaje", "Enseñanza", "Ceremonias"],
+      "avoid": ["Actividades materiales excesivas"]
+    },
+    "Friday": {
+      "general": "Día de Venus - favorable para actividades de amor y belleza",
+      "activities": ["Amor", "Belleza", "Arte", "Actividades sociales"],
+      "avoid": ["Actividades feas"]
+    },
+    "Saturday": {
+      "general": "Día de Saturno - favorable para actividades de disciplina y trabajo duro",
+      "activities": ["Disciplina", "Trabajo duro", "Perseverancia", "Actividades serias"],
+      "avoid": ["Actividades frívolas"]
+    }
+  }
+}
+
+
+
+
+
+
