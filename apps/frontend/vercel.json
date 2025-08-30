@@ -28,6 +28,6 @@
     }
   ],
   "env": {
-    "VITE_API_BASE_URL": "https://jyotish-api-273065401301.us-central1.run.app"
+    "VITE_API_BASE_URL": "https://jyotish-api-ndcfqrjivq-uc.a.run.app"
   }
 }

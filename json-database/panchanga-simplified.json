@@ -1,0 +1,1222 @@
+{
+  "metadata": {
+    "version": "2.0",
+    "description": "Datos simplificados del panchanga para carga rápida",
+    "created": "2025-01-19",
+    "structure": "unified"
+  },
+  "nakshatras": [
+    {
+      "name": "Aśvinī",
+      "nameIAST": "Aśvinī",
+      "translation": "Los Jinetes Celestiales",
+      "deity": "Aśvins",
+      "classification": "Tikṣṇa (Afilado)",
+      "element": "Tierra",
+      "planet": "Ketu",
+      "favorables": [
+        "inicios/proyectos",
+        "aprender habilidades",
+        "tratamientos, salud, rejuvenecimiento",
+        "acciones rápidas",
+        "ecuestre, viajes, compra/venta",
+        "reparar vehículos",
+        "joyas/ropa nueva",
+        "ocultismo/leyes",
+        "sthāpana (instalar ídolo)",
+        "agricultura",
+        "excavar estanques/pozos",
+        "manejo de venenos",
+        "uso de armas",
+        "cambio de nombre"
+      ],
+      "desfavorables": [
+        "matrimonio",
+        "cerrar/proyectos finales",
+        "tareas que requieren paciencia",
+        "exceso emocional/sexual",
+        "intoxicación"
+      ]
+    },
+    {
+      "name": "Bharaṇī",
+      "nameIAST": "Bharaṇī",
+      "translation": "La Portadora",
+      "deity": "Yama",
+      "classification": "Ugra (Feroz)",
+      "element": "Tierra",
+      "planet": "Venus",
+      "favorables": [
+        "creatividad marciana (severo/competitivo)",
+        "sexo/amor/procreación",
+        "rituales de fertilidad/agricultura",
+        "fuego",
+        "retomar pendientes",
+        "ascetismo/ayuno/purificación",
+        "trato con niños"
+      ],
+      "desfavorables": [
+        "viajes (embotellamientos/accidentes)",
+        "iniciaciones",
+        "nuevos comienzos (mejor cerrar)"
+      ]
+    },
+    {
+      "name": "Kṛttikā",
+      "nameIAST": "Kṛttikā",
+      "translation": "Las Pléyades",
+      "deity": "Agni",
+      "classification": "Mṛdu (Suave)",
+      "element": "Fuego",
+      "planet": "Sol",
+      "favorables": [
+        "adoración del fuego/purificación",
+        "decisiones ejecutivas",
+        "cocina/bordado/costura",
+        "aseo (afeitado/corte)",
+        "honestidad/franqueza",
+        "debatir/discusión",
+        "tambores/actividades extra"
+      ],
+      "desfavorables": [
+        "diplomacia/redes sociales",
+        "relajación/descanso",
+        "actividades acuáticas"
+      ]
+    },
+    {
+      "name": "Rohiṇī",
+      "nameIAST": "Rohiṇī",
+      "translation": "La Roja",
+      "deity": "Brahmā",
+      "classification": "Dhruva (Fijo)",
+      "element": "Tierra",
+      "planet": "Luna",
+      "favorables": [
+        "nuevos negocios",
+        "agricultura",
+        "comercio/finanzas",
+        "matrimonio/romance/sexualidad",
+        "curación/auto-mejora",
+        "viajes/exploración",
+        "construcción",
+        "comprar joyas/vehículo/ropa"
+      ],
+      "desfavorables": [
+        "demolición/destrucción",
+        "finales/cierres de ciclos",
+        "terminar relaciones"
+      ]
+    },
+    {
+      "name": "Mṛgaśirā",
+      "nameIAST": "Mṛgaśirā",
+      "translation": "Cabeza de Antílope",
+      "deity": "Soma",
+      "classification": "Mṛdu (Suave)",
+      "element": "Aire",
+      "planet": "Marte",
+      "favorables": [
+        "diversión/alegría",
+        "viajes/exploración/aventura",
+        "sexualidad",
+        "artes (música/visual/escritura)",
+        "curación/rejuvenecimiento",
+        "educación/socializar",
+        "mudanza/cambio de hogar",
+        "comunicación",
+        "religión/espiritualidad",
+        "ventas/publicidad",
+        "cambio de nombre",
+        "jardinería"
+      ],
+      "desfavorables": [
+        "trabajos pesados",
+        "confrontaciones",
+        "actividades que requieren estabilidad"
+      ]
+    },
+    {
+      "name": "Ārdrā",
+      "nameIAST": "Ārdrā",
+      "translation": "La Húmeda",
+      "deity": "Rudra",
+      "classification": "Tikṣṇa (Afilado)",
+      "element": "Agua",
+      "planet": "Mercurio",
+      "favorables": [
+        "actividades destructivas",
+        "limpieza",
+        "purificación",
+        "medicina",
+        "cirugía"
+      ],
+      "desfavorables": [
+        "actividades auspiciosas",
+        "inicios importantes"
+      ]
+    },
+    {
+      "name": "Punarvasu",
+      "nameIAST": "Punarvasu",
+      "translation": "Los Dos Buenos",
+      "deity": "Aditi",
+      "classification": "Mṛdu (Suave)",
+      "element": "Aire",
+      "planet": "Júpiter",
+      "favorables": [
+        "retorno de viajes",
+        "reuniones familiares",
+        "actividades espirituales",
+        "meditación",
+        "estudio"
+      ],
+      "desfavorables": [
+        "viajes largos",
+        "separaciones"
+      ]
+    },
+    {
+      "name": "Puṣya",
+      "nameIAST": "Puṣya",
+      "translation": "El Nutritivo",
+      "deity": "Bṛhaspati",
+      "classification": "Dhruva (Fijo)",
+      "element": "Fuego",
+      "planet": "Saturno",
+      "favorables": [
+        "actividades auspiciosas",
+        "ceremonias religiosas",
+        "estudio",
+        "enseñanza",
+        "negocios"
+      ],
+      "desfavorables": [
+        "actividades destructivas"
+      ]
+    },
+    {
+      "name": "Āśleṣā",
+      "nameIAST": "Āśleṣā",
+      "translation": "El Abrazo",
+      "deity": "Sarpa",
+      "classification": "Tikṣṇa (Afilado)",
+      "element": "Agua",
+      "planet": "Mercurio",
+      "favorables": [
+        "actividades ocultas",
+        "medicina",
+        "venenos",
+        "actividades secretas"
+      ],
+      "desfavorables": [
+        "actividades auspiciosas",
+        "inicios importantes"
+      ]
+    },
+    {
+      "name": "Maghā",
+      "nameIAST": "Maghā",
+      "translation": "La Grande",
+      "deity": "Pitṛs",
+      "classification": "Ugra (Feroz)",
+      "element": "Fuego",
+      "planet": "Ketu",
+      "favorables": [
+        "actividades con ancestros",
+        "rituales fúnebres",
+        "actividades destructivas",
+        "limpieza"
+      ],
+      "desfavorables": [
+        "actividades auspiciosas",
+        "inicios importantes"
+      ]
+    },
+    {
+      "name": "Pūrva Phālgunī",
+      "nameIAST": "Pūrva Phālgunī",
+      "translation": "La Primera Favorable",
+      "deity": "Bhaga",
+      "classification": "Mṛdu (Suave)",
+      "element": "Aire",
+      "planet": "Venus",
+      "favorables": [
+        "romance",
+        "arte",
+        "música",
+        "actividades placenteras",
+        "celebración"
+      ],
+      "desfavorables": [
+        "actividades duras",
+        "conflictos"
+      ]
+    },
+    {
+      "name": "Uttara Phālgunī",
+      "nameIAST": "Uttara Phālgunī",
+      "translation": "La Segunda Favorable",
+      "deity": "Aryaman",
+      "classification": "Mṛdu (Suave)",
+      "element": "Aire",
+      "planet": "Sol",
+      "favorables": [
+        "amistad",
+        "cooperación",
+        "actividades sociales",
+        "negocios"
+      ],
+      "desfavorables": [
+        "actividades solitarias",
+        "conflictos"
+      ]
+    },
+    {
+      "name": "Hasta",
+      "nameIAST": "Hasta",
+      "translation": "La Mano",
+      "deity": "Savita",
+      "classification": "Laghu (Ligero)",
+      "element": "Aire",
+      "planet": "Luna",
+      "favorables": [
+        "artesanía",
+        "habilidades manuales",
+        "comercio",
+        "actividades creativas"
+      ],
+      "desfavorables": [
+        "actividades pesadas",
+        "trabajos manuales"
+      ]
+    },
+    {
+      "name": "Citrā",
+      "nameIAST": "Citrā",
+      "translation": "La Brillante",
+      "deity": "Viśvakarma",
+      "classification": "Tikṣṇa (Afilado)",
+      "element": "Fuego",
+      "planet": "Marte",
+      "favorables": [
+        "arte",
+        "arquitectura",
+        "diseño",
+        "actividades creativas",
+        "construcción"
+      ],
+      "desfavorables": [
+        "actividades destructivas"
+      ]
+    },
+    {
+      "name": "Svātī",
+      "nameIAST": "Svātī",
+      "translation": "La Independiente",
+      "deity": "Vāyu",
+      "classification": "Laghu (Ligero)",
+      "element": "Aire",
+      "planet": "Rahu",
+      "favorables": [
+        "independencia",
+        "libertad",
+        "viajes",
+        "movimiento",
+        "cambio"
+      ],
+      "desfavorables": [
+        "actividades fijas",
+        "estabilidad excesiva"
+      ]
+    },
+    {
+      "name": "Viśākhā",
+      "nameIAST": "Viśākhā",
+      "translation": "La Ramificada",
+      "deity": "Indra & Agni",
+      "classification": "Mṛdu (Suave)",
+      "element": "Tierra",
+      "planet": "Júpiter",
+      "favorables": [
+        "poder",
+        "autoridad",
+        "liderazgo",
+        "actividades expansivas"
+      ],
+      "desfavorables": [
+        "actividades subordinadas",
+        "restricciones"
+      ]
+    },
+    {
+      "name": "Anurādhā",
+      "nameIAST": "Anurādhā",
+      "translation": "La Seguidora",
+      "deity": "Mitra",
+      "classification": "Mṛdu (Suave)",
+      "element": "Tierra",
+      "planet": "Saturno",
+      "favorables": [
+        "amistad",
+        "cooperación",
+        "diplomacia",
+        "actividades sociales"
+      ],
+      "desfavorables": [
+        "conflictos",
+        "actividades solitarias"
+      ]
+    },
+    {
+      "name": "Jyeṣṭhā",
+      "nameIAST": "Jyeṣṭhā",
+      "translation": "La Mayor",
+      "deity": "Indra",
+      "classification": "Tikṣṇa (Afilado)",
+      "element": "Agua",
+      "planet": "Mercurio",
+      "favorables": [
+        "poder",
+        "autoridad",
+        "liderazgo",
+        "actividades de coraje"
+      ],
+      "desfavorables": [
+        "actividades subordinadas",
+        "debilidad"
+      ]
+    },
+    {
+      "name": "Mūla",
+      "nameIAST": "Mūla",
+      "translation": "La Raíz",
+      "deity": "Nirṛti",
+      "classification": "Tikṣṇa (Afilado)",
+      "element": "Agua",
+      "planet": "Ketu",
+      "favorables": [
+        "actividades destructivas",
+        "limpieza",
+        "purificación",
+        "medicina"
+      ],
+      "desfavorables": [
+        "actividades auspiciosas",
+        "inicios importantes"
+      ]
+    },
+    {
+      "name": "Pūrva Āṣāḍhā",
+      "nameIAST": "Pūrva Āṣāḍhā",
+      "translation": "La Primera Invicta",
+      "deity": "Āpas",
+      "classification": "Ugra (Feroz)",
+      "element": "Agua",
+      "planet": "Venus",
+      "favorables": [
+        "actividades acuáticas",
+        "viajes por agua",
+        "purificación",
+        "limpieza"
+      ],
+      "desfavorables": [
+        "actividades terrestres",
+        "sequía"
+      ]
+    },
+    {
+      "name": "Uttara Āṣāḍhā",
+      "nameIAST": "Uttara Āṣāḍhā",
+      "translation": "La Segunda Invicta",
+      "deity": "Viśvedevas",
+      "classification": "Dhruva (Fijo)",
+      "element": "Tierra",
+      "planet": "Sol",
+      "favorables": [
+        "victorias",
+        "éxito",
+        "actividades expansivas",
+        "liderazgo"
+      ],
+      "desfavorables": [
+        "derrotas",
+        "fracasos"
+      ]
+    },
+    {
+      "name": "Śravaṇa",
+      "nameIAST": "Śravaṇa",
+      "translation": "El Oído",
+      "deity": "Viṣṇu",
+      "classification": "Laghu (Ligero)",
+      "element": "Aire",
+      "planet": "Luna",
+      "favorables": [
+        "escuchar",
+        "aprendizaje",
+        "comunicación",
+        "actividades intelectuales"
+      ],
+      "desfavorables": [
+        "sordera",
+        "ignorancia"
+      ]
+    },
+    {
+      "name": "Dhaniṣṭhā",
+      "nameIAST": "Dhaniṣṭhā",
+      "translation": "La Más Rica",
+      "deity": "Vasu",
+      "classification": "Mṛdu (Suave)",
+      "element": "Tierra",
+      "planet": "Marte",
+      "favorables": [
+        "riqueza",
+        "prosperidad",
+        "música",
+        "arte",
+        "celebración"
+      ],
+      "desfavorables": [
+        "pobreza",
+        "pérdidas"
+      ]
+    },
+    {
+      "name": "Śatabhiṣā",
+      "nameIAST": "Śatabhiṣā",
+      "translation": "Los Cien Médicos",
+      "deity": "Varuṇa",
+      "classification": "Tikṣṇa (Afilado)",
+      "element": "Agua",
+      "planet": "Rahu",
+      "favorables": [
+        "medicina",
+        "curación",
+        "purificación",
+        "actividades acuáticas"
+      ],
+      "desfavorables": [
+        "enfermedades",
+        "contaminación"
+      ]
+    },
+    {
+      "name": "Pūrva Bhādrapadā",
+      "nameIAST": "Pūrva Bhādrapadā",
+      "translation": "La Primera Favorable",
+      "deity": "Aja Ekapād",
+      "classification": "Ugra (Feroz)",
+      "element": "Fuego",
+      "planet": "Júpiter",
+      "favorables": [
+        "actividades espirituales",
+        "meditación",
+        "ascetismo",
+        "purificación"
+      ],
+      "desfavorables": [
+        "actividades materiales",
+        "excesos"
+      ]
+    },
+    {
+      "name": "Uttara Bhādrapadā",
+      "nameIAST": "Uttara Bhādrapadā",
+      "translation": "La Segunda Favorable",
+      "deity": "Ahir Budhnya",
+      "classification": "Dhruva (Fijo)",
+      "element": "Agua",
+      "planet": "Saturno",
+      "favorables": [
+        "estabilidad",
+        "fundamentos",
+        "actividades acuáticas",
+        "purificación"
+      ],
+      "desfavorables": [
+        "inestabilidad",
+        "cambios"
+      ]
+    },
+    {
+      "name": "Revatī",
+      "nameIAST": "Revatī",
+      "translation": "La Rica",
+      "deity": "Pūṣan",
+      "classification": "Mṛdu (Suave)",
+      "element": "Agua",
+      "planet": "Mercurio",
+      "favorables": [
+        "riqueza",
+        "prosperidad",
+        "viajes",
+        "comercio",
+        "actividades acuáticas"
+      ],
+      "desfavorables": [
+        "pobreza",
+        "pérdidas"
+      ]
+    }
+  ],
+  "tithis": [
+    {
+      "name": "Pratipada",
+      "nameIAST": "Pratipadā",
+      "translation": "Primer día lunar",
+      "deity": "Brahmā",
+      "element": "Agua",
+      "classification": "Nandā",
+      "favorables": [
+        "inicios de proyectos",
+        "nuevos comienzos",
+        "actividades creativas",
+        "planificación"
+      ],
+      "desfavorables": [
+        "actividades destructivas",
+        "finales de ciclos"
+      ]
+    },
+    {
+      "name": "Dvitiya",
+      "nameIAST": "Dvitīyā",
+      "translation": "Segundo día lunar",
+      "deity": "Vidhātā",
+      "element": "Tierra",
+      "classification": "Bhadrā",
+      "favorables": [
+        "actividades estables",
+        "construcción",
+        "trabajos de larga duración",
+        "fundamentos"
+      ],
+      "desfavorables": [
+        "actividades inestables",
+        "cambios repentinos"
+      ]
+    },
+    {
+      "name": "Tritiya",
+      "nameIAST": "Tritīyā",
+      "translation": "Tercer día lunar",
+      "deity": "Hari",
+      "element": "Aire",
+      "classification": "Jayā",
+      "favorables": [
+        "actividades expansivas",
+        "victorias",
+        "deportes",
+        "competencia"
+      ],
+      "desfavorables": [
+        "actividades restrictivas",
+        "derrotas"
+      ]
+    },
+    {
+      "name": "Chaturthi",
+      "nameIAST": "Caturthī",
+      "translation": "Cuarto día lunar",
+      "deity": "Yama",
+      "element": "Agua",
+      "classification": "Riktā",
+      "favorables": [
+        "limpieza",
+        "purificación",
+        "eliminación"
+      ],
+      "desfavorables": [
+        "actividades auspiciosas",
+        "inicios importantes"
+      ]
+    },
+    {
+      "name": "Panchami",
+      "nameIAST": "Pañcamī",
+      "translation": "Quinto día lunar",
+      "deity": "Candra",
+      "element": "Aire",
+      "classification": "Pūrṇa",
+      "favorables": [
+        "actividades completas",
+        "cierre de proyectos",
+        "celebración"
+      ],
+      "desfavorables": [
+        "inicios",
+        "actividades incompletas"
+      ]
+    },
+    {
+      "name": "Shashthi",
+      "nameIAST": "Ṣaṣṭhī",
+      "translation": "Sexto día lunar",
+      "deity": "Kartikeya",
+      "element": "Tierra",
+      "classification": "Nandā",
+      "favorables": [
+        "actividades de coraje",
+        "deportes",
+        "militar",
+        "actividades que requieren fuerza"
+      ],
+      "desfavorables": [
+        "actividades pacíficas"
+      ]
+    },
+    {
+      "name": "Saptami",
+      "nameIAST": "Saptamī",
+      "translation": "Séptimo día lunar",
+      "deity": "Indra",
+      "element": "Fuego",
+      "classification": "Bhadrā",
+      "favorables": [
+        "actividades de poder",
+        "liderazgo",
+        "autoridad",
+        "gobierno"
+      ],
+      "desfavorables": [
+        "actividades subordinadas"
+      ]
+    },
+    {
+      "name": "Ashtami",
+      "nameIAST": "Aṣṭamī",
+      "translation": "Octavo día lunar",
+      "deity": "Vasu",
+      "element": "Agua",
+      "classification": "Jayā",
+      "favorables": [
+        "actividades expansivas",
+        "victorias",
+        "deportes",
+        "competencia"
+      ],
+      "desfavorables": [
+        "actividades restrictivas"
+      ]
+    },
+    {
+      "name": "Navami",
+      "nameIAST": "Navamī",
+      "translation": "Noveno día lunar",
+      "deity": "Sarpa",
+      "element": "Aire",
+      "classification": "Riktā",
+      "favorables": [
+        "actividades ocultas",
+        "medicina",
+        "venenos"
+      ],
+      "desfavorables": [
+        "actividades auspiciosas",
+        "inicios importantes"
+      ]
+    },
+    {
+      "name": "Dashami",
+      "nameIAST": "Daśamī",
+      "translation": "Décimo día lunar",
+      "deity": "Dharma",
+      "element": "Tierra",
+      "classification": "Pūrṇa",
+      "favorables": [
+        "actividades justas",
+        "ley",
+        "religión",
+        "actividades auspiciosas"
+      ],
+      "desfavorables": [
+        "actividades injustas"
+      ]
+    }
+  ],
+  "karanas": [
+    {
+      "name": "Bava",
+      "nameIAST": "Bava",
+      "translation": "Nacimiento",
+      "deity": "Indra",
+      "planet": "Sol",
+      "classification": "Móvil",
+      "favorables": [
+        "salud y confort",
+        "autocuidado",
+        "terapias",
+        "mejoras de entorno"
+      ],
+      "desfavorables": [
+        "actividades destructivas"
+      ]
+    },
+    {
+      "name": "Balava",
+      "nameIAST": "Bālava",
+      "translation": "Fuerza",
+      "deity": "Brahmā",
+      "planet": "Luna",
+      "classification": "Móvil",
+      "favorables": [
+        "actividades creativas",
+        "estudio",
+        "meditación"
+      ],
+      "desfavorables": [
+        "actividades destructivas"
+      ]
+    },
+    {
+      "name": "Kaulava",
+      "nameIAST": "Kaulava",
+      "translation": "Familia",
+      "deity": "Mitra",
+      "planet": "Marte",
+      "classification": "Móvil",
+      "favorables": [
+        "actividades familiares",
+        "amistad",
+        "cooperación"
+      ],
+      "desfavorables": [
+        "conflictos",
+        "separaciones"
+      ]
+    },
+    {
+      "name": "Taitila",
+      "nameIAST": "Taitila",
+      "translation": "Sésamo",
+      "deity": "Aryama",
+      "planet": "Mercurio",
+      "classification": "Móvil",
+      "favorables": [
+        "comunicación",
+        "comercio",
+        "negocios"
+      ],
+      "desfavorables": [
+        "silencios",
+        "aislamiento"
+      ]
+    },
+    {
+      "name": "Gara",
+      "nameIAST": "Gara",
+      "translation": "Peso",
+      "deity": "Bhū (Prithvi)",
+      "planet": "Júpiter",
+      "classification": "Móvil",
+      "favorables": [
+        "construcción",
+        "agricultura",
+        "actividades estables"
+      ],
+      "desfavorables": [
+        "actividades inestables"
+      ]
+    },
+    {
+      "name": "Vanija",
+      "nameIAST": "Vaṇija",
+      "translation": "Comerciante",
+      "deity": "Śrī (Lakṣmī)",
+      "planet": "Venus",
+      "classification": "Móvil",
+      "favorables": [
+        "comercio",
+        "arte",
+        "belleza",
+        "riqueza"
+      ],
+      "desfavorables": [
+        "pérdidas",
+        "pobreza"
+      ]
+    },
+    {
+      "name": "Vishti",
+      "nameIAST": "Viṣṭi",
+      "translation": "Obstrucción",
+      "deity": "Yama",
+      "planet": "Saturno",
+      "classification": "Móvil",
+      "favorables": [
+        "destrucción de enemigos",
+        "manejo de venenos"
+      ],
+      "desfavorables": [
+        "actividades auspiciosas",
+        "inicios importantes"
+      ]
+    }
+  ],
+  "varas": [
+    {
+      "name": "Ravivara",
+      "nameIAST": "Ravivāra",
+      "translation": "Domingo",
+      "planet": "Sol",
+      "classification": "Dhruva (Fijo)",
+      "favorables": [
+        "inaugurar negocios o cargos",
+        "poner cimientos",
+        "trabajos con metales nobles",
+        "ceremonias y hitos",
+        "arte y oficios con fuego",
+        "salud con terapias tradicionales",
+        "actividades en naturaleza"
+      ],
+      "desfavorables": [
+        "actividades destructivas",
+        "conflictos"
+      ]
+    },
+    {
+      "name": "Somavara",
+      "nameIAST": "Somavāra",
+      "translation": "Lunes",
+      "planet": "Luna",
+      "classification": "Cara (Movible)",
+      "favorables": [
+        "viajes, mudanzas",
+        "adquirir vehículos",
+        "jardinería y riego",
+        "trabajo con agua",
+        "joyería y plata",
+        "manejo cuidadoso de animales"
+      ],
+      "desfavorables": [
+        "actividades fijas",
+        "estabilidad excesiva"
+      ]
+    },
+    {
+      "name": "Mangalavara",
+      "nameIAST": "Maṅgalavāra",
+      "translation": "Martes",
+      "planet": "Marte",
+      "classification": "Krūra (Cruel)",
+      "favorables": [
+        "actividades de coraje",
+        "deportes",
+        "militar",
+        "cirugía",
+        "actividades que requieren fuerza"
+      ],
+      "desfavorables": [
+        "actividades pacíficas",
+        "diplomacia"
+      ]
+    },
+    {
+      "name": "Budhavara",
+      "nameIAST": "Budhavāra",
+      "translation": "Miércoles",
+      "planet": "Mercurio",
+      "classification": "Laghu (Ligero)",
+      "favorables": [
+        "comunicación",
+        "estudio",
+        "comercio",
+        "viajes cortos",
+        "actividades intelectuales"
+      ],
+      "desfavorables": [
+        "actividades pesadas",
+        "trabajos manuales"
+      ]
+    },
+    {
+      "name": "Guruvara",
+      "nameIAST": "Guruvāra",
+      "translation": "Jueves",
+      "planet": "Júpiter",
+      "classification": "Sampūrṇa (Completo)",
+      "favorables": [
+        "actividades espirituales",
+        "enseñanza",
+        "estudio de textos sagrados",
+        "ceremonias religiosas",
+        "actividades auspiciosas"
+      ],
+      "desfavorables": [
+        "actividades inauspiciosas",
+        "mentiras"
+      ]
+    },
+    {
+      "name": "Shukravara",
+      "nameIAST": "Śukravāra",
+      "translation": "Viernes",
+      "planet": "Venus",
+      "classification": "Mṛdu (Suave)",
+      "favorables": [
+        "arte y belleza",
+        "música",
+        "romance",
+        "actividades placenteras",
+        "decoración",
+        "actividades sociales"
+      ],
+      "desfavorables": [
+        "actividades duras",
+        "conflictos"
+      ]
+    },
+    {
+      "name": "Shanivara",
+      "nameIAST": "Śanivāra",
+      "translation": "Sábado",
+      "planet": "Saturno",
+      "classification": "Tīkṣṇa (Afilado)",
+      "favorables": [
+        "limpieza",
+        "purificación",
+        "actividades de servicio",
+        "trabajos pesados",
+        "disciplina"
+      ],
+      "desfavorables": [
+        "actividades auspiciosas",
+        "inicios importantes"
+      ]
+    },
+    {
+      "name": "Mangalavara",
+      "nameIAST": "Maṅgalavāra",
+      "translation": "Martes",
+      "planet": "Marte",
+      "classification": "Krūra (Cruel)",
+      "favorables": [
+        "actividades de coraje",
+        "deportes",
+        "militar",
+        "cirugía",
+        "actividades que requieren fuerza"
+      ],
+      "desfavorables": [
+        "actividades pacíficas",
+        "diplomacia"
+      ]
+    },
+    {
+      "name": "Budhavara",
+      "nameIAST": "Budhavāra",
+      "translation": "Miércoles",
+      "planet": "Mercurio",
+      "classification": "Laghu (Ligero)",
+      "favorables": [
+        "comunicación",
+        "estudio",
+        "comercio",
+        "viajes cortos",
+        "actividades intelectuales"
+      ],
+      "desfavorables": [
+        "actividades pesadas",
+        "trabajos manuales"
+      ]
+    },
+    {
+      "name": "Guruvara",
+      "nameIAST": "Guruvāra",
+      "translation": "Jueves",
+      "planet": "Júpiter",
+      "classification": "Sampūrṇa (Completo)",
+      "favorables": [
+        "actividades espirituales",
+        "enseñanza",
+        "estudio de textos sagrados",
+        "ceremonias religiosas",
+        "actividades auspiciosas"
+      ],
+      "desfavorables": [
+        "actividades inauspiciosas",
+        "mentiras"
+      ]
+    },
+    {
+      "name": "Shukravara",
+      "nameIAST": "Śukravāra",
+      "translation": "Viernes",
+      "planet": "Venus",
+      "classification": "Mṛdu (Suave)",
+      "favorables": [
+        "arte y belleza",
+        "música",
+        "romance",
+        "actividades placenteras",
+        "decoración",
+        "actividades sociales"
+      ],
+      "desfavorables": [
+        "actividades duras",
+        "conflictos"
+      ]
+    }
+  ],
+  "yogas": [
+    {
+      "name": "Vishkumbha",
+      "nameIAST": "Viśkumbha",
+      "translation": "Pilar",
+      "deity": "Ganesha",
+      "planet": "Venus",
+      "classification": "Auspicioso",
+      "favorables": [
+        "construcción",
+        "fundamentos",
+        "actividades estables"
+      ],
+      "desfavorables": [
+        "actividades inestables"
+      ]
+    },
+    {
+      "name": "Priti",
+      "nameIAST": "Prīti",
+      "translation": "Amor",
+      "deity": "Lakshmi",
+      "planet": "Mercurio",
+      "classification": "Auspicioso",
+      "favorables": [
+        "romance",
+        "amistad",
+        "actividades sociales",
+        "celebración"
+      ],
+      "desfavorables": [
+        "conflictos",
+        "separaciones"
+      ]
+    },
+    {
+      "name": "Ayushman",
+      "nameIAST": "Āyuṣmān",
+      "translation": "Longevo",
+      "deity": "Surya",
+      "planet": "Sol",
+      "classification": "Auspicioso",
+      "favorables": [
+        "salud",
+        "longevidad",
+        "actividades de curación",
+        "medicina"
+      ],
+      "desfavorables": [
+        "actividades destructivas"
+      ]
+    },
+    {
+      "name": "Saubhagya",
+      "nameIAST": "Saubhāgya",
+      "translation": "Buena Fortuna",
+      "deity": "Lakshmi",
+      "planet": "Luna",
+      "classification": "Auspicioso",
+      "favorables": [
+        "riqueza",
+        "prosperidad",
+        "actividades auspiciosas",
+        "celebración"
+      ],
+      "desfavorables": [
+        "pérdidas",
+        "actividades inauspiciosas"
+      ]
+    },
+    {
+      "name": "Shobhana",
+      "nameIAST": "Śobhana",
+      "translation": "Hermoso",
+      "deity": "Brahma",
+      "planet": "Marte",
+      "classification": "Auspicioso",
+      "favorables": [
+        "belleza",
+        "arte",
+        "decoración",
+        "actividades estéticas"
+      ],
+      "desfavorables": [
+        "fealdad",
+        "destrucción"
+      ]
+    }
+  ],
+  "specialYogas": [
+    {
+      "name": "Amrita Siddhi",
+      "nameIAST": "Amṛta Siddhi",
+      "translation": "Éxito del Néctar",
+      "polarity": "positive",
+      "type": "vara+nakshatra",
+      "description": "Yoga auspicioso para todas las actividades",
+      "detailed_description": "Uno de los yogas más auspiciosos. Ideal para iniciar nuevos proyectos, matrimonios, y actividades espirituales.",
+      "beneficial_activities": [
+        "Iniciar nuevos proyectos",
+        "Matrimonios",
+        "Actividades espirituales",
+        "Firma de contratos",
+        "Inauguraciones"
+      ],
+      "avoid_activities": []
+    },
+    {
+      "name": "Sarvartha Siddhi",
+      "nameIAST": "Sarvārtha Siddhi",
+      "translation": "Éxito en Todos los Propósitos",
+      "polarity": "positive",
+      "type": "vara+nakshatra",
+      "description": "Yoga auspicioso para todos los propósitos",
+      "detailed_description": "Excelente para cualquier actividad importante. Garantiza éxito en todos los esfuerzos.",
+      "beneficial_activities": [
+        "Cualquier actividad importante",
+        "Negocios",
+        "Educación",
+        "Viajes",
+        "Ceremonias"
+      ],
+      "avoid_activities": []
+    },
+    {
+      "name": "Siddha",
+      "nameIAST": "Siddha",
+      "translation": "Perfecto",
+      "polarity": "positive",
+      "type": "vara+nakshatra",
+      "description": "Yoga auspicioso para actividades espirituales",
+      "detailed_description": "Perfecto para meditación, pujas, y actividades espirituales. Favorece el crecimiento interior.",
+      "beneficial_activities": [
+        "Meditación",
+        "Pujas",
+        "Actividades espirituales",
+        "Estudio de textos sagrados",
+        "Retiros espirituales"
+      ],
+      "avoid_activities": []
+    },
+    {
+      "name": "Guru Pushya",
+      "nameIAST": "Guru Puṣya",
+      "translation": "Júpiter en Pushya",
+      "polarity": "positive",
+      "type": "vara+nakshatra",
+      "description": "Excelente para educación y negocios",
+      "detailed_description": "Ideal para iniciar estudios, firmar contratos, y actividades comerciales. Favorece el aprendizaje.",
+      "beneficial_activities": [
+        "Iniciar estudios",
+        "Firmar contratos",
+        "Actividades comerciales",
+        "Enseñanza",
+        "Inversiones"
+      ],
+      "avoid_activities": []
+    }
+  ]
+}

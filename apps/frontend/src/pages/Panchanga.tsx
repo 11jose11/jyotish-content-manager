@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
-import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
-import { Copy, FileText, Info } from 'lucide-react'
-import { usePanchangaMonth } from '@/lib/api'
-import { toast } from 'sonner'
+import { usePanchangaMonth, useApiHealth } from '@/lib/api'
+import { simplifiedPanchangaService } from '@/lib/simplifiedPanchangaService'
 import LocationAutocomplete from '@/components/LocationAutocomplete'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import PanchangaDetailPanel from '@/components/PanchangaDetailPanel'
+import JsonDataDebug from '@/components/JsonDataDebug'
+import { toast } from 'sonner'
+import { useEffect } from 'react'
 
 interface Location {
   city: string
@@ -20,23 +20,9 @@ interface Location {
   timezone: string
 }
 
-interface SpecialYoga {
-    name: string
-  type: string
-    polarity: 'auspicious' | 'inauspicious'
-  detailed_description?: string
-  beneficial?: string
-  avoid?: string
-  notes?: string
-}
-
 const Panchanga: React.FC = () => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1)
-  const [selectedDay, setSelectedDay] = useState<string | null>(null)
-  const [selectedDayYogas, setSelectedDayYogas] = useState<SpecialYoga[]>([])
-  const [isLoadingYogas, setIsLoadingYogas] = useState(false)
-  const [dailyYogas, setDailyYogas] = useState<Record<string, SpecialYoga[]>>({})
   const [location, setLocation] = useState<Location>(() => {
     const saved = localStorage.getItem('jyotish-default-location')
     if (saved) {
@@ -50,6 +36,21 @@ const Panchanga: React.FC = () => {
     }
   })
 
+  const [selectedDay, setSelectedDay] = useState<string | null>(null)
+  const [selectedDayData, setSelectedDayData] = useState<any>(null)
+  const [isDetailPanelOpen, setIsDetailPanelOpen] = useState(false)
+  const [isLoadingDetails, setIsLoadingDetails] = useState(false)
+
+
+  // Precargar datos JSON al montar el componente
+  useEffect(() => {
+    // El servicio simplificado se carga automáticamente cuando se necesita
+    console.log('📋 Panchanga component mounted - simplified service ready')
+  }, [])
+
+  // Check API health (for debugging)
+  const { data: apiHealth } = useApiHealth()
+
   const { data: panchangaData, isLoading, error } = usePanchangaMonth({
     year: selectedYear,
     month: selectedMonth,
@@ -57,294 +58,80 @@ const Panchanga: React.FC = () => {
     longitude: location.longitude,
   })
 
-  // Function to load yogas for all days of the month
-  const loadAllYogas = async () => {
-    if (!panchangaData?.days) return
-    
-    setIsLoadingYogas(true)
-    const newDailyYogas: Record<string, SpecialYoga[]> = {}
-    
+  const handleDayClick = async (day: any) => {
     try {
-      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://jyotish-api-ndcfqrjivq-uc.a.run.app'
-      const API_KEY = import.meta.env.VITE_API_KEY
+      console.log('🖱️ Day clicked:', day)
+      setIsLoadingDetails(true)
+      setSelectedDay(day.date)
+      setSelectedDayData(day)
       
-      const headers: Record<string, string> = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
+      // Cargar detalles del panchanga desde JSON simplificado
+      console.log('🔍 Loading panchanga details for:', day.date)
+      const details = await simplifiedPanchangaService.getPanchangaDetails(day)
+      console.log('✅ Panchanga details loaded:', details)
+      
+      const updatedDayData = {
+        ...day,
+        details
       }
+      console.log('📊 Updated day data:', updatedDayData)
       
-      if (API_KEY) {
-        headers['X-API-Key'] = API_KEY
-      }
-      
-      // Load yogas for each day
-      for (const day of panchangaData.days) {
-        if (day && day.date) {
-          try {
-            const queryParams = new URLSearchParams({
-              date: day.date,
-              latitude: location.latitude.toString(),
-              longitude: location.longitude.toString()
-            })
-            
-            const response = await fetch(`${API_BASE_URL}/v1/panchanga/yogas/detect?${queryParams}`, {
-              method: 'GET',
-              headers,
-              mode: 'cors',
-            })
-            
-            if (response.ok) {
-              const data = await response.json()
-              
-              if (data && (data.positive_yogas || data.negative_yogas)) {
-                const positiveYogas = data.positive_yogas || []
-                const negativeYogas = data.negative_yogas || []
-                
-                const allYogas: SpecialYoga[] = [
-                  ...positiveYogas.map((yoga: any) => ({
-                    ...yoga,
-                    polarity: 'auspicious' as const
-                  })),
-                  ...negativeYogas.map((yoga: any) => ({
-                    ...yoga,
-                    polarity: 'inauspicious' as const
-                  }))
-                ]
-                
-                newDailyYogas[day.date] = allYogas
-              } else {
-                newDailyYogas[day.date] = []
-              }
-            } else {
-              newDailyYogas[day.date] = []
-            }
-          } catch (error) {
-            console.error(`Error loading yogas for ${day.date}:`, error)
-            newDailyYogas[day.date] = []
-          }
-        }
-      }
-      
-      setDailyYogas(newDailyYogas)
-      console.log('🧘 Loaded yogas for all days:', newDailyYogas)
+      setSelectedDayData(updatedDayData)
+      setIsDetailPanelOpen(true)
+      toast.success(`Cargando detalles del ${new Date(day.date).toLocaleDateString('es-ES')}`)
     } catch (error) {
-      console.error('Error loading all yogas:', error)
-      toast.error('Error al cargar yogas del mes')
+      console.error('❌ Error loading day details:', error)
+      toast.error('Error al cargar los detalles del día')
     } finally {
-      setIsLoadingYogas(false)
+      setIsLoadingDetails(false)
     }
   }
 
-  // Load yogas when panchanga data changes
-  React.useEffect(() => {
-    if (panchangaData?.days && panchangaData.days.length > 0) {
-      loadAllYogas()
-    }
-  }, [panchangaData, location])
-
-  // Function to load special yogas for a specific day
-  const loadSpecialYogas = async (date: string) => {
-    if (selectedDay === date && selectedDayYogas.length > 0) {
-      // Already loaded, just toggle
-      setSelectedDay(null)
-      setSelectedDayYogas([])
-      return
-    }
-
-    setSelectedDay(date)
-    
-    // Use already loaded yogas if available
-    if (dailyYogas[date]) {
-      setSelectedDayYogas(dailyYogas[date])
-      return
-    }
-    
-    // Otherwise load them individually
-    setIsLoadingYogas(true)
-    
-    try {
-      // Use the new GET endpoint
-      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://jyotish-api-ndcfqrjivq-uc.a.run.app'
-      const API_KEY = import.meta.env.VITE_API_KEY
-      
-      const queryParams = new URLSearchParams({
-        date: date,
-        latitude: location.latitude.toString(),
-        longitude: location.longitude.toString()
-      })
-      
-      const headers: Record<string, string> = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      }
-      
-      if (API_KEY) {
-        headers['X-API-Key'] = API_KEY
-      }
-      
-      const response = await fetch(`${API_BASE_URL}/v1/panchanga/yogas/detect?${queryParams}`, {
-        method: 'GET',
-        headers,
-        mode: 'cors',
-      })
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-      
-      const data = await response.json()
-      
-      if (data && (data.positive_yogas || data.negative_yogas)) {
-        const positiveYogas = data.positive_yogas || []
-        const negativeYogas = data.negative_yogas || []
-        
-        const allYogas: SpecialYoga[] = [
-          ...positiveYogas.map((yoga: any) => ({
-            ...yoga,
-            polarity: 'auspicious' as const
-          })),
-          ...negativeYogas.map((yoga: any) => ({
-            ...yoga,
-            polarity: 'inauspicious' as const
-          }))
-        ]
-        
-        setSelectedDayYogas(allYogas)
-        console.log(`🧘 Loaded ${allYogas.length} special yogas for ${date}`)
-      } else {
-        setSelectedDayYogas([])
-      }
-    } catch (error) {
-      console.error('Error loading special yogas:', error)
-      toast.error('Error al cargar yogas especiales')
-      setSelectedDayYogas([])
-    } finally {
-      setIsLoadingYogas(false)
-    }
-  }
-
-  const handleCopyPrompt = () => {
-    if (!panchangaData?.days?.[0]) return
-    
-    const day = panchangaData.days[0]
-    const prompt = `# REPORTE DIARIO — ${day.date}
-Lugar: ${location.city}
-TZ: ${location.timezone}
-Ayanāṁśa: True Citra Paksha (Lahiri)
-
-Tithi: ${day.tithi.name} (${day.tithi.index})
-Vara: ${day.vara.name}
-Nakṣatra: ${day.nakshatra.name} (p${day.nakshatra.pada})
-Yoga: ${day.yoga.name}
-Karana: ${day.karana.name}
-
-${day.specialYogas && Array.isArray(day.specialYogas) && day.specialYogas.length > 0 ? `Yogas especiales: ${day.specialYogas.map((y: any) => y.name).join(', ')}` : 'Sin yogas especiales'}
-
-Instrucciones: consejo práctico sin tecnicismos, tono positivo, 90–120 palabras.`
-
-    navigator.clipboard.writeText(prompt)
-    toast.success('Prompt copiado al portapapeles')
-  }
-
-  const handleSavePrompt = () => {
-    if (!panchangaData?.days?.[0]) return
-    
-    const day = panchangaData.days[0]
-    const prompt = `# REPORTE DIARIO — ${day.date}
-Lugar: ${location.city}
-TZ: ${location.timezone}
-Ayanāṁśa: True Citra Paksha (Lahiri)
-
-Tithi: ${day.tithi.name} (${day.tithi.index})
-Vara: ${day.vara.name}
-Nakṣatra: ${day.nakshatra.name} (p${day.nakshatra.pada})
-Yoga: ${day.yoga.name}
-Karana: ${day.karana.name}
-
-${day.specialYogas && Array.isArray(day.specialYogas) && day.specialYogas.length > 0 ? `Yogas especiales: ${day.specialYogas.map((y: any) => y.name).join(', ')}` : 'Sin yogas especiales'}
-
-Instrucciones: consejo práctico sin tecnicismos, tono positivo, 90–120 palabras.`
-
-    const blob = new Blob([prompt], { type: 'text/plain' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `panchanga-${day.date}.txt`
-    a.click()
-    URL.revokeObjectURL(url)
-    toast.success('Prompt guardado como archivo')
+  const handleCloseDetailPanel = () => {
+    setIsDetailPanelOpen(false)
+    setSelectedDay(null)
+    setSelectedDayData(null)
   }
 
   const renderCalendar = () => {
-    console.log('renderCalendar called, panchangaData:', panchangaData)
+    if (!panchangaData?.days) return null
     
-    if (!panchangaData?.days) {
-      console.log('No panchangaData or days, returning null')
-      return null
-    }
+    const days = panchangaData.days
     
-    console.log('Panchanga days count:', panchangaData.days.length)
-    console.log('First day sample:', panchangaData.days[0])
-    
-    const days = panchangaData.days.filter(day => day && day.date) // Filter out null/undefined days
-    
-    // Get the first day of the month and its day of week (0 = Sunday, 1 = Monday, etc.)
+    // Obtener el primer día del mes y su día de la semana
     const firstDayOfMonth = new Date(selectedYear, selectedMonth - 1, 1)
-    const firstDayWeekday = firstDayOfMonth.getDay()
+    const firstDayWeekday = firstDayOfMonth.getDay() // 0 = Domingo, 1 = Lunes, etc.
     
-    // Get the number of days in the month
+    // Obtener el número de días en el mes
     const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate()
     
-    console.log('Calendar info:', {
-      firstDayOfMonth: firstDayOfMonth.toISOString(),
-      firstDayWeekday,
-      daysInMonth,
-      daysAvailable: days.length
-    })
-    
-    // Create calendar grid
+    // Crear array de días del calendario
     const calendarDays = []
     
-    // Add empty cells for days before the first day of the month
+    // Agregar días vacíos antes del primer día del mes
     for (let i = 0; i < firstDayWeekday; i++) {
       calendarDays.push(null)
     }
     
-    // Add the actual days of the month
-    for (let i = 0; i < daysInMonth; i++) {
-      const dayIndex = i
-      if (dayIndex < days.length && days[dayIndex]) {
-        calendarDays.push(days[dayIndex])
-      } else {
-        // If we don't have data for this day, create a placeholder
-        const dateStr = `${selectedYear}-${selectedMonth.toString().padStart(2, '0')}-${(i + 1).toString().padStart(2, '0')}`
-        calendarDays.push({
-          date: dateStr,
-          tithi: { name: 'Loading...', index: 0 },
-          vara: { name: 'Loading...' },
-          nakshatra: { name: 'Loading...', pada: 0 },
-          yoga: { name: 'Loading...' },
-          karana: { name: 'Loading...' },
-          specialYogas: []
-        })
-      }
+    // Agregar los días del mes
+    for (let i = 1; i <= daysInMonth; i++) {
+      const dateStr = `${selectedYear}-${selectedMonth.toString().padStart(2, '0')}-${i.toString().padStart(2, '0')}`
+      const dayData = days.find((d: any) => d.date === dateStr)
+      calendarDays.push(dayData || { date: dateStr, tithi: { name: 'N/A' }, vara: { name: 'N/A' }, nakshatra: { name: 'N/A' }, yoga: { name: 'N/A' }, karana: { name: 'N/A' }, specialYogas: [] })
     }
     
-    // Group into weeks
+    // Agrupar en semanas
     const weeks = []
     for (let i = 0; i < calendarDays.length; i += 7) {
       const week = calendarDays.slice(i, i + 7)
       weeks.push(week)
     }
     
-    console.log('Calendar weeks count:', weeks.length)
-    console.log('Calendar days total:', calendarDays.length)
-    
     const dayNames = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb']
     
     return (
       <div className="space-y-2">
-        {/* Header with day names */}
+        {/* Header con nombres de días */}
         <div className="grid grid-cols-7 gap-1">
           {dayNames.map((dayName, index) => (
             <div key={index} className="text-center text-sm font-semibold text-muted-foreground p-2">
@@ -353,90 +140,80 @@ Instrucciones: consejo práctico sin tecnicismos, tono positivo, 90–120 palabr
           ))}
         </div>
         
-        {/* Calendar grid */}
+        {/* Calendario */}
         <div className="grid gap-2">
           {weeks.map((week, weekIndex) => (
             <div key={weekIndex} className="grid grid-cols-7 gap-1">
               {week.map((day: any, dayIndex: number) => (
-                <Card key={dayIndex} className={`p-2 min-h-[120px] ${!day ? 'bg-muted/20' : 'cursor-pointer hover:bg-accent/50 transition-colors'} ${selectedDay === day?.date ? 'ring-2 ring-primary' : ''}`}>
+                <Card 
+                  key={dayIndex} 
+                  className={`p-3 min-h-[180px] transition-all duration-200 ${
+                    !day ? 'bg-muted/20' : 'cursor-pointer hover:shadow-md hover:scale-105'
+                  } ${
+                    selectedDay === day?.date ? 'ring-2 ring-primary bg-primary/5' : ''
+                  }`}
+                  onClick={() => day && handleDayClick(day)}
+                >
                   {day ? (
                     <>
                       <div className="text-center text-sm font-medium mb-2">
                         {new Date(day.date).getDate()}
                       </div>
-                      <div className="space-y-1 text-xs">
-                        <div className="text-blue-600 font-medium">
-                          {day.tithi?.name || 'Unknown'} ({day.tithi?.index || 0})
+                      <div className="space-y-2 text-xs">
+                        <div className="text-center">
+                          <span className="font-medium text-blue-600">
+                            {day.tithi?.name || 'N/A'}
+                          </span>
                         </div>
-                        <div className="text-green-600">
-                          {day.vara?.name || 'Unknown'}
+                        <div className="text-center">
+                          <span className="text-green-600">
+                            {day.vara?.name || 'N/A'}
+                          </span>
                         </div>
-                        <div className="text-purple-600">
-                          {day.nakshatra?.name || 'Unknown'} p{day.nakshatra?.pada || 0}
+                        <div className="text-center">
+                          <span className="text-purple-600">
+                            {day.nakshatra?.name || 'N/A'}
+                          </span>
+                          {day.nakshatra?.pada && (
+                            <Badge variant="outline" className="ml-1 text-xs">
+                              p{day.nakshatra.pada}
+                            </Badge>
+                          )}
                         </div>
-                        <div className="text-orange-600">
-                          {day.yoga?.name || 'Unknown'}
+                        <div className="text-center">
+                          <span className="text-orange-600">
+                            {day.yoga?.name || 'N/A'}
+                          </span>
                         </div>
-                        <div className="text-red-600">
-                          {day.karana?.name || 'Unknown'}
+                        <div className="text-center">
+                          <span className="text-indigo-600">
+                            {day.karana?.name || 'N/A'}
+                          </span>
                         </div>
-                        
-                        {/* Special Yogas Display */}
-                        {dailyYogas[day.date] && dailyYogas[day.date].length > 0 && (
-                          <div className="mt-2 space-y-1">
-                            {dailyYogas[day.date].slice(0, 2).map((yoga, index) => (
-                              <div
-                                key={index}
-                                className={`text-xs px-1 py-0.5 rounded text-center font-medium ${
-                                  yoga.polarity === 'auspicious' 
-                                    ? 'bg-green-100 text-green-800 border border-green-200' 
-                                    : 'bg-red-100 text-red-800 border border-red-200'
-                                }`}
-                              >
-                                {yoga.name}
+                        {day.specialYogas && day.specialYogas.length > 0 && (
+                          <div className="space-y-1">
+                            {day.specialYogas.slice(0, 2).map((yoga: any, index: number) => (
+                              <div key={index} className="flex justify-center">
+                                <Badge 
+                                  variant={yoga.polarity === 'positive' ? 'default' : 'destructive'} 
+                                  className="text-xs px-1 py-0.5"
+                                >
+                                  {yoga.name || yoga.type || 'Yoga'}
+                                </Badge>
                               </div>
                             ))}
-                            {dailyYogas[day.date].length > 2 && (
-                              <div className="text-xs text-muted-foreground text-center">
-                                +{dailyYogas[day.date].length - 2} más
+                            {day.specialYogas.length > 2 && (
+                              <div className="text-center text-muted-foreground text-xs">
+                                +{day.specialYogas.length - 2} más
                               </div>
                             )}
                           </div>
                         )}
-                        
-                        {/* Yogas indicator */}
-                        <div className="flex items-center justify-center mt-1">
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="h-5 w-5 p-0"
-                                onClick={(e) => {
-                                  e.stopPropagation()
-                                  if (day.date) {
-                                    loadSpecialYogas(day.date)
-                                  }
-                                }}
-                                disabled={isLoadingYogas && selectedDay === day.date}
-                              >
-                                {isLoadingYogas && selectedDay === day.date ? (
-                                  <div className="h-2 w-2 animate-spin rounded-full border border-primary border-t-transparent" />
-                                ) : (
-                                  <Info className="h-2 w-2" />
-                                )}
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Ver todos los yogas especiales</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </div>
                       </div>
                     </>
                   ) : (
                     <div className="text-center text-muted-foreground text-xs">
-                      {/* Empty cell */}
+                      {/* Celda vacía */}
                     </div>
                   )}
                 </Card>
@@ -451,16 +228,16 @@ Instrucciones: consejo práctico sin tecnicismos, tono positivo, 90–120 palabr
   if (error) {
     return (
       <div className="p-4">
-      <Card>
-        <CardHeader>
+        <Card>
+          <CardHeader>
             <CardTitle className="text-red-600">Error al cargar datos</CardTitle>
-        </CardHeader>
-        <CardContent>
+          </CardHeader>
+          <CardContent>
             <p className="text-muted-foreground">
-              No se pudieron cargar los datos de Pañchāṅga.
+              No se pudieron cargar los datos del calendario panchanga.
             </p>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
       </div>
     )
   }
@@ -468,7 +245,7 @@ Instrucciones: consejo práctico sin tecnicismos, tono positivo, 90–120 palabr
   return (
     <div className="p-4 space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">📅 Calendario Pañchāṅga</h1>
+        <h1 className="text-3xl font-bold">🌙 Calendario Panchanga</h1>
       </div>
 
       {/* Controls */}
@@ -485,32 +262,32 @@ Instrucciones: consejo práctico sin tecnicismos, tono positivo, 90–120 palabr
               <Label>Año</Label>
               <Select value={selectedYear.toString()} onValueChange={(value) => setSelectedYear(parseInt(value))}>
                 <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
                   {Array.from({ length: 10 }, (_, i) => new Date().getFullYear() + i).map(year => (
                     <SelectItem key={year} value={year.toString()}>
                       {year}
                     </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             
             <div>
               <Label>Mes</Label>
               <Select value={selectedMonth.toString()} onValueChange={(value) => setSelectedMonth(parseInt(value))}>
                 <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {Array.from({ length: 12 }, (_, i) => i + 1).map(month => (
-                  <SelectItem key={month} value={month.toString()}>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {Array.from({ length: 12 }, (_, i) => i + 1).map(month => (
+                    <SelectItem key={month} value={month.toString()}>
                       {new Date(2024, month - 1).toLocaleDateString('es', { month: 'long' })}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             
             <div>
@@ -538,16 +315,47 @@ Instrucciones: consejo práctico sin tecnicismos, tono positivo, 90–120 palabr
       {/* Calendar */}
       <Card>
         <CardHeader>
-          <CardTitle>Calendario Mensual</CardTitle>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle>Calendario Mensual</CardTitle>
               <CardDescription>
-            Tithi, Vara, Nakshatra, Yoga y Karana
+                Haz click en cualquier día para ver los detalles completos del pañcāṅga
               </CardDescription>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className={`w-3 h-3 rounded-full ${apiHealth ? 'bg-green-500' : 'bg-red-500'}`}></div>
+              <span className="text-sm text-muted-foreground">
+                API: {apiHealth ? 'Conectada' : 'Desconectada'}
+              </span>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => window.location.reload()}
+                className="ml-2"
+              >
+                🔄 Recargar
+              </Button>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
           {isLoading ? (
             <div className="text-center py-8">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-              <p className="mt-2 text-muted-foreground">Cargando datos...</p>
+              <p className="mt-2 text-muted-foreground">
+                Cargando calendario progresivamente...
+              </p>
+              <p className="text-xs text-muted-foreground mt-2">
+                Carga por lotes de 3 días con pausas para evitar errores CORS
+              </p>
+              {isLoadingDetails && (
+                <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+                    <span className="text-sm text-blue-800">Cargando detalles del panchanga...</span>
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             renderCalendar()
@@ -555,229 +363,28 @@ Instrucciones: consejo práctico sin tecnicismos, tono positivo, 90–120 palabr
         </CardContent>
       </Card>
 
-      {/* Special Yogas Panel */}
-      {selectedDay && selectedDayYogas.length > 0 && (
-        <Card className="mt-6">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <span>🧘</span>
-              Yogas Especiales - {new Date(selectedDay).toLocaleDateString('es-ES', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => {
-                  setSelectedDay(null)
-                  setSelectedDayYogas([])
-                }}
-                className="ml-auto"
-              >
-                ✕
-              </Button>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Auspicious Yogas */}
-                                  <div>
-                <h4 className="font-semibold text-green-600 mb-2">Yogas Auspiciosos</h4>
-                <div className="space-y-2">
-                  {selectedDayYogas
-                    .filter((yoga) => yoga.polarity === 'auspicious')
-                    .map((yoga, index) => (
-                      <div key={index} className="p-3 border border-green-200 rounded-lg bg-green-50">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Badge variant="default" className="text-xs">
-                                        {yoga.name}
-                                      </Badge>
-                          <span className="text-xs text-muted-foreground">
-                            {yoga.type}
-                          </span>
-                                          </div>
-                        <p className="text-sm mb-2">{yoga.detailed_description || yoga.beneficial}</p>
-                        {yoga.avoid && (
-                          <p className="text-xs text-destructive">
-                            <strong>Evitar:</strong> {yoga.avoid}
-                          </p>
-                        )}
-                        {yoga.notes && (
-                          <p className="text-xs text-muted-foreground">{yoga.notes}</p>
-                        )}
-                      </div>
-                    ))}
-                  {selectedDayYogas.filter((yoga) => yoga.polarity === 'auspicious').length === 0 && (
-                    <p className="text-sm text-muted-foreground">No hay yogas auspiciosos este día</p>
-                  )}
-                </div>
-                          </div>
-                          
-              {/* Inauspicious Yogas */}
-              <div>
-                <h4 className="font-semibold text-red-600 mb-2">Yogas Inauspiciosos</h4>
-                <div className="space-y-2">
-                  {selectedDayYogas
-                    .filter((yoga) => yoga.polarity === 'inauspicious')
-                    .map((yoga, index) => (
-                      <div key={index} className="p-3 border border-red-200 rounded-lg bg-red-50">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Badge variant="destructive" className="text-xs">
-                                    {yoga.name}
-                                  </Badge>
-                          <span className="text-xs text-muted-foreground">
-                            {yoga.type}
-                          </span>
-                        </div>
-                        <p className="text-sm mb-2">{yoga.detailed_description || yoga.beneficial}</p>
-                        {yoga.avoid && (
-                          <p className="text-xs text-destructive">
-                            <strong>Evitar:</strong> {yoga.avoid}
-                          </p>
-                        )}
-                        {yoga.notes && (
-                          <p className="text-xs text-muted-foreground">{yoga.notes}</p>
-                        )}
-                  </div>
-                    ))}
-                  {selectedDayYogas.filter((yoga) => yoga.polarity === 'inauspicious').length === 0 && (
-                    <p className="text-sm text-muted-foreground">No hay yogas inauspiciosos este día</p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+      {/* Detail Panel */}
+      {selectedDayData && selectedDay && (
+        <PanchangaDetailPanel
+          date={selectedDay}
+          panchanga={selectedDayData.details || selectedDayData}
+          isOpen={isDetailPanelOpen}
+          onClose={handleCloseDetailPanel}
+        />
       )}
 
-      {/* Special Yogas */}
-        {panchangaData?.days && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Auspicious Yogas */}
-                    <Card>
-                      <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <span>🧘</span>
-                  Yogas Auspiciosos
-                </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-2">
-                  {panchangaData.days
-                    .filter((day: any) => day.specialYogas && Array.isArray(day.specialYogas))
-                    .flatMap((day: any) =>
-                      day.specialYogas.filter((yoga: any) => yoga.polarity === 'auspicious')
-                    ).map((yoga: any, index: number) => (
-                      <div key={index} className="p-3 border rounded-lg">
-                              <div className="font-medium">{yoga.name}</div>
-                        <div className="text-sm text-muted-foreground">
-                          {new Date(panchangaData.days.find((d: any) =>
-                            d.specialYogas && d.specialYogas.some((y: any) => y.name === yoga.name)
-                          )?.date || '').toLocaleDateString()}
-                        </div>
-                        <div className="text-xs text-green-600 mt-1">
-                          {yoga.reason}
-                              </div>
-                            </div>
-                          ))}
-                  {panchangaData.days
-                    .filter((day: any) => day.specialYogas && Array.isArray(day.specialYogas))
-                    .flatMap((day: any) =>
-                      day.specialYogas.filter((yoga: any) => yoga.polarity === 'auspicious')
-                    ).length === 0 && (
-                    <div className="text-center text-muted-foreground py-4">
-                      No hay yogas auspiciosos este mes
-                    </div>
-                  )}
-                        </div>
-                      </CardContent>
-                    </Card>
-                    
-            {/* Inauspicious Yogas */}
-                    <Card>
-                      <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <span>🧘</span>
-                  Yogas Inauspiciosos
-                </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-2">
-                  {panchangaData.days
-                    .filter((day: any) => day.specialYogas && Array.isArray(day.specialYogas))
-                    .flatMap((day: any) =>
-                      day.specialYogas.filter((yoga: any) => yoga.polarity === 'inauspicious')
-                    ).map((yoga: any, index: number) => (
-                      <div key={index} className="p-3 border rounded-lg">
-                              <div className="font-medium">{yoga.name}</div>
-                        <div className="text-sm text-muted-foreground">
-                          {new Date(panchangaData.days.find((d: any) =>
-                            d.specialYogas && d.specialYogas.some((y: any) => y.name === yoga.name)
-                          )?.date || '').toLocaleDateString()}
-                        </div>
-                        <div className="text-xs text-red-600 mt-1">
-                          {yoga.reason}
-                        </div>
-                      </div>
-                    ))}
-                  {panchangaData.days
-                    .filter((day: any) => day.specialYogas && Array.isArray(day.specialYogas))
-                    .flatMap((day: any) =>
-                      day.specialYogas.filter((yoga: any) => yoga.polarity === 'inauspicious')
-                    ).length === 0 && (
-                    <div className="text-center text-muted-foreground py-4">
-                      No hay yogas inauspiciosos este mes
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+      {/* Loading Overlay for Details */}
+      {isLoadingDetails && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-2 text-center">Cargando detalles del pañcāṅga...</p>
           </div>
-        )}
-
-      {/* Daily Prompt */}
-      {panchangaData?.days?.[0] && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Prompt IA Diario</CardTitle>
-            <CardDescription>
-              Genera un prompt para análisis del día seleccionado
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Textarea
-              value={`# REPORTE DIARIO — ${panchangaData.days[0].date}
-Lugar: ${location.city}
-TZ: ${location.timezone}
-Ayanāṁśa: True Citra Paksha (Lahiri)
-
-Tithi: ${panchangaData.days[0].tithi.name} (${panchangaData.days[0].tithi.index})
-Vara: ${panchangaData.days[0].vara.name}
-Nakṣatra: ${panchangaData.days[0].nakshatra.name} (p${panchangaData.days[0].nakshatra.pada})
-Yoga: ${panchangaData.days[0].yoga.name}
-Karana: ${panchangaData.days[0].karana.name}
-
-${panchangaData.days[0].specialYogas && Array.isArray(panchangaData.days[0].specialYogas) && panchangaData.days[0].specialYogas.length > 0 ? `Yogas especiales: ${panchangaData.days[0].specialYogas.map((y: any) => y.name).join(', ')}` : 'Sin yogas especiales'}
-
-Instrucciones: consejo práctico sin tecnicismos, tono positivo, 90–120 palabras.`}
-              readOnly
-              className="min-h-[200px] font-mono text-sm"
-            />
-            <div className="flex gap-2">
-              <Button onClick={handleCopyPrompt}>
-                <Copy className="h-4 w-4 mr-2" />
-                Copiar
-              </Button>
-              <Button onClick={handleSavePrompt}>
-                <FileText className="h-4 w-4 mr-2" />
-                Guardar .txt
-              </Button>
-            </div>
-        </CardContent>
-      </Card>
+        </div>
       )}
+
+      {/* Debug Component - Temporary */}
+      <JsonDataDebug />
     </div>
   )
 }

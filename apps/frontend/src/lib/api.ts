@@ -1,7 +1,10 @@
 import { useQuery as useQueryOriginal } from '@tanstack/react-query'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://jyotish-api-273065401301.us-central1.run.app'
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://jyotish-api-ndcfqrjivq-uc.a.run.app'
 const API_KEY = import.meta.env.VITE_API_KEY
+
+
 
 // Types
 interface PanchangaMonthParams {
@@ -11,32 +14,48 @@ interface PanchangaMonthParams {
   longitude: number
 }
 
-// API Client with exponential backoff and timeout
+// API Client with improved error handling and CORS support
 const apiClient = {
   async get(endpoint: string): Promise<any> {
     const url = `${API_BASE_URL}${endpoint}`
     const headers = getHeaders()
     
+    console.log(`🌐 Making API request to: ${url}`)
+    console.log(`📋 Headers:`, headers)
+    
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 20000) // 20s timeout
+    const timeoutId = setTimeout(() => controller.abort(), 30000) // 30s timeout
     
     try {
       const response = await fetch(url, {
         method: 'GET',
         headers,
         signal: controller.signal,
+        mode: 'cors', // Explicitly enable CORS
+        credentials: 'omit', // Don't send cookies
       })
       
       clearTimeout(timeoutId)
       
+      console.log(`📡 Response status: ${response.status} ${response.statusText}`)
+      console.log(`📡 Response headers:`, Object.fromEntries(response.headers.entries()))
+      
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        const errorText = await response.text()
+        console.error(`❌ API Error ${response.status}:`, errorText)
+        throw new Error(`HTTP ${response.status}: ${response.statusText} - ${errorText}`)
       }
       
-      return response.json()
+      const data = await response.json()
+      console.log(`✅ API Response:`, data)
+      return data
     } catch (error) {
       clearTimeout(timeoutId)
-      console.error('API Error:', error)
+      if (error instanceof Error && error.name === 'AbortError') {
+        console.error('⏰ API Request timeout after 30s')
+        throw new Error('Request timeout - API took too long to respond')
+      }
+      console.error('❌ API Error:', error)
       throw error
     }
   },
@@ -300,73 +319,202 @@ export const usePositionsMonth = (params: { year: number; month: number; latitud
   })
 }
 
-// Panchanga month hook
+// Panchanga month hook with improved error handling
 export const usePanchangaMonth = ({ year, month, latitude, longitude }: PanchangaMonthParams) => {
   return useQueryOriginal({
     queryKey: ['panchanga-month', year, month, latitude, longitude],
     queryFn: async () => {
+      // Load data in batches with progressive fallback
+      const loadBatch = async (startDay: number, endDay: number) => {
+        const batchDays: any[] = []
+        
+        for (let day = startDay; day <= endDay; day++) {
+          const dateStr = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
+          const queryParams = new URLSearchParams({
+            date: dateStr,
+            latitude: latitude.toString(),
+            longitude: longitude.toString(),
+            reference_time: 'sunrise'
+          })
+          
+          console.log(`🌐 Processing day ${day}/${endDay}: ${dateStr}`)
+          
+          // Progressive delay based on day number to avoid rate limiting
+          const delayMs = Math.min(day * 200, 3000) // 200ms per day, max 3s
+          if (day > startDay) {
+            console.log(`⏳ Progressive delay: ${delayMs}ms for day ${day}`)
+            await new Promise(resolve => setTimeout(resolve, delayMs))
+          }
+          
+          try {
+            // Retry logic with exponential backoff and longer delays
+            let response
+            let retryCount = 0
+            const maxRetries = 8 // Increased retries for problematic days
+            
+            while (retryCount < maxRetries) {
+              try {
+                response = await apiClient.get(`/v1/panchanga/precise/daily?${queryParams}`)
+                break // Success, exit retry loop
+              } catch (error: any) {
+                retryCount++
+                if (retryCount >= maxRetries) {
+                  throw error // Give up after max retries
+                }
+                
+                // Exponential backoff with longer delays
+                const retryDelay = Math.min(retryCount * 4000, 20000) // 4s, 8s, 12s, 16s, 20s
+                console.log(`🔄 Error on day ${day}, retry ${retryCount}/${maxRetries} in ${retryDelay/1000}s...`)
+                console.log(`📋 Error details:`, error.message)
+                await new Promise(resolve => setTimeout(resolve, retryDelay))
+              }
+            }
+            
+            console.log(`✅ Day ${day} API response received:`, response)
+
+            if (response && response.panchanga) {
+              const panchanga = response.panchanga
+              console.log(`📅 Day ${day} panchanga data:`, panchanga)
+
+              const dayData: any = {
+                date: dateStr,
+                tithi: {
+                  name: panchanga.tithi?.name || 'Unknown',
+                  index: panchanga.tithi?.number || 1
+                },
+                vara: {
+                  name: panchanga.vara?.name || 'Unknown'
+                },
+                nakshatra: {
+                  name: panchanga.nakshatra?.name || 'Unknown',
+                  pada: panchanga.nakshatra?.pada || 1
+                },
+                yoga: {
+                  name: panchanga.yoga?.name || 'Unknown'
+                },
+                karana: {
+                  name: panchanga.karana?.name || 'Unknown'
+                },
+                specialYogas: [] // Will be loaded separately
+              }
+
+              // Load special yogas for this day using the correct endpoint
+              try {
+                const yogasQueryParams = new URLSearchParams({
+                  date: dateStr,
+                  latitude: latitude.toString(),
+                  longitude: longitude.toString()
+                })
+                
+                console.log(`🧘 Loading special yogas for day ${day}...`)
+                const yogasResponse = await apiClient.get(`/v1/panchanga/yogas/detect?${yogasQueryParams}`)
+                console.log(`🧘 Day ${day} yogas response:`, yogasResponse)
+                
+                if (yogasResponse && (yogasResponse.positive_yogas || yogasResponse.negative_yogas)) {
+                  const positiveYogas = yogasResponse.positive_yogas || []
+                  const negativeYogas = yogasResponse.negative_yogas || []
+                  
+                  const allYogas = [
+                    ...positiveYogas.map((yoga: any) => ({
+                      ...yoga,
+                      polarity: 'positive'
+                    })),
+                    ...negativeYogas.map((yoga: any) => ({
+                      ...yoga,
+                      polarity: 'negative'
+                    }))
+                  ]
+                  
+                  dayData.specialYogas = allYogas as any[]
+                  console.log(`🧘 Day ${day} special yogas loaded:`, allYogas.length)
+                }
+              } catch (yogasError) {
+                console.warn(`⚠️ Could not load special yogas for day ${day}:`, yogasError)
+                // Continue without special yogas for this day
+              }
+
+              batchDays.push(dayData)
+            } else {
+              console.warn(`⚠️ No panchanga data for day ${day}:`, response)
+              // Add a placeholder day to maintain calendar structure
+              batchDays.push({
+                date: dateStr,
+                tithi: { name: 'Unknown', index: 1 },
+                vara: { name: 'Unknown' },
+                nakshatra: { name: 'Unknown', pada: 1 },
+                yoga: { name: 'Unknown' },
+                karana: { name: 'Unknown' },
+                specialYogas: []
+              })
+            }
+                      } catch (dayError) {
+              console.error(`❌ Error fetching day ${day}:`, dayError)
+              throw new Error(`Failed to load data for day ${day}: ${dayError}`)
+            }
+        }
+        
+        return batchDays
+      }
+      
       console.log('🌐 Fetching panchanga month data...')
       console.log('📅 Params:', { year, month, latitude, longitude })
+      console.log('🔗 API Base URL:', API_BASE_URL)
       
       const daysInMonth = new Date(year, month, 0).getDate()
-      const allDays: any[] = []
+      let allDays: any[] = []
+      let successCount = 0
+      let errorCount = 0
       
-      // Use the new GET endpoint for each day
-      for (let day = 1; day <= daysInMonth; day++) {
-        const dateStr = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
-        const queryParams = new URLSearchParams({
-          date: dateStr,
-          latitude: latitude.toString(),
-          longitude: longitude.toString(),
-          reference_time: 'sunrise' // Add reference time parameter
-        })
+      // Load data in very small batches with long pauses and batch retry
+      const batchSize = 3 // Very small batch size
+      for (let batchStart = 1; batchStart <= daysInMonth; batchStart += batchSize) {
+        const batchEnd = Math.min(batchStart + batchSize - 1, daysInMonth)
+        console.log(`📦 Loading batch ${Math.ceil(batchStart/batchSize)}: days ${batchStart}-${batchEnd}`)
         
-        console.log(`🌐 API URL: ${API_BASE_URL}/v1/panchanga/precise/daily?${queryParams}`)
+        let batchSuccess = false
+        let batchRetryCount = 0
+        const maxBatchRetries = 3
         
-        try {
-          const response = await apiClient.get(`/v1/panchanga/precise/daily?${queryParams}`)
-          console.log(`✅ Day ${day} API response received:`, response)
-
-          if (response && response.panchanga) {
-            const panchanga = response.panchanga
-            console.log(`📅 Day ${day} panchanga data:`, panchanga)
-
-            allDays.push({
-              date: dateStr,
-              tithi: {
-                name: panchanga.tithi?.name || 'Unknown',
-                index: panchanga.tithi?.number || 1
-              },
-              vara: {
-                name: panchanga.vara?.name || 'Unknown'
-              },
-              nakshatra: {
-                name: panchanga.nakshatra?.name || 'Unknown',
-                pada: panchanga.nakshatra?.pada || 1
-              },
-              yoga: {
-                name: panchanga.yoga?.name || 'Unknown'
-              },
-              karana: {
-                name: panchanga.karana?.name || 'Unknown'
-              },
-              specialYogas: [] // Will be loaded separately
-            })
-          } else {
-            console.warn(`⚠️ No panchanga data for day ${day}:`, response)
+        while (!batchSuccess && batchRetryCount < maxBatchRetries) {
+          try {
+            const batchDays = await loadBatch(batchStart, batchEnd)
+            allDays = [...allDays, ...batchDays]
+            console.log(`✅ Batch ${Math.ceil(batchStart/batchSize)} completed successfully`)
+            batchSuccess = true
+          } catch (batchError) {
+            batchRetryCount++
+            console.error(`❌ Batch ${Math.ceil(batchStart/batchSize)} failed (attempt ${batchRetryCount}/${maxBatchRetries}):`, batchError)
+            
+            if (batchRetryCount >= maxBatchRetries) {
+              throw new Error(`Batch ${Math.ceil(batchStart/batchSize)} (days ${batchStart}-${batchEnd}) failed after ${maxBatchRetries} attempts`)
+            }
+            
+            // Wait longer before retrying the entire batch
+            const batchRetryDelay = 15000 // 15 seconds
+            console.log(`⏳ Retrying batch in ${batchRetryDelay/1000} seconds...`)
+            await new Promise(resolve => setTimeout(resolve, batchRetryDelay))
           }
-        } catch (dayError) {
-          console.error(`❌ Error fetching day ${day}:`, dayError)
-          throw dayError // Re-throw to trigger fallback
+        }
+        
+        // Very long pause between batches to avoid overwhelming the API
+        if (batchEnd < daysInMonth) {
+          const pauseTime = 10000 // 10 seconds
+          console.log(`⏳ Pausing ${pauseTime/1000} seconds between batches...`)
+          await new Promise(resolve => setTimeout(resolve, pauseTime))
         }
       }
       
-      console.log('📊 All days processed:', allDays.length)
+      // Count successes and errors
+      successCount = allDays.filter(day => day.tithi.name !== 'Unknown').length
+      errorCount = allDays.filter(day => day.tithi.name === 'Unknown').length
+      
+      console.log(`📊 Month processing complete: ${successCount} successful, ${errorCount} errors out of ${daysInMonth} days`)
       return { days: allDays }
     },
     enabled: !!(year && month && latitude && longitude),
     staleTime: 5 * 60 * 1000, // 5 minutes
-    retry: 2,
+    retry: 3, // Increased retries
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000), // Exponential backoff
   })
 }
 
@@ -462,6 +610,27 @@ export const useCalendarMonth = (params: { year: number; month: number; latitude
       }
     },
     enabled: !!params.year && !!params.month && !!params.latitude && !!params.longitude,
+  })
+}
+
+// API health check hook
+export const useApiHealth = () => {
+  return useQueryOriginal({
+    queryKey: ['api-health'],
+    queryFn: async () => {
+      try {
+        console.log('🏥 Checking API health...')
+        const response = await apiClient.get('/healthz')
+        console.log('✅ API health check passed:', response)
+        return response
+      } catch (error) {
+        console.error('❌ API health check failed:', error)
+        throw error
+      }
+    },
+    staleTime: 1 * 60 * 1000, // 1 minute
+    retry: 2,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 5000),
   })
 }
 
