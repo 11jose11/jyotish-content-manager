@@ -1,195 +1,193 @@
 # 🌙 Jyotish Content Manager - Versión 2.0
 
-**Sistema completo de gestión de contenido Jyotish con frontend y backend conectados**
+Sistema completo de gestión de contenido Jyotish con calendario panchanga interactivo y datos detallados.
 
-## 🚀 **Estado Actual - Versión 2.0**
+## ✨ Características Principales
 
-### ✅ **Funcionalidades Implementadas:**
+### 📅 Calendario Panchanga Interactivo
+- **Carga progresiva** de datos del mes con pausas estratégicas para evitar errores CORS
+- **Datos precisos** desde API con True Citra Paksha Ayanamsa
+- **Información completa** de cada día: Nakshatra, Tithi, Karana, Vara, Yoga
+- **Yogas especiales** detectados automáticamente
+- **Panel de detalles** expandible con información completa del panchanga
 
-#### **Frontend (React + TypeScript + Vite)**
-- **🌐 Páginas principales:**
-  - **Panchanga Calendar**: Calendario mensual con elementos panchanga
-  - **Transits**: Posiciones planetarias de los 9 planetas con nakshatras y padas
-  - **Positions**: Visualización de posiciones planetarias
-  - **Navatara**: Cálculos de navatara
-  - **Diagnostics**: Estado del sistema y API
+### 🗃️ Sistema de Datos Optimizado
+- **Archivo JSON unificado** (`panchanga-simplified.json`) con estructura consistente
+- **Sistema de mapeo inteligente** para manejar diferentes formatos de nombres del API
+- **Búsqueda en 4 niveles**: mapeo directo, exacta normalizada, parcial, mapeo inverso
+- **Cache automático** con fallback para datos locales
+- **27 Nakshatras** completos con clasificaciones y recomendaciones
+- **15 Tithis** con elementos, deidades y actividades favorables/desfavorables
+- **11 Karanas** móviles y fijos con planetas regentes
+- **7 Varas** (días de la semana) con planetas y clasificaciones
+- **27 Yogas** principales con deidades y significados
 
-- **🎨 UI/UX:**
-  - Diseño moderno con Tailwind CSS
-  - Componentes animados y responsivos
-  - Autocompletado de ubicaciones
-  - Interfaz intuitiva y accesible
+### 🤖 Generación de Reportes con AI
+- **Prompt automático** construido con todos los datos del panchanga
+- **Formato estructurado** para reportes de 90 segundos
+- **Instrucciones específicas** para análisis narrativo
+- **Copia y descarga** de prompts generados
 
-#### **Backend (FastAPI + Python)**
-- **🔧 API Endpoints:**
-  - `/v1/calendar/month` - Calendario mensual con posiciones planetarias
-  - `/v1/panchanga/precise/daily` - Panchanga diario preciso
-  - `/v1/panchanga/yogas/detect` - Detección de yogas especiales
-  - `/v1/chesta-bala/calculate` - Cálculo de Chesta Bala
-  - `/health` - Estado del sistema
+### 🎨 Interfaz Moderna
+- **Diseño responsivo** con Tailwind CSS y Shadcn/ui
+- **Animaciones suaves** y transiciones elegantes
+- **Tema oscuro/claro** automático
+- **Indicadores de estado** para API y carga de datos
+- **Debug visual** para monitoreo de datos
 
-- **🌍 CORS configurado** para múltiples dominios Vercel
-- **📊 True Citra Paksha Ayanamsa** para cálculos astronómicamente precisos
-- **🔮 Swiss Ephemeris** para posiciones planetarias exactas
+## 🚀 Tecnologías
 
-### 🌟 **Características Destacadas:**
+- **Frontend**: React 18 + TypeScript + Vite
+- **UI**: Tailwind CSS + Shadcn/ui
+- **Estado**: React Query (TanStack Query)
+- **API**: Fetch con retry automático y backoff exponencial
+- **Despliegue**: Vercel con configuración optimizada
+- **Backend**: Python FastAPI con cálculos astronómicos precisos
 
-1. **Posiciones Planetarias Precisas:**
-   - 9 planetas (Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Rahu, Ketu)
-   - Nakshatras y padas calculados con True Citra Paksha
-   - Estados de movimiento (retrógrado, directo)
-   - Longitudes eclípticas precisas
+## 📊 Estructura de Datos
 
-2. **Calendario Panchanga:**
-   - Tithi, Vara, Nakshatra, Yoga, Karana
-   - Yogas especiales detectados automáticamente
-   - Cálculos basados en sunrise como referencia
-
-3. **Sistema de Ubicaciones:**
-   - Autocompletado de ciudades
-   - Coordenadas geográficas automáticas
-   - Zonas horarias precisas
-
-## 🛠 **Tecnologías Utilizadas:**
-
-### **Frontend:**
-- **React 18** con TypeScript
-- **Vite** para build y desarrollo
-- **Tailwind CSS** para estilos
-- **TanStack Query** para gestión de estado
-- **Shadcn/ui** para componentes
-- **Vercel** para despliegue
-
-### **Backend:**
-- **FastAPI** con Python
-- **Swiss Ephemeris** para cálculos astronómicos
-- **Google Cloud Run** para despliegue
-- **CORS** configurado para frontend
-
-## 📦 **Estructura del Proyecto:**
-
-```
-Jyotish content manager/
-├── apps/
-│   ├── frontend/          # React frontend
-│   │   ├── src/
-│   │   │   ├── components/    # Componentes UI
-│   │   │   ├── pages/         # Páginas principales
-│   │   │   └── lib/           # Utilidades y API
-│   │   └── ...
-│   └── backend/           # FastAPI backend
-│       ├── main.py        # API principal
-│       ├── data/          # Datos JSON
-│       └── ...
-├── json-database/         # Base de datos JSON
-└── ...
+### Archivo JSON Unificado
+```json
+{
+  "metadata": { "version": "2.0", "structure": "unified" },
+  "nakshatras": [...], // 27 nakshatras completos
+  "tithis": [...],     // 15 tithis principales
+  "karanas": [...],    // 11 karanas móviles y fijos
+  "varas": [...],      // 7 días de la semana
+  "yogas": [...],      // 27 yogas principales
+  "specialYogas": [...] // Yogas especiales
+}
 ```
 
-## 🚀 **Despliegue:**
+### Sistema de Mapeo
+```typescript
+nameMappings = {
+  nakshatras: {
+    'Ashwini': 'Aśvinī',
+    'Bharani': 'Bharaṇī',
+    'Krittika': 'Kṛttikā',
+    // ... 27 mapeos completos
+  },
+  varas: {
+    'Sunday': 'Ravivara',
+    'Monday': 'Somavara',
+    // ... 7 mapeos completos
+  }
+}
+```
 
-### **Frontend:**
-- **URL**: https://jyotish-content-manager.vercel.app
-- **Plataforma**: Vercel
-- **Build**: Automático desde GitHub
+## 🔧 Instalación y Uso
 
-### **Backend:**
-- **URL**: https://jyotish-api-273065401301.us-central1.run.app
-- **Plataforma**: Google Cloud Run
-- **CORS**: Configurado para frontend
-
-## 🔧 **Configuración Local:**
-
-### **Prerrequisitos:**
+### Prerrequisitos
 - Node.js 18+
-- Python 3.11+
-- pnpm
+- pnpm (recomendado) o npm
 
-### **Instalación:**
+### Instalación
 ```bash
 # Clonar repositorio
 git clone <repository-url>
-cd "Jyotish content manager"
+cd jyotish-content-manager
 
 # Instalar dependencias
 pnpm install
 
 # Configurar variables de entorno
-cp env.example .env
-# Editar .env con tus configuraciones
+cp apps/frontend/env.sample apps/frontend/.env.local
+# Editar .env.local con las variables necesarias
 
-# Ejecutar setup
-./setup.sh
-```
-
-### **Desarrollo:**
-```bash
-# Frontend
-cd apps/frontend
+# Ejecutar en desarrollo
 pnpm dev
 
-# Backend
-cd apps/backend
-uvicorn main:app --reload
+# Construir para producción
+pnpm build
 ```
 
-## 📊 **Endpoints API Principales:**
-
-### **Calendario Mensual:**
-```
-GET /v1/calendar/month
-Parámetros: year, month, place_id, format, anchor
+### Variables de Entorno
+```env
+VITE_API_BASE_URL=https://jyotish-api-ndcfqrjivq-uc.a.run.app
+VITE_API_KEY=your-api-key
 ```
 
-### **Panchanga Diario:**
-```
-GET /v1/panchanga/precise/daily
-Parámetros: date, latitude, longitude, reference_time
-```
+## 📱 Uso del Sistema
 
-### **Yogas Especiales:**
-```
-GET /v1/panchanga/yogas/detect
-Parámetros: date, latitude, longitude
-```
+### 1. Calendario Mensual
+- Selecciona mes y año
+- El sistema carga datos progresivamente (3 días por lote)
+- Cada día muestra información básica del panchanga
 
-## 🌟 **Mejoras en Versión 2.0:**
+### 2. Detalles del Día
+- Haz click en cualquier día
+- Se abre panel con información completa
+- Datos incluyen: traducciones, deidades, clasificaciones, recomendaciones
 
-1. **✅ Conexión Frontend-Backend:**
-   - Endpoints reales en lugar de mock data
-   - Datos astronómicamente precisos
-   - Manejo robusto de errores
+### 3. Generación de Reportes
+- En el panel de detalles, usa "Generar Reporte Diario con AI"
+- Se construye prompt automático con todos los datos
+- Copia o descarga el prompt para usar con AI
 
-2. **✅ Página de Tránsitos Funcional:**
-   - 9 planetas con nakshatras y padas
-   - Posiciones calculadas con True Citra Paksha
-   - Visualización clara y organizada
+## 🎯 Funcionalidades Técnicas
 
-3. **✅ CORS Configurado:**
-   - Múltiples dominios Vercel permitidos
-   - Comunicación segura frontend-backend
+### Carga Progresiva
+- **Lotes de 3 días** para evitar sobrecarga del API
+- **Pausas de 10 segundos** entre lotes
+- **Retry automático** con backoff exponencial
+- **Indicadores visuales** de progreso
 
-4. **✅ Sistema de Ubicaciones:**
-   - Autocompletado funcional
-   - Coordenadas automáticas
-   - Zonas horarias precisas
+### Sistema de Búsqueda
+- **Mapeo directo**: Nombres del API → Nombres en JSON
+- **Normalización**: Remoción de diacríticos y espacios
+- **Búsqueda parcial**: Coincidencias flexibles
+- **Mapeo inverso**: Búsqueda en todos los mapeos disponibles
 
-## 🔮 **Próximas Mejoras:**
+### Cache y Fallback
+- **Cache automático** de datos JSON
+- **Fallback local** si falla la carga
+- **Limpieza automática** de cache expirado
+- **Logs detallados** para debugging
 
-- [ ] Integración con Google Places API para place_id dinámico
-- [ ] Panel detallado de panchanga diario
-- [ ] Exportación de datos a CSV/PDF
-- [ ] Más opciones de ayanamsa
-- [ ] Cálculos de horóscopo natal
+## 🌐 URLs de Despliegue
 
-## 📝 **Licencia:**
+- **Frontend**: https://jyotish-content-manager.vercel.app
+- **Página Panchanga**: https://jyotish-content-manager.vercel.app/panchanga
+- **Backend API**: https://jyotish-api-ndcfqrjivq-uc.a.run.app
 
-MIT License - Ver [LICENSE](LICENSE) para más detalles.
+## 📈 Estado del Proyecto
 
-## 🤝 **Contribución:**
+### ✅ Completado
+- [x] Sistema de carga progresiva del calendario
+- [x] Panel de detalles del panchanga
+- [x] Archivo JSON unificado con datos completos
+- [x] Sistema de mapeo inteligente
+- [x] Generación de prompts para AI
+- [x] Interfaz moderna y responsiva
+- [x] Sistema de cache y fallback
+- [x] Logs detallados para debugging
 
-Las contribuciones son bienvenidas. Por favor, abre un issue o pull request.
+### 🔄 En Desarrollo
+- [ ] Más yogas especiales
+- [ ] Exportación de datos en diferentes formatos
+- [ ] Integración directa con APIs de AI
+- [ ] Sistema de notificaciones
+
+## 🤝 Contribución
+
+1. Fork el repositorio
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+
+## 🙏 Agradecimientos
+
+- **Backend API**: Cálculos astronómicos precisos con True Citra Paksha Ayanamsa
+- **Datos tradicionales**: Basados en textos clásicos de Jyotish
+- **Comunidad Jyotish**: Por la validación y feedback continuo
 
 ---
 
-**🌙 Jyotish Content Manager v2.0 - Conectando tradición védica con tecnología moderna** ✨
+**Versión 2.0** - Sistema completo de panchanga con datos simplificados y mapeo inteligente
 
