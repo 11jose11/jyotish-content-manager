@@ -233,7 +233,35 @@ class SimplifiedPanchangaService {
       'Shukla': 'Shukla',
       'Brahma': 'Brahma',
       'Indra': 'Indra',
-      'Vaidhriti': 'Vaidhriti'
+      'Vaidhriti': 'Vaidhriti',
+      // Variaciones adicionales
+      'Vishkumbha Yoga': 'Vishkumbha',
+      'Priti Yoga': 'Priti',
+      'Ayushman Yoga': 'Ayushman',
+      'Saubhagya Yoga': 'Saubhagya',
+      'Shobhana Yoga': 'Shobhana',
+      'Atiganda Yoga': 'Atiganda',
+      'Sukarman Yoga': 'Sukarman',
+      'Dhriti Yoga': 'Dhriti',
+      'Shula Yoga': 'Shula',
+      'Ganda Yoga': 'Ganda',
+      'Vriddhi Yoga': 'Vriddhi',
+      'Dhruva Yoga': 'Dhruva',
+      'Vyaghata Yoga': 'Vyaghata',
+      'Harshana Yoga': 'Harshana',
+      'Vajra Yoga': 'Vajra',
+      'Siddhi Yoga': 'Siddhi',
+      'Vyatipata Yoga': 'Vyatipata',
+      'Variyan Yoga': 'Variyan',
+      'Parigha Yoga': 'Parigha',
+      'Shiva Yoga': 'Shiva',
+      'Siddha Yoga': 'Siddha',
+      'Sadhya Yoga': 'Sadhya',
+      'Shubha Yoga': 'Shubha',
+      'Shukla Yoga': 'Shukla',
+      'Brahma Yoga': 'Brahma',
+      'Indra Yoga': 'Indra',
+      'Vaidhriti Yoga': 'Vaidhriti'
     }
   }
 
@@ -818,13 +846,24 @@ class SimplifiedPanchangaService {
 
   // Buscar yoga
   async findYoga(searchName: string): Promise<PanchangaElement | null> {
+    console.log(`🌙 Searching for yoga: "${searchName}"`)
     await this.loadData()
     
-    if (!this.data?.yogas) return null
+    if (!this.data?.yogas) {
+      console.log('❌ No yogas data available')
+      return null
+    }
+    
+    // Si no hay nombre, intentar buscar por otros campos
+    if (!searchName || searchName.trim() === '') {
+      console.log('⚠️ No yoga name provided, checking for alternative fields...')
+      return null
+    }
     
     const yoga = this.findElement(this.data.yogas, searchName, 'yogas')
     
     if (yoga) {
+      console.log(`✅ Yoga found: ${yoga.name}`)
       return {
         name: yoga.name,
         nameIAST: yoga.nameIAST,
@@ -836,6 +875,8 @@ class SimplifiedPanchangaService {
       }
     }
     
+    console.log(`❌ Yoga not found: "${searchName}"`)
+    console.log(`📋 Available yogas:`, this.data.yogas.map((y: any) => y.name))
     return null
   }
 
@@ -890,6 +931,28 @@ class SimplifiedPanchangaService {
       console.log('  Yoga:', yogaName)
       console.log('  Special Yogas:', specialYogaNames)
       
+      // Debug: mostrar estructura completa del yoga
+      console.log('🔍 Yoga data structure:', panchangaData.yoga)
+      console.log('🔍 All yoga fields:', Object.keys(panchangaData.yoga || {}))
+      
+      // Intentar encontrar yoga por diferentes campos si el nombre no funciona
+      let finalYogaName = yogaName
+      if (!yogaName && panchangaData.yoga) {
+        // Buscar en otros campos del yoga
+        const yogaFields = ['type', 'classification', 'element', 'planet']
+        for (const field of yogaFields) {
+          if (panchangaData.yoga[field]) {
+            console.log(`🔍 Trying to find yoga by ${field}: ${panchangaData.yoga[field]}`)
+            const foundYoga = this.findElement(this.data?.yogas || [], panchangaData.yoga[field], 'yogas')
+            if (foundYoga) {
+              finalYogaName = foundYoga.name
+              console.log(`✅ Found yoga by ${field}: ${finalYogaName}`)
+              break
+            }
+          }
+        }
+      }
+      
       const [
         nakshatraDetails,
         tithiDetails,
@@ -902,11 +965,18 @@ class SimplifiedPanchangaService {
         this.findTithi(tithiName),
         this.findKarana(karanaName),
         this.findVara(varaName),
-        this.findYoga(yogaName),
+        this.findYoga(finalYogaName),
         this.findSpecialYogas(specialYogaNames)
       ])
 
       console.log('✅ Panchanga details loaded successfully')
+      console.log('📊 Results summary:')
+      console.log('  Nakshatra:', nakshatraDetails ? '✅' : '❌')
+      console.log('  Tithi:', tithiDetails ? '✅' : '❌')
+      console.log('  Karana:', karanaDetails ? '✅' : '❌')
+      console.log('  Vara:', varaDetails ? '✅' : '❌')
+      console.log('  Yoga:', yogaDetails ? '✅' : '❌')
+      console.log('  Special Yogas:', specialYogaDetails.length > 0 ? `✅ (${specialYogaDetails.length})` : '❌')
       
       return {
         nakshatra: nakshatraDetails,
