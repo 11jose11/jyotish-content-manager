@@ -66,7 +66,35 @@ class SimplifiedPanchangaService {
       'Shatabhisha': 'Śatabhiṣā',
       'Purva Bhadrapada': 'Pūrva Bhādrapadā',
       'Uttara Bhadrapada': 'Uttara Bhādrapadā',
-      'Revati': 'Revatī'
+      'Revati': 'Revatī',
+      // Variaciones adicionales
+      'Ashwini Nakshatra': 'Aśvinī',
+      'Bharani Nakshatra': 'Bharaṇī',
+      'Krittika Nakshatra': 'Kṛttikā',
+      'Rohini Nakshatra': 'Rohiṇī',
+      'Mrigashira Nakshatra': 'Mṛgaśirā',
+      'Ardra Nakshatra': 'Ārdrā',
+      'Punarvasu Nakshatra': 'Punarvasu',
+      'Pushya Nakshatra': 'Puṣya',
+      'Aslesha Nakshatra': 'Āśleṣā',
+      'Magha Nakshatra': 'Maghā',
+      'Purva Phalguni Nakshatra': 'Pūrva Phālgunī',
+      'Uttara Phalguni Nakshatra': 'Uttara Phālgunī',
+      'Hasta Nakshatra': 'Hasta',
+      'Chitra Nakshatra': 'Citrā',
+      'Swati Nakshatra': 'Svātī',
+      'Vishakha Nakshatra': 'Viśākhā',
+      'Anuradha Nakshatra': 'Anurādhā',
+      'Jyeshtha Nakshatra': 'Jyeṣṭhā',
+      'Mula Nakshatra': 'Mūla',
+      'Purva Ashadha Nakshatra': 'Pūrva Āṣāḍhā',
+      'Uttara Ashadha Nakshatra': 'Uttara Āṣāḍhā',
+      'Shravana Nakshatra': 'Śravaṇa',
+      'Dhanishta Nakshatra': 'Dhaniṣṭhā',
+      'Shatabhisha Nakshatra': 'Śatabhiṣā',
+      'Purva Bhadrapada Nakshatra': 'Pūrva Bhādrapadā',
+      'Uttara Bhadrapada Nakshatra': 'Uttara Bhādrapadā',
+      'Revati Nakshatra': 'Revatī'
     },
     tithis: {
       'Pratipada': 'Pratipada',
@@ -84,7 +112,41 @@ class SimplifiedPanchangaService {
       'Trayodashi': 'Trayodashi',
       'Chaturdashi': 'Chaturdashi',
       'Purnima': 'Purnima',
-      'Amavasya': 'Amavasya'
+      'Amavasya': 'Amavasya',
+      // Variaciones adicionales
+      'Pratipada Tithi': 'Pratipada',
+      'Dwitiya Tithi': 'Dvitiya',
+      'Tritiya Tithi': 'Tritiya',
+      'Chaturthi Tithi': 'Chaturthi',
+      'Panchami Tithi': 'Panchami',
+      'Shashthi Tithi': 'Shashthi',
+      'Saptami Tithi': 'Saptami',
+      'Ashtami Tithi': 'Ashtami',
+      'Navami Tithi': 'Navami',
+      'Dashami Tithi': 'Dashami',
+      'Ekadashi Tithi': 'Ekadashi',
+      'Dwadashi Tithi': 'Dwadashi',
+      'Trayodashi Tithi': 'Trayodashi',
+      'Chaturdashi Tithi': 'Chaturdashi',
+      'Purnima Tithi': 'Purnima',
+      'Amavasya Tithi': 'Amavasya',
+      // Números
+      '1': 'Pratipada',
+      '2': 'Dvitiya',
+      '3': 'Tritiya',
+      '4': 'Chaturthi',
+      '5': 'Panchami',
+      '6': 'Shashthi',
+      '7': 'Saptami',
+      '8': 'Ashtami',
+      '9': 'Navami',
+      '10': 'Dashami',
+      '11': 'Ekadashi',
+      '12': 'Dwadashi',
+      '13': 'Trayodashi',
+      '14': 'Chaturdashi',
+      '15': 'Purnima',
+      '30': 'Amavasya'
     },
     karanas: {
       'Bava': 'Bava',
@@ -92,12 +154,26 @@ class SimplifiedPanchangaService {
       'Kaulava': 'Kaulava',
       'Taitila': 'Taitila',
       'Garija': 'Gara',
+      'Gara': 'Gara',
       'Vanija': 'Vanija',
       'Vishti': 'Vishti',
       'Shakuni': 'Shakuni',
       'Chatushpada': 'Chatushpada',
       'Naga': 'Naga',
-      'Kimstughna': 'Kimstughna'
+      'Kimstughna': 'Kimstughna',
+      // Variaciones adicionales
+      'Bava Karana': 'Bava',
+      'Balava Karana': 'Balava',
+      'Kaulava Karana': 'Kaulava',
+      'Taitila Karana': 'Taitila',
+      'Garija Karana': 'Gara',
+      'Gara Karana': 'Gara',
+      'Vanija Karana': 'Vanija',
+      'Vishti Karana': 'Vishti',
+      'Shakuni Karana': 'Shakuni',
+      'Chatushpada Karana': 'Chatushpada',
+      'Naga Karana': 'Naga',
+      'Kimstughna Karana': 'Kimstughna'
     },
     varas: {
       'Sunday': 'Ravivara',
@@ -113,7 +189,22 @@ class SimplifiedPanchangaService {
       'Budhavara': 'Budhavara',
       'Guruvara': 'Guruvara',
       'Shukravara': 'Shukravara',
-      'Shanivara': 'Shanivara'
+      'Shanivara': 'Shanivara',
+      // Variaciones adicionales
+      'Domingo': 'Ravivara',
+      'Lunes': 'Somavara',
+      'Martes': 'Mangalavara',
+      'Miércoles': 'Budhavara',
+      'Jueves': 'Guruvara',
+      'Viernes': 'Shukravara',
+      'Sábado': 'Shanivara',
+      'Sun': 'Ravivara',
+      'Mon': 'Somavara',
+      'Tue': 'Mangalavara',
+      'Wed': 'Budhavara',
+      'Thu': 'Guruvara',
+      'Fri': 'Shukravara',
+      'Sat': 'Shanivara'
     },
     yogas: {
       'Vishkumbha': 'Vishkumbha',
@@ -516,14 +607,19 @@ class SimplifiedPanchangaService {
       return element
     }
     
-    // 3. Búsqueda parcial
+    // 3. Búsqueda parcial más inteligente
     element = array.find(item => {
       const itemName = normalizeName(item.name || '')
       const itemNameIAST = normalizeName(item.nameIAST || '')
+      const itemTranslation = normalizeName(item.translation || '')
+      
+      // Buscar en nombre, IAST y traducción
       return itemName.includes(normalizedSearchClean) || 
              itemNameIAST.includes(normalizedSearchClean) ||
+             itemTranslation.includes(normalizedSearchClean) ||
              normalizedSearchClean.includes(itemName) || 
-             normalizedSearchClean.includes(itemNameIAST)
+             normalizedSearchClean.includes(itemNameIAST) ||
+             normalizedSearchClean.includes(itemTranslation)
     })
     
     if (element) {
@@ -544,10 +640,80 @@ class SimplifiedPanchangaService {
       }
     }
     
+    // 5. Búsqueda por similitud (último recurso)
+    let bestMatch = null
+    let bestScore = 0
+    
+    for (const item of array) {
+      const itemName = normalizeName(item.name || '')
+      const itemNameIAST = normalizeName(item.nameIAST || '')
+      const itemTranslation = normalizeName(item.translation || '')
+      
+      // Calcular similitud
+      const nameScore = this.calculateSimilarity(normalizedSearchClean, itemName)
+      const iastScore = this.calculateSimilarity(normalizedSearchClean, itemNameIAST)
+      const translationScore = this.calculateSimilarity(normalizedSearchClean, itemTranslation)
+      
+      const maxScore = Math.max(nameScore, iastScore, translationScore)
+      
+      if (maxScore > bestScore && maxScore > 0.6) { // Umbral de similitud
+        bestScore = maxScore
+        bestMatch = item
+      }
+    }
+    
+    if (bestMatch) {
+      console.log(`✅ Found via similarity (${bestScore.toFixed(2)}): ${bestMatch.name}`)
+      return bestMatch
+    }
+    
     console.log(`❌ No match found for: "${normalizedSearch}" (normalized: "${normalizedSearchClean}")`)
     console.log(`📋 Available items:`, array.map(item => `${item.name || item.nameIAST} (${normalizeName(item.name || item.nameIAST)})`))
     console.log(`🗺️ Available mappings:`, Object.keys(mapping || {}))
     return null
+  }
+
+  // Calcular similitud entre dos strings
+  private calculateSimilarity(str1: string, str2: string): number {
+    if (str1 === str2) return 1.0
+    if (str1.length === 0 || str2.length === 0) return 0.0
+    
+    const longer = str1.length > str2.length ? str1 : str2
+    const shorter = str1.length > str2.length ? str2 : str1
+    
+    if (longer.length === 0) return 1.0
+    
+    const distance = this.levenshteinDistance(longer, shorter)
+    return (longer.length - distance) / longer.length
+  }
+
+  // Distancia de Levenshtein para calcular similitud
+  private levenshteinDistance(str1: string, str2: string): number {
+    const matrix = []
+    
+    for (let i = 0; i <= str2.length; i++) {
+      matrix[i] = [i]
+    }
+    
+    for (let j = 0; j <= str1.length; j++) {
+      matrix[0][j] = j
+    }
+    
+    for (let i = 1; i <= str2.length; i++) {
+      for (let j = 1; j <= str1.length; j++) {
+        if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
+          matrix[i][j] = matrix[i - 1][j - 1]
+        } else {
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j - 1] + 1,
+            matrix[i][j - 1] + 1,
+            matrix[i - 1][j] + 1
+          )
+        }
+      }
+    }
+    
+    return matrix[str2.length][str1.length]
   }
 
   // Buscar nakshatra

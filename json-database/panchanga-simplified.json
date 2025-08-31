@@ -734,6 +734,114 @@
       "desfavorables": [
         "actividades injustas"
       ]
+    },
+    {
+      "name": "Ekadashi",
+      "nameIAST": "Ekādaśī",
+      "translation": "Undécimo día lunar",
+      "deity": "Viṣṇu",
+      "element": "Agua",
+      "classification": "Nandā",
+      "favorables": [
+        "ayuno",
+        "meditación",
+        "actividades espirituales",
+        "purificación"
+      ],
+      "desfavorables": [
+        "actividades materiales",
+        "excesos"
+      ]
+    },
+    {
+      "name": "Dwadashi",
+      "nameIAST": "Dvādaśī",
+      "translation": "Duodécimo día lunar",
+      "deity": "Sūrya",
+      "element": "Fuego",
+      "classification": "Bhadrā",
+      "favorables": [
+        "actividades solares",
+        "energía",
+        "poder",
+        "liderazgo"
+      ],
+      "desfavorables": [
+        "actividades nocturnas",
+        "debilidad"
+      ]
+    },
+    {
+      "name": "Trayodashi",
+      "nameIAST": "Trayodaśī",
+      "translation": "Decimotercer día lunar",
+      "deity": "Śiva",
+      "element": "Aire",
+      "classification": "Jayā",
+      "favorables": [
+        "actividades espirituales",
+        "meditación",
+        "ascetismo",
+        "purificación"
+      ],
+      "desfavorables": [
+        "actividades materiales",
+        "excesos"
+      ]
+    },
+    {
+      "name": "Chaturdashi",
+      "nameIAST": "Caturdaśī",
+      "translation": "Decimocuarto día lunar",
+      "deity": "Śiva",
+      "element": "Agua",
+      "classification": "Riktā",
+      "favorables": [
+        "actividades destructivas",
+        "limpieza",
+        "purificación",
+        "medicina"
+      ],
+      "desfavorables": [
+        "actividades auspiciosas",
+        "inicios importantes"
+      ]
+    },
+    {
+      "name": "Purnima",
+      "nameIAST": "Pūrṇimā",
+      "translation": "Luna llena",
+      "deity": "Candra",
+      "element": "Agua",
+      "classification": "Pūrṇa",
+      "favorables": [
+        "celebración",
+        "actividades completas",
+        "cierre de proyectos",
+        "actividades auspiciosas"
+      ],
+      "desfavorables": [
+        "inicios",
+        "actividades incompletas"
+      ]
+    },
+    {
+      "name": "Amavasya",
+      "nameIAST": "Amāvasyā",
+      "translation": "Luna nueva",
+      "deity": "Pitṛs",
+      "element": "Tierra",
+      "classification": "Riktā",
+      "favorables": [
+        "actividades con ancestros",
+        "rituales fúnebres",
+        "introspección",
+        "meditación"
+      ],
+      "desfavorables": [
+        "actividades auspiciosas",
+        "inicios importantes"
+      ]
     }
   ],
   "karanas": [
@@ -852,6 +960,72 @@
       "desfavorables": [
         "actividades auspiciosas",
         "inicios importantes"
+      ]
+    },
+    {
+      "name": "Shakuni",
+      "nameIAST": "Śakuni",
+      "translation": "Pájaro",
+      "deity": "Kālī",
+      "planet": "Rahu",
+      "classification": "Fijo",
+      "favorables": [
+        "medicina",
+        "mūla mantras",
+        "salud",
+        "confort"
+      ],
+      "desfavorables": [
+        "actividades destructivas"
+      ]
+    },
+    {
+      "name": "Chatushpada",
+      "nameIAST": "Catuṣpada",
+      "translation": "Cuatro Patas",
+      "deity": "Vṛṣa (Brahmā)",
+      "planet": "Rahu",
+      "classification": "Fijo",
+      "favorables": [
+        "actividades con vacas",
+        "brāhmaṇas",
+        "pitṛs",
+        "rey"
+      ],
+      "desfavorables": [
+        "actividades destructivas"
+      ]
+    },
+    {
+      "name": "Naga",
+      "nameIAST": "Nāga",
+      "translation": "Serpiente",
+      "deity": "Sarpa",
+      "planet": "Ketu",
+      "classification": "Fijo",
+      "favorables": [
+        "trabajos fijos",
+        "actos crueles",
+        "sigilo",
+        "malévolos"
+      ],
+      "desfavorables": [
+        "actividades auspiciosas"
+      ]
+    },
+    {
+      "name": "Kimstughna",
+      "nameIAST": "Kiṁstughna",
+      "translation": "Destructor",
+      "deity": "Vāyu",
+      "planet": "Rahu",
+      "classification": "Fijo",
+      "favorables": [
+        "cualquier obra para salud/confort",
+        "śubhakarmas"
+      ],
+      "desfavorables": [
+        "actividades destructivas"
       ]
     }
   ],

@@ -111,8 +111,9 @@ Genera un reporte narrativo de 90 segundos basado en los elementos del pañcā�
 3. Advertencias sobre actividades desfavorables
 4. Consejos prácticos para aprovechar las energías del día
 5. Conclusión con el tono general del día
+6. Cita algún verso célebre motivador que vaya con la energía del día (puede ser de textos védicos, Bhagavad Gita, Upanishads, o sabiduría tradicional)
 
-El reporte debe ser claro, práctico y útil para la toma de decisiones diarias.`
+El reporte debe ser claro, práctico y útil para la toma de decisiones diarias. Usa un tono inspirador y accesible, como un paṇḍita jyotiṣī compartiendo sabiduría ancestral.`
 
     setGeneratedPrompt(prompt)
   }
