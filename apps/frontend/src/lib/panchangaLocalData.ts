@@ -1,3 +1,4 @@
+
 // Servicio para generar datos de panchanga localmente usando JSON
 import { getNakshatraDetails, getTithiDetails, getKaranaDetails, getVaraDetails, getYogaDetails } from './panchangaData'
 

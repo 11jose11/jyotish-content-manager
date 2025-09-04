@@ -613,6 +613,76 @@ export const useCalendarMonth = (params: { year: number; month: number; latitude
   })
 }
 
+// Chesta Bala Monthly Analysis hook
+export const useChestaBalaMonthly = (params: { year: number; month: number; latitude: number; longitude: number; planets?: string[] }) => {
+  return useQueryOriginal({
+    queryKey: ['chesta-bala-monthly', params],
+    queryFn: async () => {
+      try {
+        const defaultPlanets = ['Mars', 'Venus', 'Jupiter', 'Saturn', 'Mercury', 'Sun', 'Moon', 'Rahu', 'Ketu']
+        const planetsParam = (params.planets || defaultPlanets).join(',')
+        
+        const queryParams = new URLSearchParams({
+          year: params.year.toString(),
+          month: params.month.toString(),
+          latitude: params.latitude.toString(),
+          longitude: params.longitude.toString(),
+          planets: planetsParam
+        })
+        
+        console.log('🔮 Fetching Chesta Bala monthly analysis...')
+        const response = await apiClient.get(`/v1/chesta-bala/monthly?${queryParams}`)
+        console.log('✅ Chesta Bala monthly response:', response)
+        return response
+      } catch (error) {
+        console.warn('Chesta Bala monthly API not available:', error)
+        return {
+          summary: {
+            total_motion_changes: 0,
+            changes_by_planet: {},
+            planet_averages: {},
+            most_active_planet: null,
+            average_chesta_bala: 0
+          }
+        }
+      }
+    },
+    enabled: !!(params.year && params.month && params.latitude && params.longitude),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  })
+}
+
+// Chesta Bala Daily Analysis hook
+export const useChestaBalaDaily = (params: { date: string; time?: string; latitude: number; longitude: number; planets?: string[] }) => {
+  return useQueryOriginal({
+    queryKey: ['chesta-bala-daily', params],
+    queryFn: async () => {
+      try {
+        const defaultPlanets = ['Mars', 'Venus', 'Jupiter', 'Saturn', 'Mercury', 'Sun', 'Moon', 'Rahu', 'Ketu']
+        const planetsParam = (params.planets || defaultPlanets).join(',')
+        
+        const queryParams = new URLSearchParams({
+          date: params.date,
+          time: params.time || '12:00:00',
+          latitude: params.latitude.toString(),
+          longitude: params.longitude.toString(),
+          planets: planetsParam
+        })
+        
+        console.log('🔮 Fetching Chesta Bala daily analysis...')
+        const response = await apiClient.get(`/v1/chesta-bala/daily?${queryParams}`)
+        console.log('✅ Chesta Bala daily response:', response)
+        return response
+      } catch (error) {
+        console.warn('Chesta Bala daily API not available:', error)
+        return { planets: {} }
+      }
+    },
+    enabled: !!(params.date && params.latitude && params.longitude),
+    staleTime: 2 * 60 * 1000, // 2 minutes
+  })
+}
+
 // API health check hook
 export const useApiHealth = () => {
   return useQueryOriginal({

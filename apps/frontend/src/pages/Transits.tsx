@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -9,9 +9,11 @@ import { Textarea } from '@/components/ui/textarea'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { Copy, FileText } from 'lucide-react'
-import { useCalendarMonth } from '@/lib/api'
+import { useCalendarMonth, useChestaBalaMonthly, useChestaBalaDaily } from '@/lib/api'
 import { toast } from 'sonner'
 import LocationAutocomplete from '@/components/LocationAutocomplete'
+import ChestaBalaPanel from '@/components/ChestaBalaPanel'
+import ChestaBalaDailyPanel from '@/components/ChestaBalaDailyPanel'
 
 interface Location {
   city: string
@@ -85,17 +87,76 @@ const Transits: React.FC = () => {
   })
 
   const [selectedPlanets, setSelectedPlanets] = useState<string[]>(PLANETS.map(p => p.name))
-  const [dateRange, setDateRange] = useState<{ from: string; to: string }>({
-    from: '',
-    to: ''
-  })
   const [template, setTemplate] = useState<'daily' | 'weekly' | 'monthly' | 'custom'>('monthly')
+  
+  // Calculate date range based on template
+  const getDateRange = () => {
+    const today = new Date()
+    const year = selectedYear
+    const month = selectedMonth
+    
+    switch (template) {
+      case 'daily':
+        const todayStr = today.toISOString().split('T')[0]
+        return { from: todayStr, to: todayStr }
+      
+      case 'weekly':
+        const startOfWeek = new Date(today)
+        startOfWeek.setDate(today.getDate() - today.getDay())
+        const endOfWeek = new Date(startOfWeek)
+        endOfWeek.setDate(startOfWeek.getDate() + 6)
+        return {
+          from: startOfWeek.toISOString().split('T')[0],
+          to: endOfWeek.toISOString().split('T')[0]
+        }
+      
+      case 'monthly':
+        const monthStart = new Date(year, month - 1, 1)
+        const monthEnd = new Date(year, month, 0)
+        return {
+          from: monthStart.toISOString().split('T')[0],
+          to: monthEnd.toISOString().split('T')[0]
+        }
+      
+      case 'custom':
+        return { from: '', to: '' }
+      
+      default:
+        return { from: '', to: '' }
+    }
+  }
+  
+  const [dateRange, setDateRange] = useState<{ from: string; to: string }>(getDateRange())
+  const [selectedDate, setSelectedDate] = useState<string | null>(null)
+
+  // Update date range when template changes
+  useEffect(() => {
+    if (template !== 'custom') {
+      setDateRange(getDateRange())
+    }
+  }, [template, selectedYear, selectedMonth])
 
   const { data: calendarData, isLoading, error } = useCalendarMonth({
     year: selectedYear,
     month: selectedMonth,
     latitude: location.latitude,
     longitude: location.longitude,
+  })
+
+  // Chesta Bala hooks
+  const { data: chestaBalaMonthly, isLoading: chestaBalaLoading } = useChestaBalaMonthly({
+    year: selectedYear,
+    month: selectedMonth,
+    latitude: location.latitude,
+    longitude: location.longitude,
+    planets: selectedPlanets
+  })
+
+  const { data: chestaBalaDaily, isLoading: chestaBalaDailyLoading } = useChestaBalaDaily({
+    date: selectedDate || new Date().toISOString().split('T')[0],
+    latitude: location.latitude,
+    longitude: location.longitude,
+    planets: selectedPlanets
   })
 
   const getPlanetPosition = (planet: Planet, dateStr: string) => {
@@ -128,41 +189,219 @@ const Transits: React.FC = () => {
     return relevantTransitions
   }
 
-  const generatePrompt = () => {
-    const transitions = getRelevantTransitions()
-    const changesCount = transitions.length
+  // Helper functions for nakshatra data
+  const getFavorableActivities = (nakshatra: string, pada: number): string[] => {
+    const nakshatraData: Record<string, Record<number, string[]>> = {
+      'Aśvinī': {
+        1: ['inicios', 'nuevos proyectos', 'energía', 'liderazgo'],
+        2: ['construcción', 'organización', 'estructura'],
+        3: ['comunicación', 'intercambio', 'colaboración'],
+        4: ['conclusión', 'entrega', 'evaluación']
+      },
+      'Bharaṇī': {
+        1: ['crecimiento', 'expansión', 'abundancia'],
+        2: ['estabilidad', 'persistencia', 'resistencia'],
+        3: ['transformación', 'renovación', 'cambio'],
+        4: ['purificación', 'limpieza', 'liberación']
+      },
+      'Kṛttikā': {
+        1: ['acción', 'coraje', 'determinación'],
+        2: ['construcción', 'fundamentos', 'base sólida'],
+        3: ['liderazgo', 'autoridad', 'responsabilidad'],
+        4: ['purificación', 'disciplina', 'orden']
+      },
+      'Rohiṇī': {
+        1: ['crecimiento', 'fertilidad', 'abundancia'],
+        2: ['estabilidad', 'persistencia', 'constancia'],
+        3: ['belleza', 'arte', 'creatividad'],
+        4: ['satisfacción', 'plenitud', 'completitud']
+      },
+      'Mṛgaśira': {
+        1: ['exploración', 'búsqueda', 'curiosidad'],
+        2: ['investigación', 'análisis', 'estudio'],
+        3: ['comunicación', 'expresión', 'arte'],
+        4: ['conclusión', 'síntesis', 'integración']
+      }
+    }
     
-    // Group by planet and nakshatra for ranges
-    const ranges: Record<string, any[]> = {}
-    transitions.forEach((t: any) => {
-      const key = `${t.planet}-${t.toNakshatra?.nameIAST || t.toNakshatra?.name}-p${t.toNakshatra?.pada || 1}`
-      if (!ranges[key]) ranges[key] = []
-      ranges[key].push(t)
-    })
-    
-    const rangesCount = Object.keys(ranges).length
-    
-    const changesList = transitions.map((t: any) => 
-      `${t.planet} ${t.date} ${t.time || ''} → ${t.toNakshatra?.nameIAST || t.toNakshatra?.name || 'Unknown'} p${t.toNakshatra?.pada || 1}`
-    ).join('\n')
-    
-    const rangesTable = Object.entries(ranges).map(([, ts]) => {
-      const first = ts[0]
-      const last = ts[ts.length - 1]
-      return `${first.planet} — ${first.toNakshatra?.nameIAST || first.toNakshatra?.name || 'Unknown'} p${first.toNakshatra?.pada || 1} (${first.date} ${first.time || ''}) → ${last.toNakshatra?.nameIAST || last.toNakshatra?.name || 'Unknown'} p${last.toNakshatra?.pada || 1} (${last.date} ${last.time || ''})`
-    }).join('\n')
-    
-    const prompt = `# REPORTE ${template.toUpperCase()} — ${dateRange.from || 'INICIO'} → ${dateRange.to || 'FIN'}
-Lugar: ${location.city} (${location.latitude},${location.longitude})
-TZ: ${location.timezone}
-Ayanāṁśa: True Citra Paksha (Lahiri)
-Planetas: ${selectedPlanets.join(', ')}
-• Cambios detectados (nakṣatra/pāda): ${changesCount}
-${changesList}
-• Rangos continuos por planeta: ${rangesCount}
-${rangesTable}
+    return nakshatraData[nakshatra]?.[pada] || ['actividades generales', 'desarrollo personal']
+  }
 
-Instrucciones de estilo: escribe análisis claro, inspirador, para público general; evita tecnicismos, destaca hitos (ingresos de nakṣatra) y recomienda acciones.`
+  const getUnfavorableActivities = (nakshatra: string, pada: number): string[] => {
+    const nakshatraData: Record<string, Record<number, string[]>> = {
+      'Aśvinī': {
+        1: ['impaciencia', 'prisa excesiva', 'agresividad'],
+        2: ['rigidez', 'inflexibilidad', 'obstinación'],
+        3: ['conflicto', 'competencia excesiva', 'egoísmo'],
+        4: ['perfeccionismo', 'crítica excesiva', 'intolerancia']
+      },
+      'Bharaṇī': {
+        1: ['acumulación excesiva', 'materialismo', 'avaricia'],
+        2: ['estancamiento', 'resistencia al cambio', 'pasividad'],
+        3: ['transformación forzada', 'cambio abrupto', 'inestabilidad'],
+        4: ['purificación excesiva', 'rigidez', 'intolerancia']
+      },
+      'Kṛttikā': {
+        1: ['agresividad', 'impulsividad', 'violencia'],
+        2: ['construcción forzada', 'imposición', 'autoritarismo'],
+        3: ['liderazgo autoritario', 'dominación', 'control excesivo'],
+        4: ['purificación excesiva', 'disciplina rígida', 'intolerancia']
+      },
+      'Rohiṇī': {
+        1: ['acumulación excesiva', 'materialismo', 'apego'],
+        2: ['estancamiento', 'resistencia al cambio', 'pasividad'],
+        3: ['belleza superficial', 'vanidad', 'superficialidad'],
+        4: ['satisfacción excesiva', 'complacencia', 'estancamiento']
+      },
+      'Mṛgaśira': {
+        1: ['exploración excesiva', 'dispersión', 'falta de enfoque'],
+        2: ['análisis excesivo', 'parálisis por análisis', 'indecisión'],
+        3: ['comunicación excesiva', 'chismes', 'superficialidad'],
+        4: ['conclusión prematura', 'síntesis forzada', 'rigidez']
+      }
+    }
+    
+    return nakshatraData[nakshatra]?.[pada] || ['actividades conflictivas', 'evitar confrontaciones']
+  }
+
+
+  const generatePrompt = () => {
+    // Get date range
+    const startDate = dateRange.from || new Date(selectedYear, selectedMonth - 1, 1).toISOString().split('T')[0]
+    const endDate = dateRange.to || new Date(selectedYear, selectedMonth, 0).toISOString().split('T')[0]
+    
+    // Generate planet movement ranges from calendar data
+    const generatePlanetRanges = () => {
+      if (!calendarData?.days) return []
+      
+      const planetRanges: any[] = []
+      
+      selectedPlanets.forEach(planetName => {
+        const planetDays = calendarData.days
+          .filter((day: any) => {
+            const dayDate = day.date
+            return dayDate >= startDate && dayDate <= endDate
+          })
+          .map((day: any) => {
+            const planetData = day.planets?.find((p: any) => p.name === planetName)
+            if (!planetData) return null
+            
+            return {
+              date: day.date,
+              nakshatra: planetData.nakshatra?.nameIAST || planetData.nakshatra?.name || 'Unknown',
+              pada: planetData.nakshatra?.pada || 1,
+              retrograde: planetData.retrograde || false,
+              longitude: planetData.longitude || 0
+            }
+          })
+          .filter(Boolean)
+        
+        // Group consecutive days with same nakshatra/pada
+        let currentRange: any = null
+        const ranges: any[] = []
+        
+        planetDays.forEach((dayData: any) => {
+          const key = `${dayData.nakshatra}-${dayData.pada}`
+          
+          if (!currentRange || currentRange.key !== key) {
+            if (currentRange) {
+              ranges.push(currentRange)
+            }
+            currentRange = {
+              planet: planetName,
+              nakshatra: dayData.nakshatra,
+              pada: dayData.pada,
+              retrograde: dayData.retrograde,
+              startDate: dayData.date,
+              endDate: dayData.date,
+              key: key,
+              favorables: getFavorableActivities(dayData.nakshatra, dayData.pada),
+              desfavorables: getUnfavorableActivities(dayData.nakshatra, dayData.pada)
+            }
+          } else {
+            currentRange.endDate = dayData.date
+          }
+        })
+        
+        if (currentRange) {
+          ranges.push(currentRange)
+        }
+        
+        planetRanges.push(...ranges)
+      })
+      
+      return planetRanges
+    }
+    
+    const planetRanges = generatePlanetRanges()
+    const transitions = getRelevantTransitions()
+    
+    // Create changes list
+    const cambios = transitions.map((t: any) => ({
+      planeta: t.planet,
+      de_sector: t.fromNakshatra?.nameIAST || t.fromNakshatra?.name || 'Unknown',
+      de_subsector: t.fromNakshatra?.pada || 1,
+      a_sector: t.toNakshatra?.nameIAST || t.toNakshatra?.name || 'Unknown',
+      a_subsector: t.toNakshatra?.pada || 1,
+      hora_local: `${t.date} ${t.time || '00:00'}`
+    }))
+    
+    const prompt = `# RANGOS DE MOVIMIENTO PLANETARIO
+PERÍODO: ${startDate} → ${endDate} (TZ: ${location.timezone})
+
+${planetRanges.map(range => `PLANETA: ${range.planet}
+• ${range.startDate} → ${range.endDate} — Sector: ${range.nakshatra} | Subsector: ${range.pada}${range.retrograde ? ' | Retrógrado' : ''}
+`).join('\n')}
+
+# CAMBIOS DE SECTOR/SUBSECTOR
+${cambios.map((cambio: any) => `• ${cambio.planeta} cambia de ${cambio.de_sector}/${cambio.de_subsector} a ${cambio.a_sector}/${cambio.a_subsector} en ${cambio.hora_local}`).join('\n')}
+
+# CONTEXTO (NO IMPRIMIR)
+PERÍODO: ${startDate} → ${endDate} (TZ: ${location.timezone})
+PLANETAS: con tramos de tránsito (sector, subsector, favorables/desfavorables, retrogradaciones, combustiones).
+CAMBIOS: lista de cambios de sector/subsector con hora local.
+
+# LENTES POR PLANETA (NO IMPRIMIR)
+Sol → identidad, dirección, autoridad, propósito.
+Luna → ánimo, fluctuaciones, cuidado personal, hogar.
+Marte → acción, coraje, urgencias, conflictos.
+Mercurio → mente, comunicación, comercio, análisis.
+Júpiter → crecimiento, oportunidades, sentido, mentores.
+Venus → vínculos, arte, placer, negociación, estética.
+Saturno → estructura, tiempo, límites, responsabilidades.
+Nodo Norte → ambición, innovación, exposición, riesgo.
+Nodo Sur → depuración, desapego, cierre, espiritualidad.
+
+# MAPA SUBSECTOR (NO IMPRIMIR)
+1 = arranque | 2 = construcción | 3 = intercambio | 4 = cierre
+
+# MOTOR DE MEZCLA (OBLIGATORIO — NO IMPRIMIR)
+1. Menciona explícitamente el tránsito: "El Sol estará transitando por el sector Ashvini entre el X y el Y".  
+2. Explica cómo ese tránsito **colorea el lente del planeta** con las cualidades del sector.  
+   Ej.: Sol (identidad/dirección) + Ashvini (sanación, inicios, dinamismo) → "Tu propósito se tiñe de sanación y apertura de caminos".  
+3. Matiza con el subsector (1=arranque, 2=construcción, 3=intercambio, 4=cierre).  
+   Ej.: *"En este segundo subsector, no basta con empezar rápido: conviene consolidar paso a paso."*  
+4. Añade las notas de **favorables/desfavorables** como consejos prácticos.  
+5. Ajusta por retrogradación (revisar, replantear) o combustión (bajar intensidad, indirecto).  
+6. No enumerar los 9 planetas en bloque. Elige 2–4 tránsitos más relevantes para el período y desarrolla con detalle, mencionando cambios de sector/subsector como "ventanas" o "puntos de giro".
+
+# INSTRUCCIONES (PÚBLICAS — AUDIO ~5 MIN)
+- Genera un guion de AUDIO de **700–900 palabras** (~5 min), tono **conversado, cercano y motivador** (latino, más peruano que españolizado).
+- **Comienza nombrando el período**: "Este período va del ${startDate} al ${endDate}…".
+- Menciona de forma **didáctica y astrológica** los tránsitos: "Durante este período, Marte transita por el sector X…"; "La Luna recorrerá el sector Y, cambiando de subsector el día Z…".
+- Explica cada tránsito en **lenguaje práctico**: cómo el planeta, con su lente, se mezcla con el enfoque del sector y cómo usar esa energía.  
+  Ejemplo de estilo: *"El Sol, que representa identidad y propósito, atraviesa ahora un sector de sanación y comienzos. Esto te impulsa a dirigir tu autoridad a resolver conflictos y abrir nuevos caminos."*
+- **Fusión narrativa**: no separar "planeta" y "sector" como listas; integrarlos en frases fluidas.  
+- Estructura del guion:
+  1. Intro con período + idea fuerza.  
+  2. Panorama general del período.  
+  3. Tránsitos clave (2–4 planetas con blend explicado).  
+  4. Ventanas de cambio (cuando un planeta cambia de sector/subsector, menciónalo con hora local si está disponible).  
+  5. Consejos de **acciones favorables** (3–5, en narrativa).  
+  6. Advertencias de **evitar/ajustar** (2–3, con alternativa).  
+  7. Cierre cálido + **frase motivadora original** (1–2 líneas), creada para este período (sin citas famosas; alterna estilo oriental/occidental entre reportes).
+- Estilo de audio: frases cortas, pausas naturales, conectores suaves. Nada de tecnicismos oscuros.  
+- Salida: un **único texto fluido**, listo para TTS, enfocado en el rango (evita decir "hoy/mañana").`
     
     return prompt
   }
@@ -201,7 +440,13 @@ Instrucciones de estilo: escribe análisis claro, inspirador, para público gene
         {weeks.map((week, weekIndex) => (
           <div key={weekIndex} className="grid grid-cols-7 gap-1">
             {week.map((day: any, dayIndex: number) => (
-              <Card key={dayIndex} className="p-1">
+              <Card 
+                key={dayIndex} 
+                className={`p-1 cursor-pointer transition-colors hover:bg-gray-50 ${
+                  selectedDate === day.date ? 'ring-2 ring-blue-500 bg-blue-50' : ''
+                }`}
+                onClick={() => setSelectedDate(day.date)}
+              >
                 <div className="text-center text-xs font-medium mb-1">
                   {new Date(day.date).getDate()}
                 </div>
@@ -350,6 +595,23 @@ Instrucciones de estilo: escribe análisis claro, inspirador, para público gene
         </CardContent>
       </Card>
 
+      {/* Chesta Bala Monthly Analysis */}
+      {chestaBalaMonthly && (
+        <ChestaBalaPanel 
+          summary={chestaBalaMonthly.summary} 
+          isLoading={chestaBalaLoading}
+        />
+      )}
+
+      {/* Chesta Bala Daily Analysis */}
+      {selectedDate && chestaBalaDaily && (
+        <ChestaBalaDailyPanel 
+          planets={chestaBalaDaily.planets} 
+          date={selectedDate}
+          isLoading={chestaBalaDailyLoading}
+        />
+      )}
+
       {/* Prompt Builder */}
       <Card>
         <CardHeader>
@@ -410,6 +672,27 @@ Instrucciones de estilo: escribe análisis claro, inspirador, para público gene
                   </Label>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Debug Panel - Temporary */}
+          <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+            <h3 className="font-semibold mb-2">🔍 Debug Info</h3>
+            <div className="text-sm space-y-1">
+              <div><strong>Template:</strong> {template}</div>
+              <div><strong>Date Range:</strong> {dateRange.from} → {dateRange.to}</div>
+              <div><strong>Selected Planets:</strong> {selectedPlanets.join(', ')}</div>
+              <div><strong>Calendar Data:</strong> {calendarData ? '✅ Loaded' : '❌ Not loaded'}</div>
+              <div><strong>Calendar Days:</strong> {calendarData?.days?.length || 0} days</div>
+              <div><strong>Transitions:</strong> {calendarData?.transitions?.length || 0} found</div>
+              <div><strong>Relevant Transitions:</strong> {getRelevantTransitions().length} filtered</div>
+              <div><strong>Planet Ranges Generated:</strong> {(() => {
+                const ranges = generatePrompt().split('PLANETA:').length - 1
+                return ranges
+              })()} ranges</div>
+              {calendarData?.days && calendarData.days.length > 0 && (
+                <div><strong>Sample Day:</strong> {JSON.stringify(calendarData.days[0], null, 2)}</div>
+              )}
             </div>
           </div>
 
