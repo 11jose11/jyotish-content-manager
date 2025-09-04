@@ -316,7 +316,9 @@ const Transits: React.FC = () => {
               endDate: dayData.date,
               key: key,
               favorables: getFavorableActivities(dayData.nakshatra, dayData.pada),
-              desfavorables: getUnfavorableActivities(dayData.nakshatra, dayData.pada)
+              desfavorables: getUnfavorableActivities(dayData.nakshatra, dayData.pada),
+              motionState: dayData.motionState || 'sama',
+              chestaBala: dayData.chestaBala || 30
             }
           } else {
             currentRange.endDate = dayData.date
@@ -346,20 +348,57 @@ const Transits: React.FC = () => {
       hora_local: `${t.date} ${t.time || '00:00'}`
     }))
     
+    // Generate Chesta Bala changes data
+    const generateChestaBalaChanges = () => {
+      if (!chestaBalaMonthly?.summary?.changes_by_planet) return ''
+      
+      const changes = chestaBalaMonthly.summary.changes_by_planet
+      const changesText = Object.entries(changes).map(([planet, planetChanges]: [string, any]) => {
+        const planetName = planet === 'Sun' ? 'Sol' : 
+                          planet === 'Moon' ? 'Luna' :
+                          planet === 'Mars' ? 'Marte' :
+                          planet === 'Mercury' ? 'Mercurio' :
+                          planet === 'Jupiter' ? 'Júpiter' :
+                          planet === 'Venus' ? 'Venus' :
+                          planet === 'Saturn' ? 'Saturno' :
+                          planet === 'Rahu' ? 'Rahu' :
+                          planet === 'Ketu' ? 'Ketu' : planet
+        
+        const changesList = planetChanges.map((change: any) => {
+          const fromState = change.from_state || 'unknown'
+          const toState = change.to_state || 'unknown'
+          const date = new Date(change.date).toLocaleDateString('es-ES', { 
+            day: '2-digit', 
+            month: '2-digit' 
+          })
+          return `  • ${date}: ${fromState} → ${toState} (Chesta Bala: ${change.chesta_bala_change})`
+        }).join('\n')
+        
+        return `PLANETA: ${planetName}\n${changesList}`
+      }).join('\n\n')
+      
+      return changesText
+    }
+
     const prompt = `# RANGOS DE MOVIMIENTO PLANETARIO
 PERÍODO: ${startDate} → ${endDate} (TZ: ${location.timezone})
 
 ${planetRanges.map(range => `PLANETA: ${range.planet}
-• ${range.startDate} → ${range.endDate} — Sector: ${range.nakshatra} | Subsector: ${range.pada}${range.retrograde ? ' | Retrógrado' : ''}
+• ${range.startDate} → ${range.endDate} — Nakshatra: ${range.nakshatra} | Pada: ${range.pada} | Ceṣṭā Bala: ${range.motionState} (${range.chestaBala})${range.retrograde ? ' | Retrógrado' : ''}
 `).join('\n')}
 
-# CAMBIOS DE SECTOR/SUBSECTOR
+# CAMBIOS DE MOVIMIENTO POR PLANETA
+PERÍODO: ${startDate} → ${endDate} (TZ: ${location.timezone})
+
+${generateChestaBalaChanges()}
+
+# CAMBIOS DE NAKSHATRA/PADA
 ${cambios.map((cambio: any) => `• ${cambio.planeta} cambia de ${cambio.de_sector}/${cambio.de_subsector} a ${cambio.a_sector}/${cambio.a_subsector} en ${cambio.hora_local}`).join('\n')}
 
 # CONTEXTO (NO IMPRIMIR)
 PERÍODO: ${startDate} → ${endDate} (TZ: ${location.timezone})
-PLANETAS: con tramos de tránsito (sector, subsector, favorables/desfavorables, retrogradaciones, combustiones).
-CAMBIOS: lista de cambios de sector/subsector con hora local.
+PLANETAS: con tramos de tránsito (nakshatra, pada, favorables/desfavorables, retrogradaciones, combustiones, categoría de cestabala).
+CAMBIOS: lista de cambios de nakshatra/pada con hora local.
 
 # LENTES POR PLANETA (NO IMPRIMIR)
 Sol → identidad, dirección, autoridad, propósito.
@@ -372,36 +411,67 @@ Saturno → estructura, tiempo, límites, responsabilidades.
 Nodo Norte → ambición, innovación, exposición, riesgo.
 Nodo Sur → depuración, desapego, cierre, espiritualidad.
 
-# MAPA SUBSECTOR (NO IMPRIMIR)
+# MAPA PADA (NO IMPRIMIR)
 1 = arranque | 2 = construcción | 3 = intercambio | 4 = cierre
 
-# MOTOR DE MEZCLA (OBLIGATORIO — NO IMPRIMIR)
-1. Menciona explícitamente el tránsito: "El Sol estará transitando por el sector Ashvini entre el X y el Y".  
-2. Explica cómo ese tránsito **colorea el lente del planeta** con las cualidades del sector.  
-   Ej.: Sol (identidad/dirección) + Ashvini (sanación, inicios, dinamismo) → "Tu propósito se tiñe de sanación y apertura de caminos".  
-3. Matiza con el subsector (1=arranque, 2=construcción, 3=intercambio, 4=cierre).  
-   Ej.: *"En este segundo subsector, no basta con empezar rápido: conviene consolidar paso a paso."*  
-4. Añade las notas de **favorables/desfavorables** como consejos prácticos.  
-5. Ajusta por retrogradación (revisar, replantear) o combustión (bajar intensidad, indirecto).  
-6. No enumerar los 9 planetas en bloque. Elige 2–4 tránsitos más relevantes para el período y desarrolla con detalle, mencionando cambios de sector/subsector como "ventanas" o "puntos de giro".
+# MAPA DE CESTABALA (NO IMPRIMIR)
+Vakra (retrogrado) → muy fuerte, deseo máximo, doble filo.  
+Anuvakra → reactivación tras pausa, frutos tras obstáculos.  
+Vikala (estacionario) → bloqueo, parálisis, confusión.  
+Mandatara (muy lento) → pesado, obstrucción.  
+Manda (lento) → estable pero tardío.  
+Sama (medio) → balanceado, normal.  
+Chara (rápido) → dinámico, logros inmediatos, algo inestable.  
+Atichara (muy rápido) → gran impulso, logros acelerados, riesgo de exceso.  
+Kutilaka (irregular) → contradictorio, zigzagueante, ambiguo, difícil de predecir.
 
-# INSTRUCCIONES (PÚBLICAS — AUDIO ~5 MIN)
-- Genera un guion de AUDIO de **700–900 palabras** (~5 min), tono **conversado, cercano y motivador** (latino, más peruano que españolizado).
-- **Comienza nombrando el período**: "Este período va del ${startDate} al ${endDate}…".
-- Menciona de forma **didáctica y astrológica** los tránsitos: "Durante este período, Marte transita por el sector X…"; "La Luna recorrerá el sector Y, cambiando de subsector el día Z…".
-- Explica cada tránsito en **lenguaje práctico**: cómo el planeta, con su lente, se mezcla con el enfoque del sector y cómo usar esa energía.  
-  Ejemplo de estilo: *"El Sol, que representa identidad y propósito, atraviesa ahora un sector de sanación y comienzos. Esto te impulsa a dirigir tu autoridad a resolver conflictos y abrir nuevos caminos."*
-- **Fusión narrativa**: no separar "planeta" y "sector" como listas; integrarlos en frases fluidas.  
-- Estructura del guion:
-  1. Intro con período + idea fuerza.  
-  2. Panorama general del período.  
-  3. Tránsitos clave (2–4 planetas con blend explicado).  
-  4. Ventanas de cambio (cuando un planeta cambia de sector/subsector, menciónalo con hora local si está disponible).  
-  5. Consejos de **acciones favorables** (3–5, en narrativa).  
-  6. Advertencias de **evitar/ajustar** (2–3, con alternativa).  
-  7. Cierre cálido + **frase motivadora original** (1–2 líneas), creada para este período (sin citas famosas; alterna estilo oriental/occidental entre reportes).
-- Estilo de audio: frases cortas, pausas naturales, conectores suaves. Nada de tecnicismos oscuros.  
-- Salida: un **único texto fluido**, listo para TTS, enfocado en el rango (evita decir "hoy/mañana").`
+# MOTOR DE MEZCLA (OBLIGATORIO — NO IMPRIMIR)
+1) Nombrar con claridad el tránsito usando las fechas del período: "El Sol transita Purva Phalguni del 1 al 13 de septiembre". No inventar rangos: usar solo los del bloque CONTEXTO.  
+2) Fusionar en cada tránsito:
+   - Planeta (lente: qué canaliza).  
+   - Nakshatra (cualidades: el color del tránsito).  
+   - Pada (dinámica: arranque / construcción / intercambio / cierre).  
+   - Cestabala (intensidad/velocidad/bloqueo o doble filo).
+3) Desarrollar cada tránsito en tres capas:  
+   - Astrológica/externa (qué se mueve).  
+   - Psicológica/interna (cómo se siente).  
+   - Motivadora/estoica (qué hacer y cómo sostener virtud, disciplina y calma).
+4) Incorporar favorables/desfavorables como recomendaciones prácticas concretas.  
+5) Seleccionar 5–6 tránsitos principales del mes (los más largos, intensos o transformadores). No enumerar los 9 planetas en bloque.  
+6) Mencionar cambios de nakshatra o pada como "ventanas" o "giros de energía" con hora local si está disponible.  
+7) Coherencia y equilibrio: si hay redundancias, fusionar ideas; si hay contradicciones, integrarlas con una salida práctica ("avanza con preparación", "modera el ritmo sin detener el plan").
+
+# INSTRUCCIONES (PÚBLICAS — AUDIO ~15 MIN)
+- Genera un guion de AUDIO en **español natural y 100% legible por ElevenLabs** (sin diacríticos ni caracteres raros).  
+  - Si un nombre tradicional trae diacríticos/transliteración (ā, ṛ, ṣ, etc.), **convertir a forma legible**: Ashwini, Mrigashira, Shukra, etc.
+- Extensión: **2000–2500 palabras** (~15 minutos).  
+- Tono: mezcla de **pandit erudito**, **psicólogo motivador** y **filósofo estoico**.  
+- **Inicio**: nombra el período completo → "Este mes va del ${startDate} al ${endDate}…".  
+- **Panorama general del mes**: describe el clima global, oportunidades y retos.  
+- **Tránsitos clave (5–6)**:  
+  - Nombrarlos claramente con nakshatra y fechas.  
+  - Explicar el blend planeta × nakshatra × pada × cestabala.  
+  - Dedicar 2–3 minutos por tránsito con:
+    1. Explicación astrológica (qué implica).  
+    2. Reflexión psicológica (cómo se vive por dentro y en vínculos).  
+    3. Consejo motivador (acciones concretas, prioridades).  
+    4. Mirada estoica (aceptación, virtud, disciplina, foco en lo controlable).
+- **Ventanas de cambio**: destacar cuando un planeta cambia de nakshatra o de pada durante el mes, como momentos propicios para ajustar rumbo.  
+- **Consejos prácticos del mes**: resume 4–5 acciones recomendadas (en narrativa, sin listas crudas).  
+- **Advertencias**: 2–3 precauciones con alternativa positiva ("si no se puede A, intenta B").  
+- **Cierre**:
+  - Recapitula el tono del mes.  
+  - Incluye una **frase motivadora original** (1–2 líneas), filosófica y inspiradora, **no** una cita famosa.  
+- Estilo de audio: frases claras, pausas naturales, conectores suaves ("ademas", "por eso", "asi que"), ritmo conversado y cercano (más peruano que españolizado).  
+- Temporalidad: enfoca **todo en el mes** (evita "hoy/mañana").  
+- Salida: un **único texto fluido**, listo para TTS, **sin usar "sector/subsector"** en ningún momento.
+
+# CONTROLES DE CALIDAD (NO IMPRIMIR)
+- No inventar datos ni fechas. Usa solo los tramos del CONTEXTO.  
+- Nombra nakshatras y padas tal como vengan del CONTEXTO (normalizados a español legible).  
+- Evita repeticiones y muletillas; usa sinónimos y transiciones variadas.  
+- Mantén coherencia entre ceñstabala y el tono de las recomendaciones (p. ej., Vakra = fuerte pero doble filo; Vikala = bloqueo/pausa).  
+- Conserva un balance entre erudición, empatía práctica y quietud estoica.`
     
     return prompt
   }

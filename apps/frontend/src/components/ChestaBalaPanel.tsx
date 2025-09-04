@@ -3,19 +3,19 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { Badge } from './ui/badge'
 import { Calendar, TrendingUp, Activity, Zap } from 'lucide-react'
 
-// Mapeo de estados de movimiento con valores y colores
+// Mapeo de estados de movimiento con valores y colores según tradición védica
 const MOTION_STATES = {
-  vakra: { value: 60, color: 'bg-red-100 text-red-800', devanagari: 'वक्र', description: 'Retrógrado' },
-  anuvakra: { value: 30, color: 'bg-orange-100 text-orange-800', devanagari: 'अनुवक्र', description: 'Directo después de retrogradación' },
-  vikala: { value: 15, color: 'bg-gray-100 text-gray-800', devanagari: 'विकल', description: 'Estacionario' },
-  mandatara: { value: 15, color: 'bg-gray-100 text-gray-800', devanagari: 'मन्दतर', description: 'Muy lento' },
-  manda: { value: 30, color: 'bg-yellow-100 text-yellow-800', devanagari: 'मन्द', description: 'Lento' },
-  sama: { value: 30, color: 'bg-blue-100 text-blue-800', devanagari: 'साम', description: 'Movimiento medio' },
-  chara: { value: 30, color: 'bg-green-100 text-green-800', devanagari: 'चरा', description: 'Rápido' },
-  sighra: { value: 30, color: 'bg-green-100 text-green-800', devanagari: 'शीघ्र', description: 'Rápido' },
-  atichara: { value: 45, color: 'bg-emerald-100 text-emerald-800', devanagari: 'अतिचरा', description: 'Muy rápido' },
-  sighratara: { value: 45, color: 'bg-emerald-100 text-emerald-800', devanagari: 'शीघ्रतर', description: 'Muy rápido' },
-  kutilaka: { value: 37.5, color: 'bg-purple-100 text-purple-800', devanagari: 'कुटिलक', description: 'Movimiento irregular' }
+  vakra: { value: 60, color: 'bg-red-100 text-red-800', devanagari: 'वक्र', transliteration: 'vakra', spanish: 'Retrógrado', description: 'Retrógrado' },
+  anuvakra: { value: 30, color: 'bg-orange-100 text-orange-800', devanagari: 'अनुवक्र', transliteration: 'anuvakra', spanish: 'Directo después de retrogradación', description: 'Directo después de retrogradación' },
+  vikala: { value: 15, color: 'bg-gray-100 text-gray-800', devanagari: 'विकल', transliteration: 'vikala', spanish: 'Estacionario', description: 'Estacionario (sin movimiento)' },
+  mandatara: { value: 15, color: 'bg-gray-100 text-gray-800', devanagari: 'मन्दतर', transliteration: 'mandatara', spanish: 'Muy Lento', description: 'Muy lento' },
+  manda: { value: 30, color: 'bg-yellow-100 text-yellow-800', devanagari: 'मन्द', transliteration: 'manda', spanish: 'Lento', description: 'Lento' },
+  sama: { value: 30, color: 'bg-blue-100 text-blue-800', devanagari: 'साम', transliteration: 'sama', spanish: 'Movimiento Medio', description: 'Movimiento medio' },
+  chara: { value: 30, color: 'bg-green-100 text-green-800', devanagari: 'चरा', transliteration: 'chara', spanish: 'Rápido', description: 'Rápido' },
+  sighra: { value: 30, color: 'bg-green-100 text-green-800', devanagari: 'शीघ्र', transliteration: 'sighra', spanish: 'Rápido', description: 'Rápido' },
+  atichara: { value: 45, color: 'bg-emerald-100 text-emerald-800', devanagari: 'अतिचरा', transliteration: 'atichara', spanish: 'Muy Rápido', description: 'Muy rápido' },
+  sighratara: { value: 45, color: 'bg-emerald-100 text-emerald-800', devanagari: 'शीघ्रतर', transliteration: 'sighratara', spanish: 'Muy Rápido', description: 'Muy rápido' },
+  kutilaka: { value: 37.5, color: 'bg-purple-100 text-purple-800', devanagari: 'कुटिलक', transliteration: 'kuṭilaka', spanish: 'Irregular', description: 'Movimiento irregular, zigzagueante, estacionario' }
 }
 
 // Mapeo de planetas con nombres en español
@@ -162,11 +162,11 @@ export const ChestaBalaPanel: React.FC<ChestaBalaPanelProps> = ({ summary, isLoa
                             <span className="text-sm font-medium">{formatDate(change.date)}</span>
                             <div className="flex items-center gap-2">
                               <Badge className={fromState.color}>
-                                {fromState.devanagari} ({change.from_state})
+                                {fromState.transliteration} ({fromState.spanish})
                               </Badge>
                               <span className="text-gray-500">→</span>
                               <Badge className={toState.color}>
-                                {toState.devanagari} ({change.to_state})
+                                {toState.transliteration} ({toState.spanish})
                               </Badge>
                             </div>
                           </div>
