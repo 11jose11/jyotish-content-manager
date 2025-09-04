@@ -6,7 +6,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge'
 import { Label } from '@/components/ui/label'
 import { usePanchangaMonth, useApiHealth } from '@/lib/api'
-import { simplifiedPanchangaService } from '@/lib/simplifiedPanchangaService'
 import LocationAutocomplete from '@/components/LocationAutocomplete'
 import PanchangaDetailPanel from '@/components/PanchangaDetailPanel'
 import JsonDataDebug from '@/components/JsonDataDebug'
@@ -59,25 +58,24 @@ const Panchanga: React.FC = () => {
 
   const handleDayClick = async (day: any) => {
     try {
-      console.log('🖱️ Day clicked:', day)
       setIsLoadingDetails(true)
       setSelectedDay(day.date)
+      
+      // Usar directamente los datos de la API que ya incluyen toda la información
+      console.log('🖱️ Day clicked:', day)
+      console.log('📊 Day data from API:', {
+        tithi: day.tithi,
+        nakshatra: day.nakshatra,
+        yoga: day.yoga,
+        karana: day.karana,
+        vara: day.vara,
+        specialYogas: day.specialYogas,
+        trafficLight: day.trafficLight
+      })
+      
       setSelectedDayData(day)
-      
-      // Cargar detalles del panchanga desde JSON simplificado
-      console.log('🔍 Loading panchanga details for:', day.date)
-      const details = await simplifiedPanchangaService.getPanchangaDetails(day)
-      console.log('✅ Panchanga details loaded:', details)
-      
-      const updatedDayData = {
-        ...day,
-        details
-      }
-      console.log('📊 Updated day data:', updatedDayData)
-      
-      setSelectedDayData(updatedDayData)
       setIsDetailPanelOpen(true)
-      toast.success(`Cargando detalles del ${new Date(day.date).toLocaleDateString('es-ES')}`)
+      toast.success(`Detalles del ${new Date(day.date).toLocaleDateString('es-ES')}`)
     } catch (error) {
       console.error('❌ Error loading day details:', error)
       toast.error('Error al cargar los detalles del día')

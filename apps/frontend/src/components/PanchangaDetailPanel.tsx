@@ -5,6 +5,266 @@ import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { Copy, FileText, Sparkles } from 'lucide-react'
 import { toast } from 'sonner'
+// Funciones síncronas para enriquecer datos básicos
+const getNakshatraTranslation = (name: string): string => {
+  const translations: Record<string, string> = {
+    'Aśvinī': 'La Primera Favorable',
+    'Bharaṇī': 'La Portadora',
+    'Kṛttikā': 'Las Cortadoras',
+    'Rohiṇī': 'La Roja',
+    'Mṛgaśirā': 'La Cabeza del Ciervo',
+    'Ārdrā': 'La Húmeda',
+    'Punarvasu': 'El Retorno de la Luz',
+    'Puṣya': 'El Nutritivo',
+    'Āśleṣā': 'El Abrazo',
+    'Maghā': 'La Poderosa',
+    'Pūrvaphalgunī': 'La Primera Favorable',
+    'Uttaraphalgunī': 'La Segunda Favorable',
+    'Hasta': 'La Mano',
+    'Citrā': 'La Brillante',
+    'Svātī': 'El Independiente',
+    'Viśākhā': 'La Ramificada',
+    'Anurādhā': 'La Seguida',
+    'Jyeṣṭhā': 'La Mayor',
+    'Mūla': 'La Raíz',
+    'Pūrvāṣāḍhā': 'La Primera Invicta',
+    'Uttarāṣāḍhā': 'La Segunda Invicta',
+    'Śravaṇa': 'El Oído',
+    'Dhaniṣṭhā': 'La Rica',
+    'Śatabhiṣā': 'Los Cien Curanderos',
+    'Pūrvabhādrapadā': 'La Primera Favorable',
+    'Uttarabhādrapadā': 'La Segunda Favorable',
+    'Revatī': 'La Rica'
+  }
+  return translations[name] || 'Constelación lunar'
+}
+
+const getNakshatraDeity = (name: string): string => {
+  const deities: Record<string, string> = {
+    'Aśvinī': 'Aśvinī Kumaras',
+    'Bharaṇī': 'Yama',
+    'Kṛttikā': 'Agni',
+    'Rohiṇī': 'Brahmā',
+    'Mṛgaśirā': 'Soma',
+    'Ārdrā': 'Rudra',
+    'Punarvasu': 'Aditi',
+    'Puṣya': 'Bṛhaspati',
+    'Āśleṣā': 'Nāgas',
+    'Maghā': 'Pitṛs',
+    'Pūrvaphalgunī': 'Bhaga',
+    'Uttaraphalgunī': 'Aryaman',
+    'Hasta': 'Savitṛ',
+    'Citrā': 'Tvaṣṭṛ',
+    'Svātī': 'Vāyu',
+    'Viśākhā': 'Indrāgni',
+    'Anurādhā': 'Mitra',
+    'Jyeṣṭhā': 'Indra',
+    'Mūla': 'Nirṛti',
+    'Pūrvāṣāḍhā': 'Āpas',
+    'Uttarāṣāḍhā': 'Viśve Devas',
+    'Śravaṇa': 'Viṣṇu',
+    'Dhaniṣṭhā': 'Vasu',
+    'Śatabhiṣā': 'Varuṇa',
+    'Pūrvabhādrapadā': 'Aja Ekapāda',
+    'Uttarabhādrapadā': 'Ahir Budhnya',
+    'Revatī': 'Pūṣan'
+  }
+  return deities[name] || 'Deidad lunar'
+}
+
+const getNakshatraClassification = (name: string): string => {
+  const classifications: Record<string, string> = {
+    'Aśvinī': 'Mṛdu (Suave)',
+    'Bharaṇī': 'Ugra (Feroz)',
+    'Kṛttikā': 'Ugra (Feroz)',
+    'Rohiṇī': 'Mṛdu (Suave)',
+    'Mṛgaśirā': 'Mṛdu (Suave)',
+    'Ārdrā': 'Ugra (Feroz)',
+    'Punarvasu': 'Mṛdu (Suave)',
+    'Puṣya': 'Mṛdu (Suave)',
+    'Āśleṣā': 'Ugra (Feroz)',
+    'Maghā': 'Ugra (Feroz)',
+    'Pūrvaphalgunī': 'Mṛdu (Suave)',
+    'Uttaraphalgunī': 'Mṛdu (Suave)',
+    'Hasta': 'Mṛdu (Suave)',
+    'Citrā': 'Mṛdu (Suave)',
+    'Svātī': 'Mṛdu (Suave)',
+    'Viśākhā': 'Ugra (Feroz)',
+    'Anurādhā': 'Mṛdu (Suave)',
+    'Jyeṣṭhā': 'Ugra (Feroz)',
+    'Mūla': 'Ugra (Feroz)',
+    'Pūrvāṣāḍhā': 'Ugra (Feroz)',
+    'Uttarāṣāḍhā': 'Mṛdu (Suave)',
+    'Śravaṇa': 'Mṛdu (Suave)',
+    'Dhaniṣṭhā': 'Ugra (Feroz)',
+    'Śatabhiṣā': 'Ugra (Feroz)',
+    'Pūrvabhādrapadā': 'Ugra (Feroz)',
+    'Uttarabhādrapadā': 'Mṛdu (Suave)',
+    'Revatī': 'Mṛdu (Suave)'
+  }
+  return classifications[name] || 'Clasificación lunar'
+}
+
+const getNakshatraRecommendations = (): string => {
+  return 'Favorables: actividades relacionadas con la naturaleza de la constelación. Desfavorables: actividades contrarias a su energía.'
+}
+
+const getTithiTranslation = (name: string): string => {
+  const translations: Record<string, string> = {
+    'Pratipada': 'Primer día lunar',
+    'Dvitiya': 'Segundo día lunar',
+    'Tritiya': 'Tercer día lunar',
+    'Chaturthi': 'Cuarto día lunar',
+    'Panchami': 'Quinto día lunar',
+    'Shashthi': 'Sexto día lunar',
+    'Saptami': 'Séptimo día lunar',
+    'Ashtami': 'Octavo día lunar',
+    'Navami': 'Noveno día lunar',
+    'Dashami': 'Décimo día lunar',
+    'Ekadashi': 'Undécimo día lunar',
+    'Dwadashi': 'Duodécimo día lunar',
+    'Trayodashi': 'Decimotercer día lunar',
+    'Chaturdashi': 'Decimocuarto día lunar',
+    'Purnima': 'Luna llena',
+    'Amavasya': 'Luna nueva'
+  }
+  return translations[name] || 'Día lunar'
+}
+
+const getTithiElement = (name: string): string => {
+  const elements: Record<string, string> = {
+    'Pratipada': 'Agua',
+    'Dvitiya': 'Agua',
+    'Tritiya': 'Agua',
+    'Chaturthi': 'Agua',
+    'Panchami': 'Agua',
+    'Shashthi': 'Agua',
+    'Saptami': 'Agua',
+    'Ashtami': 'Agua',
+    'Navami': 'Agua',
+    'Dashami': 'Agua',
+    'Ekadashi': 'Agua',
+    'Dwadashi': 'Agua',
+    'Trayodashi': 'Agua',
+    'Chaturdashi': 'Agua',
+    'Purnima': 'Agua',
+    'Amavasya': 'Agua'
+  }
+  return elements[name] || 'Elemento lunar'
+}
+
+const getTithiRecommendations = (): string => {
+  return 'Favorables: actividades según la fase lunar. Desfavorables: actividades contrarias al período lunar.'
+}
+
+const getKaranaTranslation = (name: string): string => {
+  const translations: Record<string, string> = {
+    'Bava': 'Nacimiento',
+    'Bālava': 'Fuerza',
+    'Kaulava': 'Familia',
+    'Taitila': 'Sesamo',
+    'Garija': 'Montaña',
+    'Vanija': 'Comercio',
+    'Viṣṭi': 'Servicio',
+    'Śakuni': 'Pájaro',
+    'Catuṣpāda': 'Cuatro patas',
+    'Nāga': 'Serpiente',
+    'Kiṃstughna': 'Pequeño'
+  }
+  return translations[name] || 'Mitad de tithi'
+}
+
+const getKaranaDeity = (name: string): string => {
+  const deities: Record<string, string> = {
+    'Bava': 'Indra',
+    'Bālava': 'Brahmā',
+    'Kaulava': 'Indra',
+    'Taitila': 'Agni',
+    'Garija': 'Indra',
+    'Vanija': 'Brahmā',
+    'Viṣṭi': 'Yama',
+    'Śakuni': 'Agni',
+    'Catuṣpāda': 'Brahmā',
+    'Nāga': 'Indra',
+    'Kiṃstughna': 'Agni'
+  }
+  return deities[name] || 'Deidad del karana'
+}
+
+const getKaranaRecommendations = (): string => {
+  return 'Favorables: actividades según la naturaleza del karana. Desfavorables: actividades contrarias a su energía.'
+}
+
+const getVaraTranslation = (name: string): string => {
+  const translations: Record<string, string> = {
+    'Sunday': 'Domingo',
+    'Monday': 'Lunes',
+    'Tuesday': 'Martes',
+    'Wednesday': 'Miércoles',
+    'Thursday': 'Jueves',
+    'Friday': 'Viernes',
+    'Saturday': 'Sábado'
+  }
+  return translations[name] || 'Día de la semana'
+}
+
+const getVaraPlanet = (name: string): string => {
+  const planets: Record<string, string> = {
+    'Sunday': 'Sol',
+    'Monday': 'Luna',
+    'Tuesday': 'Marte',
+    'Wednesday': 'Mercurio',
+    'Thursday': 'Júpiter',
+    'Friday': 'Venus',
+    'Saturday': 'Saturno'
+  }
+  return planets[name] || 'Planeta regente'
+}
+
+const getVaraRecommendations = (): string => {
+  return 'Favorables: actividades relacionadas con el planeta regente. Desfavorables: actividades contrarias a su energía.'
+}
+
+const getYogaTranslation = (name: string): string => {
+  const translations: Record<string, string> = {
+    'Vishkumbha': 'Pilar de Aire',
+    'Priti': 'Afecto',
+    'Ayushman': 'Longevidad',
+    'Saubhagya': 'Buena fortuna',
+    'Shobhana': 'Hermoso',
+    'Atiganda': 'Gran obstáculo',
+    'Sukarman': 'Buen trabajo',
+    'Dhriti': 'Firmeza',
+    'Shula': 'Lanza',
+    'Ganda': 'Nudo',
+    'Vriddhi': 'Crecimiento',
+    'Dhruva': 'Fijo',
+    'Vyaghata': 'Colisión',
+    'Harshana': 'Alegría',
+    'Vajra': 'Rayo',
+    'Siddhi': 'Perfección',
+    'Vyatipata': 'Calamidad',
+    'Variyan': 'Agua',
+    'Parigha': 'Barrera',
+    'Shiva': 'Auspicioso',
+    'Siddha': 'Perfeccionado',
+    'Sadhya': 'Realizable',
+    'Shubha': 'Auspicioso',
+    'Shukla': 'Blanco',
+    'Brahma': 'Creador',
+    'Indra': 'Rey de los dioses',
+    'Vaidhriti': 'Separación'
+  }
+  return translations[name] || 'Combinación solar-lunar'
+}
+
+const getYogaType = (): string => {
+  return 'Yoga solar-lunar'
+}
+
+const getYogaRecommendations = (): string => {
+  return 'Favorables: actividades según la naturaleza del yoga. Desfavorables: actividades contrarias a su energía.'
+}
 
 interface PanchangaElement {
   name: string
@@ -66,16 +326,118 @@ const PanchangaDetailPanel: React.FC<PanchangaDetailPanelProps> = ({
   onClose
 }) => {
   const [generatedPrompt, setGeneratedPrompt] = useState<string>('')
+  const [enrichedPanchanga, setEnrichedPanchanga] = useState<any>(null)
+
+  // Función para enriquecer los datos básicos de la API con información detallada
+  const enrichPanchangaData = (basicData: any) => {
+    console.log('🔍 enrichPanchangaData called with:', basicData)
+    
+    if (!basicData) {
+      console.log('❌ basicData is null or undefined')
+      return null
+    }
+
+    // Log de los nombres que vienen de la API
+    console.log('🔍 Nombres de la API:', {
+      nakshatra: basicData.nakshatra?.name,
+      tithi: basicData.tithi?.name,
+      karana: basicData.karana?.name,
+      vara: basicData.vara?.name,
+      yoga: basicData.yoga?.name
+    })
+
+    // Crear datos enriquecidos usando información básica de la API
+    const enriched = {
+      nakshatra: basicData.nakshatra?.name ? {
+        name: basicData.nakshatra.name,
+        nameIAST: basicData.nakshatra.name,
+        translation: getNakshatraTranslation(basicData.nakshatra.name),
+        deity: getNakshatraDeity(basicData.nakshatra.name),
+        classification: getNakshatraClassification(basicData.nakshatra.name),
+        recommendations: getNakshatraRecommendations()
+      } : null,
+      tithi: basicData.tithi?.name ? {
+        name: basicData.tithi.name,
+        nameIAST: basicData.tithi.name,
+        translation: getTithiTranslation(basicData.tithi.name),
+        element: getTithiElement(basicData.tithi.name),
+        recommendations: getTithiRecommendations()
+      } : null,
+      karana: basicData.karana?.name ? {
+        name: basicData.karana.name,
+        nameIAST: basicData.karana.name,
+        translation: getKaranaTranslation(basicData.karana.name),
+        deity: getKaranaDeity(basicData.karana.name),
+        recommendations: getKaranaRecommendations()
+      } : null,
+      vara: basicData.vara?.name ? {
+        name: basicData.vara.name,
+        nameIAST: basicData.vara.name,
+        translation: getVaraTranslation(basicData.vara.name),
+        planet: getVaraPlanet(basicData.vara.name),
+        recommendations: getVaraRecommendations()
+      } : null,
+      yoga: basicData.yoga?.name ? {
+        name: basicData.yoga.name,
+        nameIAST: basicData.yoga.name,
+        translation: getYogaTranslation(basicData.yoga.name),
+        type: getYogaType(),
+        recommendations: getYogaRecommendations()
+      } : null,
+      specialYogas: basicData.specialYogas || []
+    }
+    
+    // Log de los resultados de enriquecimiento
+    console.log('🔍 Resultados de enriquecimiento:', {
+      nakshatra: enriched.nakshatra,
+      tithi: enriched.tithi,
+      karana: enriched.karana,
+      vara: enriched.vara,
+      yoga: enriched.yoga
+    })
+    
+    console.log('✅ Enriched data:', enriched)
+    return enriched
+  }
 
   useEffect(() => {
-    console.log('🎯 PanchangaDetailPanel useEffect triggered:', { isOpen, panchanga })
+    console.log('🔄 useEffect triggered:', { isOpen, panchanga })
+    
     if (isOpen && panchanga) {
-      console.log('📝 Generating prompt with panchanga data:', panchanga)
-      generatePrompt()
+      console.log('📊 Processing panchanga data:', panchanga)
+      
+      // Enriquecer los datos básicos de la API
+      const enriched = enrichPanchangaData(panchanga)
+      console.log('📈 Setting enriched panchanga:', enriched)
+      setEnrichedPanchanga(enriched)
+      
+      // Log temporal para diagnosticar yogas
+      if (enriched && enriched.specialYogas && enriched.specialYogas.length > 0) {
+        console.log('🔍 Yogas especiales detectados:', enriched.specialYogas)
+        enriched.specialYogas.forEach((yoga: any, index: number) => {
+          console.log(`Yoga ${index + 1}:`, {
+            name: yoga.name,
+            polarity: yoga.polarity,
+            avoid: yoga.avoid,
+            beneficial: yoga.beneficial,
+            recommended: yoga.recommended,
+            avoid_activities: yoga.avoid_activities,
+            beneficial_activities: yoga.beneficial_activities
+          })
+        })
+      }
+      
+      // Generar prompt con datos enriquecidos
+      if (enriched) {
+        generatePrompt(enriched)
+      }
+    } else {
+      console.log('❌ Conditions not met:', { isOpen, panchanga })
     }
   }, [isOpen, panchanga])
 
-  const generatePrompt = () => {
+  const generatePrompt = (data = enrichedPanchanga) => {
+    if (!data) return
     const formatDate = (dateStr: string) => {
       const date = new Date(dateStr)
       return date.toLocaleDateString('es-ES', {
@@ -86,29 +448,29 @@ const PanchangaDetailPanel: React.FC<PanchangaDetailPanelProps> = ({
       })
     }
 
-    console.log('📝 Generating prompt with data:', panchanga)
+    console.log('📝 Generating prompt with data:', data)
 
     const prompt = `Fecha: ${formatDate(date)}
 
 🪐 Pañcāṅga del día
 
-Nakṣatra: ${panchanga.nakshatra?.nameIAST || panchanga.nakshatra?.name || 'No disponible'} (${panchanga.nakshatra?.deity || 'deidad'}, clasificación ${panchanga.nakshatra?.classification || 'tipo'})
-→ Recomendaciones: ${panchanga.nakshatra?.recommendations || 'Sin recomendaciones específicas'}
+Nakṣatra: ${data.nakshatra?.nameIAST || data.nakshatra?.name || 'No disponible'} (${data.nakshatra?.deity || 'deidad'}, clasificación ${data.nakshatra?.classification || 'tipo'})
+→ Recomendaciones: ${data.nakshatra?.recommendations || 'Sin recomendaciones específicas'}
 
-Tithi: ${panchanga.tithi?.nameIAST || panchanga.tithi?.name || 'No disponible'} (${panchanga.tithi?.element || 'grupo'}, elemento asociado)
-→ Recomendaciones: ${panchanga.tithi?.recommendations || 'Sin recomendaciones específicas'}
+Tithi: ${data.tithi?.nameIAST || data.tithi?.name || 'No disponible'} (${data.tithi?.element || 'grupo'}, elemento asociado)
+→ Recomendaciones: ${data.tithi?.recommendations || 'Sin recomendaciones específicas'}
 
-Karaṇa: ${panchanga.karana?.nameIAST || panchanga.karana?.name || 'No disponible'} (${panchanga.karana?.deity || 'devata/regente'})
-→ Recomendaciones: ${panchanga.karana?.recommendations || 'Sin recomendaciones específicas'}
+Karaṇa: ${data.karana?.nameIAST || data.karana?.name || 'No disponible'} (${data.karana?.deity || 'devata/regente'})
+→ Recomendaciones: ${data.karana?.recommendations || 'Sin recomendaciones específicas'}
 
-Vara: ${panchanga.vara?.nameIAST || panchanga.vara?.name || 'No disponible'} (regente: ${panchanga.vara?.planet || 'planeta'})
-→ Recomendaciones: ${panchanga.vara?.recommendations || 'Sin recomendaciones específicas'}
+Vara: ${data.vara?.nameIAST || data.vara?.name || 'No disponible'} (regente: ${data.vara?.planet || 'planeta'})
+→ Recomendaciones: ${data.vara?.recommendations || 'Sin recomendaciones específicas'}
 
-Yoga: ${panchanga.yoga?.nameIAST || panchanga.yoga?.name || 'No disponible'} (${panchanga.yoga?.type || 'tipo'})
-→ Recomendaciones: ${panchanga.yoga?.recommendations || 'Sin recomendaciones específicas'}
+Yoga: ${data.yoga?.nameIAST || data.yoga?.name || 'No disponible'} (${data.yoga?.type || 'tipo'})
+→ Recomendaciones: ${data.yoga?.recommendations || 'Sin recomendaciones específicas'}
 
-Yogas Especiales: ${panchanga.specialYogas && panchanga.specialYogas.length > 0 
-  ? panchanga.specialYogas.map(yoga => {
+Yogas Especiales: ${data.specialYogas && data.specialYogas.length > 0 
+  ? data.specialYogas.map((yoga: any) => {
       const polarity = yoga.polarity === 'positive' ? '🟢' : '🔴'
       const name = yoga.name_sanskrit || yoga.name || 'No disponible'
       const type = yoga.type || 'tipo'
@@ -127,13 +489,19 @@ Yogas Especiales: ${panchanga.specialYogas && panchanga.specialYogas.length > 0
         ? `\n  • Condiciones: ${conditions.join(', ')}`
         : ''
       
-      const beneficial = yoga.beneficial_activities && yoga.beneficial_activities.length > 0 
-        ? `\n  • Actividades beneficiosas: ${yoga.beneficial_activities.join(', ')}`
+      // Actividades beneficiosas - usar recommended o beneficial
+      const beneficial = []
+      if (yoga.beneficial) beneficial.push(yoga.beneficial)
+      if (yoga.recommended && yoga.recommended.length > 0) beneficial.push(...yoga.recommended)
+      const beneficialText = beneficial.length > 0 
+        ? `\n  • Actividades beneficiosas: ${beneficial.join(', ')}`
         : ''
-      const avoid = yoga.avoid_activities && yoga.avoid_activities.length > 0 
-        ? `\n  • Evitar: ${yoga.avoid_activities.join(', ')}`
+      
+      // Actividades a evitar - usar avoid
+      const avoid = yoga.avoid && yoga.avoid.length > 0 
+        ? `\n  • Evitar: ${yoga.avoid.join(', ')}`
         : ''
-      return `${polarity} ${name} (${type}): ${description}${conditionsText}${beneficial}${avoid}`
+      return `${polarity} ${name} (${type}): ${description}${conditionsText}${beneficialText}${avoid}`
     }).join('\n\n')
   : 'No hay yogas especiales detectados'
 }
@@ -172,6 +540,24 @@ El reporte debe ser claro, práctico y útil para la toma de decisiones diarias.
   }
 
   if (!isOpen) return null
+  
+  // Mostrar loading si no hay datos enriquecidos aún
+  if (!enrichedPanchanga) {
+    return (
+      <div className="mt-6 animate-in slide-in-from-bottom-2 duration-300">
+        <Card className="shadow-lg border-2 border-primary/20">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-center">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+                <p className="text-muted-foreground">Cargando detalles del panchanga...</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    )
+  }
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr)
@@ -215,23 +601,23 @@ El reporte debe ser claro, práctico y útil para la toma de decisiones diarias.
                 Nakṣatra
               </Badge>
               <h3 className="text-lg font-semibold">
-                {panchanga.nakshatra?.nameIAST || panchanga.nakshatra?.name || 'No disponible'}
+                {enrichedPanchanga.nakshatra?.nameIAST || enrichedPanchanga.nakshatra?.name || 'No disponible'}
               </h3>
             </div>
             <div className="ml-4 space-y-2">
               <p className="text-sm text-muted-foreground">
-                <span className="font-medium">Traducción:</span> {panchanga.nakshatra?.translation || 'No disponible'}
+                <span className="font-medium">Traducción:</span> {enrichedPanchanga.nakshatra?.translation || 'No disponible'}
               </p>
               <p className="text-sm text-muted-foreground">
-                <span className="font-medium">Deidad:</span> {panchanga.nakshatra?.deity || 'No disponible'}
+                <span className="font-medium">Deidad:</span> {enrichedPanchanga.nakshatra?.deity || 'No disponible'}
               </p>
               <p className="text-sm text-muted-foreground">
-                <span className="font-medium">Clasificación:</span> {panchanga.nakshatra?.classification || 'No disponible'}
+                <span className="font-medium">Clasificación:</span> {enrichedPanchanga.nakshatra?.classification || 'No disponible'}
               </p>
-              {panchanga.nakshatra?.recommendations && (
+              {enrichedPanchanga.nakshatra?.recommendations && (
                 <div className="bg-blue-50 p-3 rounded-lg">
                   <p className="text-sm font-medium text-blue-800">💡 Recomendaciones:</p>
-                  <p className="text-sm text-blue-700">{panchanga.nakshatra.recommendations}</p>
+                  <p className="text-sm text-blue-700">{enrichedPanchanga.nakshatra.recommendations}</p>
                 </div>
               )}
             </div>
@@ -246,20 +632,20 @@ El reporte debe ser claro, práctico y útil para la toma de decisiones diarias.
                 Tithi
               </Badge>
               <h3 className="text-lg font-semibold">
-                {panchanga.tithi?.nameIAST || panchanga.tithi?.name || 'No disponible'}
+                {enrichedPanchanga.tithi?.nameIAST || enrichedPanchanga.tithi?.name || 'No disponible'}
               </h3>
             </div>
             <div className="ml-4 space-y-2">
               <p className="text-sm text-muted-foreground">
-                <span className="font-medium">Traducción:</span> {panchanga.tithi?.translation || 'No disponible'}
+                <span className="font-medium">Traducción:</span> {enrichedPanchanga.tithi?.translation || 'No disponible'}
               </p>
               <p className="text-sm text-muted-foreground">
-                <span className="font-medium">Elemento:</span> {panchanga.tithi?.element || 'No disponible'}
+                <span className="font-medium">Elemento:</span> {enrichedPanchanga.tithi?.element || 'No disponible'}
               </p>
-              {panchanga.tithi?.recommendations && (
+              {enrichedPanchanga.tithi?.recommendations && (
                 <div className="bg-green-50 p-3 rounded-lg">
                   <p className="text-sm font-medium text-green-800">💡 Recomendaciones:</p>
-                  <p className="text-sm text-green-700">{panchanga.tithi.recommendations}</p>
+                  <p className="text-sm text-green-700">{enrichedPanchanga.tithi.recommendations}</p>
                 </div>
               )}
             </div>
@@ -274,20 +660,20 @@ El reporte debe ser claro, práctico y útil para la toma de decisiones diarias.
                 Karaṇa
               </Badge>
               <h3 className="text-lg font-semibold">
-                {panchanga.karana?.nameIAST || panchanga.karana?.name || 'No disponible'}
+                {enrichedPanchanga.karana?.nameIAST || enrichedPanchanga.karana?.name || 'No disponible'}
               </h3>
             </div>
             <div className="ml-4 space-y-2">
               <p className="text-sm text-muted-foreground">
-                <span className="font-medium">Traducción:</span> {panchanga.karana?.translation || 'No disponible'}
+                <span className="font-medium">Traducción:</span> {enrichedPanchanga.karana?.translation || 'No disponible'}
               </p>
               <p className="text-sm text-muted-foreground">
-                <span className="font-medium">Deidad:</span> {panchanga.karana?.deity || 'No disponible'}
+                <span className="font-medium">Deidad:</span> {enrichedPanchanga.karana?.deity || 'No disponible'}
               </p>
-              {panchanga.karana?.recommendations && (
+              {enrichedPanchanga.karana?.recommendations && (
                 <div className="bg-purple-50 p-3 rounded-lg">
                   <p className="text-sm font-medium text-purple-800">💡 Recomendaciones:</p>
-                  <p className="text-sm text-purple-700">{panchanga.karana.recommendations}</p>
+                  <p className="text-sm text-purple-700">{enrichedPanchanga.karana.recommendations}</p>
                 </div>
               )}
             </div>
@@ -302,20 +688,20 @@ El reporte debe ser claro, práctico y útil para la toma de decisiones diarias.
                 Vara
               </Badge>
               <h3 className="text-lg font-semibold">
-                {panchanga.vara?.nameIAST || panchanga.vara?.name || 'No disponible'}
+                {enrichedPanchanga.vara?.nameIAST || enrichedPanchanga.vara?.name || 'No disponible'}
               </h3>
             </div>
             <div className="ml-4 space-y-2">
               <p className="text-sm text-muted-foreground">
-                <span className="font-medium">Traducción:</span> {panchanga.vara?.translation || 'No disponible'}
+                <span className="font-medium">Traducción:</span> {enrichedPanchanga.vara?.translation || 'No disponible'}
               </p>
               <p className="text-sm text-muted-foreground">
-                <span className="font-medium">Planeta regente:</span> {panchanga.vara?.planet || 'No disponible'}
+                <span className="font-medium">Planeta regente:</span> {enrichedPanchanga.vara?.planet || 'No disponible'}
               </p>
-              {panchanga.vara?.recommendations && (
+              {enrichedPanchanga.vara?.recommendations && (
                 <div className="bg-orange-50 p-3 rounded-lg">
                   <p className="text-sm font-medium text-orange-800">💡 Recomendaciones:</p>
-                  <p className="text-sm text-orange-700">{panchanga.vara.recommendations}</p>
+                  <p className="text-sm text-orange-700">{enrichedPanchanga.vara.recommendations}</p>
                 </div>
               )}
             </div>
@@ -330,27 +716,27 @@ El reporte debe ser claro, práctico y útil para la toma de decisiones diarias.
                 Yoga
               </Badge>
               <h3 className="text-lg font-semibold">
-                {panchanga.yoga?.nameIAST || panchanga.yoga?.name || 'No disponible'}
+                {enrichedPanchanga.yoga?.nameIAST || enrichedPanchanga.yoga?.name || 'No disponible'}
               </h3>
             </div>
             <div className="ml-4 space-y-2">
               <p className="text-sm text-muted-foreground">
-                <span className="font-medium">Traducción:</span> {panchanga.yoga?.translation || 'No disponible'}
+                <span className="font-medium">Traducción:</span> {enrichedPanchanga.yoga?.translation || 'No disponible'}
               </p>
               <p className="text-sm text-muted-foreground">
-                <span className="font-medium">Tipo:</span> {panchanga.yoga?.type || 'No disponible'}
+                <span className="font-medium">Tipo:</span> {enrichedPanchanga.yoga?.type || 'No disponible'}
               </p>
-              {panchanga.yoga?.recommendations && (
+              {enrichedPanchanga.yoga?.recommendations && (
                 <div className="bg-indigo-50 p-3 rounded-lg">
                   <p className="text-sm font-medium text-indigo-800">💡 Recomendaciones:</p>
-                  <p className="text-sm text-indigo-700">{panchanga.yoga.recommendations}</p>
+                  <p className="text-sm text-indigo-700">{enrichedPanchanga.yoga.recommendations}</p>
                 </div>
               )}
             </div>
           </div>
 
                      {/* Yogas Especiales */}
-           {panchanga.specialYogas && panchanga.specialYogas.length > 0 && (
+           {enrichedPanchanga.specialYogas && enrichedPanchanga.specialYogas.length > 0 && (
              <>
                <Separator />
                <div className="space-y-3">
@@ -360,7 +746,7 @@ El reporte debe ser claro, práctico y útil para la toma de decisiones diarias.
                    </Badge>
                  </div>
                  <div className="ml-4 space-y-4">
-                   {panchanga.specialYogas.map((yoga, index) => (
+                                       {enrichedPanchanga.specialYogas.map((yoga: any, index: number) => (
                      <div key={index} className="space-y-2">
                        <h4 className="text-md font-semibold">
                          {yoga.name_sanskrit || yoga.name || 'No disponible'}
@@ -420,21 +806,28 @@ El reporte debe ser claro, práctico y útil para la toma de decisiones diarias.
                              }`}>{yoga.detailed_description}</p>
                            </div>
                          )}
-                         {yoga.beneficial_activities && yoga.beneficial_activities.length > 0 && (
+                         {/* Actividades Beneficiosas - usar recommended o beneficial */}
+                         {((yoga.recommended && yoga.recommended.length > 0) || yoga.beneficial) && (
                            <div className="bg-blue-50 p-3 rounded-lg">
                              <p className="text-sm font-medium text-blue-800">✅ Actividades Beneficiosas:</p>
-                             <ul className="text-sm text-blue-700 list-disc list-inside">
-                               {yoga.beneficial_activities.map((activity, i) => (
-                                 <li key={i}>{activity}</li>
-                               ))}
-                             </ul>
+                             {yoga.beneficial && (
+                               <p className="text-sm text-blue-700 mb-2">{yoga.beneficial}</p>
+                             )}
+                             {yoga.recommended && yoga.recommended.length > 0 && (
+                               <ul className="text-sm text-blue-700 list-disc list-inside">
+                                                                   {yoga.recommended.map((activity: any, i: number) => (
+                                   <li key={i}>{activity}</li>
+                                 ))}
+                               </ul>
+                             )}
                            </div>
                          )}
-                         {yoga.avoid_activities && yoga.avoid_activities.length > 0 && (
+                         {/* Actividades a Evitar - usar avoid */}
+                         {yoga.avoid && yoga.avoid.length > 0 && (
                            <div className="bg-orange-50 p-3 rounded-lg">
                              <p className="text-sm font-medium text-orange-800">⚠️ Evitar:</p>
                              <ul className="text-sm text-orange-700 list-disc list-inside">
-                               {yoga.avoid_activities.map((activity, i) => (
+                                                               {yoga.avoid.map((activity: any, i: number) => (
                                  <li key={i}>{activity}</li>
                                ))}
                              </ul>
