@@ -29,6 +29,20 @@ interface SpecialYogaElement {
   beneficial_activities?: string[]
   avoid_activities?: string[]
   notes?: string
+  // Condiciones de formación
+  vara?: string
+  tithi_group?: string
+  tithi_number?: number
+  nakshatra?: string
+  classification?: string
+  sun_longitude?: number
+  moon_longitude?: number
+  distance_nakshatra?: number
+  beneficial?: string
+  avoid?: string[]
+  recommended?: string[]
+  color?: string
+  priority?: number
 }
 
 interface PanchangaDetailPanelProps {
@@ -93,25 +107,48 @@ Vara: ${panchanga.vara?.nameIAST || panchanga.vara?.name || 'No disponible'} (re
 Yoga: ${panchanga.yoga?.nameIAST || panchanga.yoga?.name || 'No disponible'} (${panchanga.yoga?.type || 'tipo'})
 → Recomendaciones: ${panchanga.yoga?.recommendations || 'Sin recomendaciones específicas'}
 
-Yoga especial: ${panchanga.specialYogas && panchanga.specialYogas.length > 0 
-  ? panchanga.specialYogas.map(yoga => 
-      `${yoga.name_sanskrit || yoga.name || 'No disponible'} (${yoga.type || 'tipo'})`
-    ).join(', ')
-  : 'No hay yogas especiales'
-}
-→ Recomendaciones: ${panchanga.specialYogas && panchanga.specialYogas.length > 0 
-  ? panchanga.specialYogas.map(yoga => yoga.detailed_description || 'Sin recomendaciones').join('; ')
-  : 'Sin recomendaciones específicas'
+Yogas Especiales: ${panchanga.specialYogas && panchanga.specialYogas.length > 0 
+  ? panchanga.specialYogas.map(yoga => {
+      const polarity = yoga.polarity === 'positive' ? '🟢' : '🔴'
+      const name = yoga.name_sanskrit || yoga.name || 'No disponible'
+      const type = yoga.type || 'tipo'
+      const description = yoga.detailed_description || 'Sin descripción detallada'
+      
+      // Condiciones de formación
+      const conditions = []
+      if (yoga.vara) conditions.push(`Vara: ${yoga.vara}`)
+      if (yoga.tithi_group) conditions.push(`Grupo Tithi: ${yoga.tithi_group}`)
+      if (yoga.tithi_number) conditions.push(`Tithi: ${yoga.tithi_number}`)
+      if (yoga.nakshatra) conditions.push(`Nakshatra: ${yoga.nakshatra}`)
+      if (yoga.classification) conditions.push(`Clasificación: ${yoga.classification}`)
+      if (yoga.distance_nakshatra) conditions.push(`Distancia: ${yoga.distance_nakshatra} nakshatras`)
+      
+      const conditionsText = conditions.length > 0 
+        ? `\n  • Condiciones: ${conditions.join(', ')}`
+        : ''
+      
+      const beneficial = yoga.beneficial_activities && yoga.beneficial_activities.length > 0 
+        ? `\n  • Actividades beneficiosas: ${yoga.beneficial_activities.join(', ')}`
+        : ''
+      const avoid = yoga.avoid_activities && yoga.avoid_activities.length > 0 
+        ? `\n  • Evitar: ${yoga.avoid_activities.join(', ')}`
+        : ''
+      return `${polarity} ${name} (${type}): ${description}${conditionsText}${beneficial}${avoid}`
+    }).join('\n\n')
+  : 'No hay yogas especiales detectados'
 }
 
 Instrucciones para el reporte:
 Genera un reporte narrativo de 90 segundos basado en los elementos del pañcāṅga de este día. Incluye:
 1. Análisis general del día basado en los elementos presentes
-2. Recomendaciones específicas para actividades favorables
-3. Advertencias sobre actividades desfavorables
-4. Consejos prácticos para aprovechar las energías del día
-5. Conclusión con el tono general del día
-6. Cita algún verso célebre motivador que vaya con la energía del día (puede ser de textos védicos, Bhagavad Gita, Upanishads, o sabiduría tradicional)
+2. **ATENCIÓN ESPECIAL A YOGAS ESPECIALES**: Si hay yogas especiales detectados, dedica una sección específica a explicar su significado, las condiciones astrológicas que los forman, y su impacto en las actividades del día
+3. Recomendaciones específicas para actividades favorables (priorizando las de los yogas especiales si existen)
+4. Advertencias sobre actividades desfavorables (especialmente las mencionadas en yogas especiales negativos)
+5. Consejos prácticos para aprovechar las energías del día
+6. Conclusión con el tono general del día
+7. Cita algún verso célebre motivador que vaya con la energía del día (puede ser de textos védicos, Bhagavad Gita, Upanishads, o sabiduría tradicional)
+
+**IMPORTANTE**: Si hay yogas especiales presentes, estos deben ser el foco principal del reporte, ya que representan combinaciones astrológicas únicas y poderosas que influyen significativamente en el día.
 
 El reporte debe ser claro, práctico y útil para la toma de decisiones diarias. Usa un tono inspirador y accesible, como un paṇḍita jyotiṣī compartiendo sabiduría ancestral.`
 
@@ -171,13 +208,6 @@ El reporte debe ser claro, práctico y útil para la toma de decisiones diarias.
         </CardHeader>
         
         <CardContent className="p-6 space-y-6">
-          {/* Debug Info - Temporary */}
-          <div className="bg-yellow-50 p-3 rounded-lg border border-yellow-200">
-            <h4 className="font-medium text-yellow-800 mb-2">🔍 Debug Info:</h4>
-            <pre className="text-xs text-yellow-700 overflow-auto max-h-40">
-              {JSON.stringify(panchanga, null, 2)}
-            </pre>
-          </div>
           {/* Nakshatra */}
           <div className="space-y-3">
             <div className="flex items-center gap-3">
@@ -342,6 +372,42 @@ El reporte debe ser claro, práctico y útil para la toma de decisiones diarias.
                          <p className="text-sm text-muted-foreground">
                            <span className="font-medium">Polaridad:</span> {yoga.polarity || 'No disponible'}
                          </p>
+                         {yoga.priority && (
+                           <p className="text-sm text-muted-foreground">
+                             <span className="font-medium">Prioridad:</span> {yoga.priority}
+                           </p>
+                         )}
+                         
+                         {/* Condiciones de Formación */}
+                         <div className="bg-slate-50 p-3 rounded-lg mt-2">
+                           <p className="text-sm font-medium text-slate-800 mb-2">🔍 Condiciones de Formación:</p>
+                           <div className="space-y-1 text-xs text-slate-700">
+                             {yoga.vara && (
+                               <p><span className="font-medium">Vara (día):</span> {yoga.vara}</p>
+                             )}
+                             {yoga.tithi_group && (
+                               <p><span className="font-medium">Grupo de Tithi:</span> {yoga.tithi_group}</p>
+                             )}
+                             {yoga.tithi_number && (
+                               <p><span className="font-medium">Número de Tithi:</span> {yoga.tithi_number}</p>
+                             )}
+                             {yoga.nakshatra && (
+                               <p><span className="font-medium">Nakshatra:</span> {yoga.nakshatra}</p>
+                             )}
+                             {yoga.classification && (
+                               <p><span className="font-medium">Clasificación:</span> {yoga.classification}</p>
+                             )}
+                             {yoga.distance_nakshatra && (
+                               <p><span className="font-medium">Distancia por Nakshatra:</span> {yoga.distance_nakshatra}</p>
+                             )}
+                             {yoga.sun_longitude && yoga.moon_longitude && (
+                               <div>
+                                 <p><span className="font-medium">Longitud Solar:</span> {yoga.sun_longitude.toFixed(2)}°</p>
+                                 <p><span className="font-medium">Longitud Lunar:</span> {yoga.moon_longitude.toFixed(2)}°</p>
+                               </div>
+                             )}
+                           </div>
+                         </div>
                          {yoga.detailed_description && (
                            <div className={`p-3 rounded-lg ${
                              yoga.polarity === 'positive' ? 'bg-green-50' : 'bg-red-50'

@@ -45,10 +45,9 @@ const Panchanga: React.FC = () => {
   // Precargar datos JSON al montar el componente
   useEffect(() => {
     // El servicio simplificado se carga automáticamente cuando se necesita
-    console.log('📋 Panchanga component mounted - simplified service ready')
   }, [])
 
-  // Check API health (for debugging)
+  // Check API health (reconnected after CORS fix)
   const { data: apiHealth } = useApiHealth()
 
   const { data: panchangaData, isLoading, error } = usePanchangaMonth({
@@ -190,6 +189,19 @@ const Panchanga: React.FC = () => {
                             {day.karana?.name || 'N/A'}
                           </span>
                         </div>
+                        {/* Semáforo de colores para el día */}
+                        {day.trafficLight && day.trafficLight !== 'neutral' && (
+                          <div className="flex justify-center mb-1">
+                            <div className={`w-3 h-3 rounded-full ${
+                              day.trafficLight === 'green' ? 'bg-green-500' :
+                              day.trafficLight === 'yellow' ? 'bg-yellow-500' :
+                              day.trafficLight === 'red' ? 'bg-red-500' :
+                              'bg-gray-400'
+                            }`} title={`Semáforo: ${day.trafficLight}`}></div>
+                          </div>
+                        )}
+                        
+                        {/* Yogas especiales */}
                         {day.specialYogas && day.specialYogas.length > 0 && (
                           <div className="space-y-1">
                             {day.specialYogas.slice(0, 2).map((yoga: any, index: number) => (
