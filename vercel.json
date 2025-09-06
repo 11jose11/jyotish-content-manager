@@ -1,10 +1,13 @@
 {
-  "buildCommand": "pnpm build",
-  "outputDirectory": "dist",
+  "buildCommand": "cd apps/frontend && pnpm build",
+  "outputDirectory": "apps/frontend/dist",
   "framework": "vite",
   "installCommand": "pnpm install",
-  "devCommand": "pnpm dev",
+  "devCommand": "cd apps/frontend && pnpm dev",
   "regions": ["iad1"],
+  "env": {
+    "VITE_API_BASE_URL": "https://jyotish-api-ndcfqrjivq-uc.a.run.app"
+  },
   "headers": [
     {
       "source": "/(.*)",
@@ -24,6 +27,18 @@
         {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization, X-API-Key"
         }
       ]
     }
