@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug API Loading</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .loading { background-color: #fff3cd; border-color: #ffeaa7; }
+        pre { background-color: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+        button { padding: 10px 20px; margin: 5px; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Debug: Carga de Datos de la API del Panchanga</h1>
+        
+        <div class="section">
+            <h2>📊 Estado de la API</h2>
+            <button onclick="testMainAPI()">Probar API Principal</button>
+            <button onclick="testDailyAPI()">Probar API Diaria</button>
+            <button onclick="clearResults()">Limpiar Resultados</button>
+        </div>
+        
+        <div id="results"></div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'https://jyotish-api-ndcfqrjivq-uc.a.run.app';
+        
+        function addResult(title, content, type = 'success') {
+            const resultsDiv = document.getElementById('results');
+            const section = document.createElement('div');
+            section.className = `section ${type}`;
+            section.innerHTML = `
+                <h3>${title}</h3>
+                <pre>${content}</pre>
+            `;
+            resultsDiv.appendChild(section);
+        }
+        
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+        
+        async function testMainAPI() {
+            addResult('🔄 Probando API Principal...', 'Cargando...', 'loading');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/v1/panchanga/recommendations/panchanga/all`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                const summary = {
+                    hasData: !!data.data,
+                    varas: data.data?.varas?.length || 0,
+                    tithis: data.data?.tithis?.length || 0,
+                    nakshatras: data.data?.nakshatras?.length || 0,
+                    nitya_yogas: data.data?.nitya_yogas?.length || 0
+                };
+                
+                addResult('✅ API Principal Funcionando', JSON.stringify(summary, null, 2));
+                
+                // Mostrar ejemplo de vara
+                if (data.data?.varas && data.data.varas.length > 0) {
+                    const vara = data.data.varas[0];
+                    addResult('📅 Ejemplo de Vara', JSON.stringify({
+                        nombre: vara.nombre,
+                        planeta: vara.planeta,
+                        consejo: vara.consejo,
+                        actividades: vara.actividades_sugeridas?.slice(0, 3)
+                    }, null, 2));
+                }
+                
+                // Mostrar ejemplo de nakshatra
+                if (data.data?.nakshatras && data.data.nakshatras.length > 0) {
+                    const nakshatra = data.data.nakshatras[0];
+                    addResult('⭐ Ejemplo de Nakshatra', JSON.stringify({
+                        nombre: nakshatra.nombre,
+                        favorables: nakshatra.favorables?.slice(0, 3),
+                        desfavorables: nakshatra.desfavorables?.slice(0, 3)
+                    }, null, 2));
+                }
+                
+            } catch (error) {
+                addResult('❌ Error en API Principal', error.message, 'error');
+            }
+        }
+        
+        async function testDailyAPI() {
+            addResult('🔄 Probando API Diaria...', 'Cargando...', 'loading');
+            
+            try {
+                const today = new Date().toISOString().split('T')[0];
+                const response = await fetch(`${API_BASE_URL}/v1/panchanga/recommendations/daily?date=${today}&latitude=19.0760&longitude=72.8777&vara=Ravivāra&tithi=Pratipada&nakshatra=Aśvinī&nitya_yoga=Vishkumbha`);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    addResult('⚠️ API Diaria - Parámetros Requeridos', `Status: ${response.status}\nError: ${errorText}`, 'error');
+                    return;
+                }
+                
+                const data = await response.json();
+                addResult('✅ API Diaria Funcionando', JSON.stringify(data, null, 2));
+                
+            } catch (error) {
+                addResult('❌ Error en API Diaria', error.message, 'error');
+            }
+        }
+        
+        // Cargar automáticamente al abrir la página
+        window.onload = function() {
+            testMainAPI();
+        };
+    </script>
+</body>
+</html>
+

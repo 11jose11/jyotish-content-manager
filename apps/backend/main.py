@@ -58,151 +58,7 @@ def call_remote_api(endpoint: str, method: str = "GET", data: Optional[Dict] = N
     
     raise HTTPException(status_code=502, detail="Remote API unavailable")
 
-async def check_remote_endpoint(client: httpx.AsyncClient, endpoint: str, timeout: float = 20.0) -> EndpointStatus:
-    """Check a specific remote endpoint"""
-    url = f"{REMOTE_API_BASE_URL.rstrip('/')}/{endpoint.lstrip('/')}"
-    headers = {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-    }
-    
-    if REMOTE_API_KEY:
-        headers["X-API-Key"] = REMOTE_API_KEY
-    
-    try:
-        start_time = time.time()
-        response = await client.get(url, headers=headers, timeout=timeout)
-        latency = (time.time() - start_time) * 1000
-        
-        return EndpointStatus(
-            ok=response.status_code < 400,
-            status=response.status_code,
-            latencyMs=round(latency, 2)
-        )
-    except Exception as e:
-        return EndpointStatus(
-            ok=False,
-            error=str(e),
-            latencyMs=None
-        )
-
-async def diagnose_remote_api() -> RemoteDiagnostic:
-    """Diagnose remote API connectivity"""
-    if not REMOTE_API_BASE_URL:
-        return RemoteDiagnostic(
-            baseUrl="",
-            ok=False,
-            error="REMOTE_API_BASE_URL not configured",
-            endpoints={}
-        )
-    
-            # Test endpoints to check
-        endpoints_to_test = [
-            "/health/healthz",
-            "/v1/panchanga/precise/daily",
-            "/v1/ephemeris/planets"
-        ]
-    
-    async with httpx.AsyncClient() as client:
-        # Test base connectivity first
-        base_start = time.time()
-        try:
-            base_response = await client.get(
-                f"{REMOTE_API_BASE_URL.rstrip('/')}/health/healthz",
-                timeout=20.0
-            )
-            base_latency = (time.time() - base_start) * 1000
-            base_ok = base_response.status_code < 400
-        except Exception as e:
-            base_latency = None
-            base_ok = False
-        
-        # Test individual endpoints
-        endpoint_results = {}
-        for endpoint in endpoints_to_test:
-            result = await check_remote_endpoint(client, endpoint)
-            endpoint_results[endpoint] = result
-        
-        return RemoteDiagnostic(
-            baseUrl=REMOTE_API_BASE_URL,
-            ok=base_ok,
-            latencyMs=round(base_latency, 2) if base_latency else None,
-            endpoints=endpoint_results
-        )
-
-def transform_remote_positions(remote_data: Dict) -> PositionsMonthResponse:
-    """Transform remote API response to our contract"""
-    try:
-        # Transform the remote API response to match our expected format
-        planets = []
-        transitions = []
-        
-        if "planets" in remote_data:
-            for planet_name, planet_data in remote_data["planets"].items():
-                planet_info = {
-                    "name": planet_name,
-                    "days": []
-                }
-                
-                # Create a single day entry for the planet
-                if "nakshatra" in planet_data:
-                    nakshatra_info = {
-                        "index": planet_data["nakshatra"]["number"],
-                        "nameIAST": planet_data["nakshatra"]["name"],
-                        "pada": planet_data["nakshatra"]["pada"]
-                    }
-                    
-                    day_info = {
-                        "date": remote_data.get("timestamp", "2025-01-01").split("T")[0],
-                        "nakshatra": nakshatra_info,
-                        "signSidereal": planet_data.get("rasi", {}).get("name", ""),
-                        "retrograde": False,  # Default value
-                        "speed": 1.0  # Default value
-                    }
-                    
-                    planet_info["days"].append(day_info)
-                
-                planets.append(planet_info)
-        
-        return PositionsMonthResponse(
-            range={"startISO": "2025-01-01T00:00:00Z", "endISO": "2025-01-31T23:59:59Z"},
-            planets=planets,
-            transitions=transitions
-        )
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error transforming remote data: {str(e)}")
-
-def transform_remote_panchanga(remote_data: Dict) -> PanchangaMonthResponse:
-    """Transform remote API response to our contract"""
-    try:
-        # Transform the remote API response to match our expected format
-        days = []
-        
-        if "panchanga" in remote_data:
-            panchanga_data = remote_data["panchanga"]
-            day_info = {
-                "date": remote_data.get("date", "2025-01-01"),
-                "tithi": {
-                    "code": panchanga_data.get("tithi", {}).get("display", "K1"),
-                    "group": "Nanda"  # Default value
-                },
-                "vara": panchanga_data.get("vara", {}).get("name", "Monday"),
-                "nakshatra": {
-                    "name": panchanga_data.get("nakshatra", {}).get("name", "Ashwini"),
-                    "pada": 1  # Default value
-                },
-                "yoga": panchanga_data.get("yoga", {}).get("name", "Vishkumbha"),
-                "karana": panchanga_data.get("karana", {}).get("name", "Bava"),
-                "sunrise": remote_data.get("sunrise_time", "06:00:00"),
-                "sunset": remote_data.get("sunset_time", "18:00:00"),
-                "specialYogas": [],
-                "recommendations": []
-            }
-            days.append(day_info)
-        
-        return PanchangaMonthResponse(days=days)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error transforming remote data: {str(e)}")
+# Transform functions will be defined after the model classes
 
 app = FastAPI(
     title="Jyotish API",
@@ -251,6 +107,7 @@ class NakshatraInfo(BaseModel):
     index: int = Field(..., ge=1, le=27)
     nameIAST: str
     pada: int = Field(..., ge=1, le=4)
+    recommendations: Optional[Dict[str, Any]] = None
 
 class PlanetDay(BaseModel):
     date: str = Field(..., pattern=r'^\d{4}-\d{2}-\d{2}$')
@@ -286,6 +143,7 @@ class PanchangaMonthRequest(BaseModel):
 class TithiInfo(BaseModel):
     code: str
     group: str = Field(..., pattern='^(Nanda|Bhadra|Jaya|Rikta|Purna)$')
+    recommendations: Optional[Dict[str, Any]] = None
 
 class SpecialYoga(BaseModel):
     name: str
@@ -300,9 +158,12 @@ class PanchangaDay(BaseModel):
     sunsetISO: str
     tithi: TithiInfo
     vara: str
+    varaRecommendations: Optional[Dict[str, Any]] = None
     nakshatra: NakshatraInfo
     yoga: str
+    yogaRecommendations: Optional[Dict[str, Any]] = None
     karana: str
+    karanaRecommendations: Optional[Dict[str, Any]] = None
     specialYogas: List[SpecialYoga]
 
 class PanchangaMonthResponse(BaseModel):
@@ -401,6 +262,154 @@ class NavataraResponseLegacy(BaseModel):
 class HealthResponse(BaseModel):
     status: str
 
+# Diagnostic functions (moved here after model definitions)
+async def check_remote_endpoint(client: httpx.AsyncClient, endpoint: str, timeout: float = 20.0) -> EndpointStatus:
+    """Check a specific remote endpoint"""
+    url = f"{REMOTE_API_BASE_URL.rstrip('/')}/{endpoint.lstrip('/')}"
+    headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    }
+    
+    if REMOTE_API_KEY:
+        headers["X-API-Key"] = REMOTE_API_KEY
+    
+    try:
+        start_time = time.time()
+        response = await client.get(url, headers=headers, timeout=timeout)
+        latency = (time.time() - start_time) * 1000
+        
+        return EndpointStatus(
+            ok=response.status_code < 400,
+            status=response.status_code,
+            latencyMs=round(latency, 2)
+        )
+    except Exception as e:
+        return EndpointStatus(
+            ok=False,
+            error=str(e),
+            latencyMs=None
+        )
+
+async def diagnose_remote_api() -> RemoteDiagnostic:
+    """Diagnose remote API connectivity"""
+    if not REMOTE_API_BASE_URL:
+        return RemoteDiagnostic(
+            baseUrl="",
+            ok=False,
+            error="REMOTE_API_BASE_URL not configured",
+            endpoints={}
+        )
+    
+    # Test endpoints to check
+    endpoints_to_test = [
+        "/health/healthz",
+        "/v1/panchanga/precise/daily",
+        "/v1/ephemeris/planets"
+    ]
+
+    async with httpx.AsyncClient() as client:
+        # Test base connectivity first
+        base_start = time.time()
+        try:
+            base_response = await client.get(
+                f"{REMOTE_API_BASE_URL.rstrip('/')}/health/healthz",
+                timeout=20.0
+            )
+            base_latency = (time.time() - base_start) * 1000
+            base_ok = base_response.status_code < 400
+        except Exception as e:
+            base_latency = None
+            base_ok = False
+        
+        # Test individual endpoints
+        endpoint_results = {}
+        for endpoint in endpoints_to_test:
+            result = await check_remote_endpoint(client, endpoint)
+            endpoint_results[endpoint] = result
+        
+        return RemoteDiagnostic(
+            baseUrl=REMOTE_API_BASE_URL,
+            ok=base_ok,
+            latencyMs=round(base_latency, 2) if base_latency else None,
+            endpoints=endpoint_results
+        )
+
+# Transform functions (moved here after model definitions)
+def transform_remote_positions(remote_data: Dict) -> PositionsMonthResponse:
+    """Transform remote API response to our contract"""
+    try:
+        # Transform the remote API response to match our expected format
+        planets = []
+        transitions = []
+        
+        if "planets" in remote_data:
+            for planet_name, planet_data in remote_data["planets"].items():
+                planet_info = {
+                    "name": planet_name,
+                    "days": []
+                }
+                
+                # Create a single day entry for the planet
+                if "nakshatra" in planet_data:
+                    nakshatra_info = {
+                        "index": planet_data["nakshatra"]["number"],
+                        "nameIAST": planet_data["nakshatra"]["name"],
+                        "pada": planet_data["nakshatra"]["pada"]
+                    }
+                    
+                    day_info = {
+                        "date": remote_data.get("timestamp", "2025-01-01").split("T")[0],
+                        "nakshatra": nakshatra_info,
+                        "signSidereal": planet_data.get("rasi", {}).get("name", ""),
+                        "retrograde": False,  # Default value
+                        "speed": 1.0  # Default value
+                    }
+                    
+                    planet_info["days"].append(day_info)
+                
+                planets.append(planet_info)
+        
+        return PositionsMonthResponse(
+            range={"startISO": "2025-01-01T00:00:00Z", "endISO": "2025-01-31T23:59:59Z"},
+            planets=planets,
+            transitions=transitions
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error transforming remote data: {str(e)}")
+
+def transform_remote_panchanga(remote_data: Dict) -> PanchangaMonthResponse:
+    """Transform remote API response to our contract"""
+    try:
+        # Transform the remote API response to match our expected format
+        days = []
+        
+        if "panchanga" in remote_data:
+            panchanga_data = remote_data["panchanga"]
+            day_info = {
+                "date": remote_data.get("date", "2025-01-01"),
+                "tithi": {
+                    "code": panchanga_data.get("tithi", {}).get("display", "K1"),
+                    "group": "Nanda"  # Default value
+                },
+                "vara": panchanga_data.get("vara", {}).get("name", "Monday"),
+                "nakshatra": {
+                    "name": panchanga_data.get("nakshatra", {}).get("name", "Ashwini"),
+                    "pada": 1  # Default value
+                },
+                "yoga": panchanga_data.get("yoga", {}).get("name", "Vishkumbha"),
+                "karana": panchanga_data.get("karana", {}).get("name", "Bava"),
+                "sunrise": remote_data.get("sunrise_time", "06:00:00"),
+                "sunset": remote_data.get("sunset_time", "18:00:00"),
+                "specialYogas": [],
+                "recommendations": []
+            }
+            days.append(day_info)
+        
+        return PanchangaMonthResponse(days=days)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error transforming remote data: {str(e)}")
+
 # Planetary constants
 PLANETS = {
     "Sun": swe.SUN,
@@ -451,6 +460,32 @@ def load_panchanga_recommendations():
             return json.load(f)
     except FileNotFoundError:
         return {}
+
+# Get specific recommendations for panchanga elements
+def get_tithi_recommendations(tithi_code: str) -> Optional[Dict[str, Any]]:
+    """Get recommendations for a specific tithi"""
+    recommendations = load_panchanga_recommendations()
+    return recommendations.get("tithis", {}).get(tithi_code)
+
+def get_nakshatra_recommendations(nakshatra_name: str) -> Optional[Dict[str, Any]]:
+    """Get recommendations for a specific nakshatra"""
+    recommendations = load_panchanga_recommendations()
+    return recommendations.get("nakshatras", {}).get(nakshatra_name)
+
+def get_vara_recommendations(vara_name: str) -> Optional[Dict[str, Any]]:
+    """Get recommendations for a specific vara (day of week)"""
+    recommendations = load_panchanga_recommendations()
+    return recommendations.get("varas", {}).get(vara_name)
+
+def get_yoga_recommendations(yoga_name: str) -> Optional[Dict[str, Any]]:
+    """Get recommendations for a specific yoga"""
+    recommendations = load_panchanga_recommendations()
+    return recommendations.get("yogas", {}).get(yoga_name)
+
+def get_karana_recommendations(karana_name: str) -> Optional[Dict[str, Any]]:
+    """Get recommendations for a specific karana"""
+    recommendations = load_panchanga_recommendations()
+    return recommendations.get("karanas", {}).get(karana_name)
 
 # Load navatara data
 def load_navatara_data():
@@ -709,6 +744,238 @@ async def get_panchanga_recommendations():
     """Get panchanga recommendations dataset"""
     return load_panchanga_recommendations()
 
+# New API endpoints for panchanga recommendations
+@app.get("/v1/panchanga/recommendations/panchanga/all")
+async def get_all_panchanga_recommendations():
+    """Get all panchanga recommendations in the new API format"""
+    try:
+        recommendations = load_panchanga_recommendations()
+        
+        # Transform the data to match the expected API format
+        response_data = {
+            "data": {
+                "varas": [],
+                "tithis": [],
+                "nakshatras": [],
+                "nitya_yogas": []
+            }
+        }
+        
+        # Transform varas
+        if "varas" in recommendations:
+            for vara_name, vara_data in recommendations["varas"].items():
+                response_data["data"]["varas"].append({
+                    "nombre": vara_name,
+                    "es": get_vara_translation(vara_name),
+                    "planeta": get_vara_planet(vara_name),
+                    "tipo": "día_semana",
+                    "alias": get_vara_alias(vara_name),
+                    "descripcion_corta": vara_data.get("general", ""),
+                    "consejo": vara_data.get("general", ""),
+                    "actividades_sugeridas": vara_data.get("activities", []),
+                    "lista_tradicional": vara_data.get("activities", [])
+                })
+        
+        # Transform tithis
+        if "tithis" in recommendations:
+            for tithi_name, tithi_data in recommendations["tithis"].items():
+                response_data["data"]["tithis"].append({
+                    "nombre": tithi_name,
+                    "numero": get_tithi_number(tithi_name),
+                    "grupo": get_tithi_group(tithi_name),
+                    "descripcion": tithi_data.get("general", ""),
+                    "actividades_favorables": tithi_data.get("activities", []),
+                    "actividades_desfavorables": tithi_data.get("avoid", [])
+                })
+        
+        # Transform nakshatras
+        if "nakshatras" in recommendations:
+            for nakshatra_name, nakshatra_data in recommendations["nakshatras"].items():
+                response_data["data"]["nakshatras"].append({
+                    "nombre": nakshatra_name,
+                    "numero": get_nakshatra_number(nakshatra_name),
+                    "deidad": get_nakshatra_deity(nakshatra_name),
+                    "descripcion": nakshatra_data.get("general", ""),
+                    "favorables": nakshatra_data.get("activities", []),
+                    "desfavorables": nakshatra_data.get("avoid", [])
+                })
+        
+        # Transform yogas (nitya yogas)
+        if "yogas" in recommendations:
+            for yoga_name, yoga_data in recommendations["yogas"].items():
+                response_data["data"]["nitya_yogas"].append({
+                    "nombre": yoga_name,
+                    "numero": get_yoga_number(yoga_name),
+                    "descripcion": yoga_data.get("general", ""),
+                    "actividades_favorables": yoga_data.get("activities", []),
+                    "actividades_desfavorables": yoga_data.get("avoid", [])
+                })
+        
+        return response_data
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading panchanga recommendations: {str(e)}")
+
+@app.get("/v1/panchanga/recommendations/daily")
+async def get_daily_panchanga_recommendations(
+    date: str = Query(..., description="Date in YYYY-MM-DD format"),
+    latitude: float = Query(..., description="Latitude"),
+    longitude: float = Query(..., description="Longitude"),
+    vara: Optional[str] = Query(None, description="Vara name"),
+    tithi: Optional[str] = Query(None, description="Tithi name"),
+    nakshatra: Optional[str] = Query(None, description="Nakshatra name"),
+    nitya_yoga: Optional[str] = Query(None, description="Nitya yoga name")
+):
+    """Get daily panchanga recommendations based on specific elements"""
+    try:
+        recommendations = load_panchanga_recommendations()
+        
+        # Get recommendations for each element if provided
+        daily_recommendations = {}
+        
+        if vara and "varas" in recommendations and vara in recommendations["varas"]:
+            vara_data = recommendations["varas"][vara]
+            daily_recommendations["vara"] = {
+                "nombre": vara,
+                "planeta": get_vara_planet(vara),
+                "descripcion": vara_data.get("general", ""),
+                "actividades_sugeridas": vara_data.get("activities", []),
+                "evitar": vara_data.get("avoid", [])
+            }
+        
+        if tithi and "tithis" in recommendations and tithi in recommendations["tithis"]:
+            tithi_data = recommendations["tithis"][tithi]
+            daily_recommendations["tithi"] = {
+                "nombre": tithi,
+                "numero": get_tithi_number(tithi),
+                "grupo": get_tithi_group(tithi),
+                "descripcion": tithi_data.get("general", ""),
+                "actividades_favorables": tithi_data.get("activities", []),
+                "actividades_desfavorables": tithi_data.get("avoid", [])
+            }
+        
+        if nakshatra and "nakshatras" in recommendations and nakshatra in recommendations["nakshatras"]:
+            nakshatra_data = recommendations["nakshatras"][nakshatra]
+            daily_recommendations["nakshatra"] = {
+                "nombre": nakshatra,
+                "numero": get_nakshatra_number(nakshatra),
+                "deidad": get_nakshatra_deity(nakshatra),
+                "descripcion": nakshatra_data.get("general", ""),
+                "favorables": nakshatra_data.get("activities", []),
+                "desfavorables": nakshatra_data.get("avoid", [])
+            }
+        
+        if nitya_yoga and "yogas" in recommendations and nitya_yoga in recommendations["yogas"]:
+            yoga_data = recommendations["yogas"][nitya_yoga]
+            daily_recommendations["nitya_yoga"] = {
+                "nombre": nitya_yoga,
+                "numero": get_yoga_number(nitya_yoga),
+                "descripcion": yoga_data.get("general", ""),
+                "actividades_favorables": yoga_data.get("activities", []),
+                "actividades_desfavorables": yoga_data.get("avoid", [])
+            }
+        
+        return {
+            "data": {
+                "date": date,
+                "latitude": latitude,
+                "longitude": longitude,
+                "recommendations": daily_recommendations
+            }
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading daily recommendations: {str(e)}")
+
+# Helper functions for data transformation
+def get_vara_translation(vara_name: str) -> str:
+    translations = {
+        "Sunday": "Domingo",
+        "Monday": "Lunes", 
+        "Tuesday": "Martes",
+        "Wednesday": "Miércoles",
+        "Thursday": "Jueves",
+        "Friday": "Viernes",
+        "Saturday": "Sábado"
+    }
+    return translations.get(vara_name, vara_name)
+
+def get_vara_planet(vara_name: str) -> str:
+    planets = {
+        "Sunday": "Sol",
+        "Monday": "Luna",
+        "Tuesday": "Marte", 
+        "Wednesday": "Mercurio",
+        "Thursday": "Júpiter",
+        "Friday": "Venus",
+        "Saturday": "Saturno"
+    }
+    return planets.get(vara_name, "Desconocido")
+
+def get_vara_alias(vara_name: str) -> str:
+    aliases = {
+        "Sunday": "Ravivara",
+        "Monday": "Somavara",
+        "Tuesday": "Mangalavara",
+        "Wednesday": "Budhavara", 
+        "Thursday": "Guruvara",
+        "Friday": "Shukravara",
+        "Saturday": "Shanivara"
+    }
+    return aliases.get(vara_name, vara_name)
+
+def get_tithi_number(tithi_name: str) -> int:
+    numbers = {
+        "Pratipada": 1, "Dwitiya": 2, "Tritiya": 3, "Chaturthi": 4, "Panchami": 5,
+        "Shashthi": 6, "Saptami": 7, "Ashtami": 8, "Navami": 9, "Dashami": 10,
+        "Ekadashi": 11, "Dwadashi": 12, "Trayodashi": 13, "Chaturdashi": 14, "Purnima": 15,
+        "Amavasya": 15
+    }
+    return numbers.get(tithi_name, 1)
+
+def get_tithi_group(tithi_name: str) -> str:
+    groups = {
+        "Pratipada": "Nanda", "Dwitiya": "Nanda", "Tritiya": "Nanda",
+        "Chaturthi": "Bhadra", "Panchami": "Bhadra", "Shashthi": "Bhadra", 
+        "Saptami": "Jaya", "Ashtami": "Jaya", "Navami": "Jaya",
+        "Dashami": "Rikta", "Ekadashi": "Rikta", "Dwadashi": "Rikta",
+        "Trayodashi": "Purna", "Chaturdashi": "Purna", "Purnima": "Purna",
+        "Amavasya": "Purna"
+    }
+    return groups.get(tithi_name, "Nanda")
+
+def get_nakshatra_number(nakshatra_name: str) -> int:
+    numbers = {
+        "Aśvinī": 1, "Bharaṇī": 2, "Kṛttikā": 3, "Rohiṇī": 4, "Mṛgaśira": 5, "Ārdrā": 6,
+        "Punarvasu": 7, "Puṣya": 8, "Āśleṣā": 9, "Maghā": 10, "Pūrva Phalgunī": 11, "Uttara Phalgunī": 12,
+        "Hasta": 13, "Citrā": 14, "Svātī": 15, "Viśākhā": 16, "Anurādhā": 17, "Jyeṣṭhā": 18,
+        "Mūla": 19, "Pūrva Āṣāḍhā": 20, "Uttara Āṣāḍhā": 21, "Śravaṇa": 22, "Dhaniṣṭhā": 23, "Śatabhiṣā": 24,
+        "Pūrva Bhādrapada": 25, "Uttara Bhādrapada": 26, "Revatī": 27
+    }
+    return numbers.get(nakshatra_name, 1)
+
+def get_nakshatra_deity(nakshatra_name: str) -> str:
+    deities = {
+        "Aśvinī": "Aśvinī Kumaras", "Bharaṇī": "Yama", "Kṛttikā": "Agni", "Rohiṇī": "Brahmā",
+        "Mṛgaśira": "Soma", "Ārdrā": "Rudra", "Punarvasu": "Aditi", "Puṣya": "Bṛhaspati",
+        "Āśleṣā": "Nāgas", "Maghā": "Pitṛs", "Pūrva Phalgunī": "Bhaga", "Uttara Phalgunī": "Aryaman",
+        "Hasta": "Savitṛ", "Citrā": "Tvaṣṭṛ", "Svātī": "Vāyu", "Viśākhā": "Indrāgni",
+        "Anurādhā": "Mitra", "Jyeṣṭhā": "Indra", "Mūla": "Nirṛti", "Pūrva Āṣāḍhā": "Āpas",
+        "Uttara Āṣāḍhā": "Viśve Devas", "Śravaṇa": "Viṣṇu", "Dhaniṣṭhā": "Vasu", "Śatabhiṣā": "Varuṇa",
+        "Pūrva Bhādrapada": "Aja Ekapāda", "Uttara Bhādrapada": "Ahir Budhnya", "Revatī": "Pūṣan"
+    }
+    return deities.get(nakshatra_name, "Desconocido")
+
+def get_yoga_number(yoga_name: str) -> int:
+    numbers = {
+        "Viśkumbha": 1, "Priti": 2, "Āyuṣmān": 3, "Saubhāgya": 4, "Śobhana": 5, "Atigaṇḍa": 6,
+        "Sukarman": 7, "Dhṛti": 8, "Śūla": 9, "Gaṇḍa": 10, "Vṛddhi": 11, "Dhruva": 12,
+        "Vyāghāta": 13, "Harṣaṇa": 14, "Vajra": 15, "Siddhi": 16, "Vyatīpāta": 17, "Variyan": 18,
+        "Parigha": 19, "Śiva": 20, "Siddha": 21, "Sādhya": 22, "Śubha": 23, "Śukla": 24,
+        "Brahma": 25, "Indra": 26, "Vaidhṛti": 27
+    }
+    return numbers.get(yoga_name, 1)
+
 @app.post("/positions/month", response_model=PositionsMonthResponse)
 async def get_positions_month(request: PositionsMonthRequest):
     """Get planetary positions for an entire month"""
@@ -868,15 +1135,29 @@ async def get_panchanga_month(request: PanchangaMonthRequest):
                     }
                     special_yogas.append(SpecialYoga(**yoga_data))
             
+            # Get recommendations for each element
+            tithi_recs = get_tithi_recommendations(tithi["code"])
+            nakshatra_recs = get_nakshatra_recommendations(nakshatra["nameIAST"])
+            vara_recs = get_vara_recommendations(vara)
+            yoga_recs = get_yoga_recommendations(yoga)
+            karana_recs = get_karana_recommendations(karana)
+            
+            # Create enriched tithi and nakshatra objects
+            tithi_with_recs = TithiInfo(**tithi, recommendations=tithi_recs)
+            nakshatra_with_recs = NakshatraInfo(**nakshatra, recommendations=nakshatra_recs)
+            
             panchanga_day = PanchangaDay(
                 date=date_str,
                 sunriseISO=sunrise_iso,
                 sunsetISO=sunset_iso,
-                tithi=TithiInfo(**tithi),
+                tithi=tithi_with_recs,
                 vara=vara,
-                nakshatra=NakshatraInfo(**nakshatra),
+                varaRecommendations=vara_recs,
+                nakshatra=nakshatra_with_recs,
                 yoga=yoga,
+                yogaRecommendations=yoga_recs,
                 karana=karana,
+                karanaRecommendations=karana_recs,
                 specialYogas=special_yogas
             )
             

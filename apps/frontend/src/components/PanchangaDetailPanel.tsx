@@ -5,109 +5,218 @@ import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { Copy, FileText, Sparkles } from 'lucide-react'
 import { toast } from 'sonner'
-import { getPanchangaDetails } from '@/lib/panchangaData'
+import { getPanchangaDetails, getPanchangaDataFromAPI, getDailyRecommendationsFromAPI } from '@/lib/panchangaData'
 // Funciones síncronas para enriquecer datos básicos
 const getNakshatraTranslation = (name: string): string => {
   const translations: Record<string, string> = {
+    // Variantes con diacríticos
     'Aśvinī': 'La Primera Favorable',
+    'Ashwini': 'La Primera Favorable',
     'Bharaṇī': 'La Portadora',
+    'Bharani': 'La Portadora',
     'Kṛttikā': 'Las Cortadoras',
+    'Krittika': 'Las Cortadoras',
     'Rohiṇī': 'La Roja',
+    'Rohini': 'La Roja',
     'Mṛgaśirā': 'La Cabeza del Ciervo',
+    'Mrigashira': 'La Cabeza del Ciervo',
     'Ārdrā': 'La Húmeda',
+    'Ardra': 'La Húmeda',
     'Punarvasu': 'El Retorno de la Luz',
     'Puṣya': 'El Nutritivo',
+    'Pushya': 'El Nutritivo',
     'Āśleṣā': 'El Abrazo',
+    'Ashlesha': 'El Abrazo',
     'Maghā': 'La Poderosa',
+    'Magha': 'La Poderosa',
     'Pūrvaphalgunī': 'La Primera Favorable',
+    'Purva Phalguni': 'La Primera Favorable',
     'Uttaraphalgunī': 'La Segunda Favorable',
+    'Uttara Phalguni': 'La Segunda Favorable',
     'Hasta': 'La Mano',
     'Citrā': 'La Brillante',
+    'Chitra': 'La Brillante',
     'Svātī': 'El Independiente',
+    'Swati': 'El Independiente',
     'Viśākhā': 'La Ramificada',
+    'Vishakha': 'La Ramificada',
     'Anurādhā': 'La Seguida',
+    'Anuradha': 'La Seguida',
     'Jyeṣṭhā': 'La Mayor',
+    'Jyeshtha': 'La Mayor',
     'Mūla': 'La Raíz',
+    'Mula': 'La Raíz',
     'Pūrvāṣāḍhā': 'La Primera Invicta',
+    'Purva Ashadha': 'La Primera Invicta',
     'Uttarāṣāḍhā': 'La Segunda Invicta',
+    'Uttara Ashadha': 'La Segunda Invicta',
     'Śravaṇa': 'El Oído',
+    'Shravana': 'El Oído',
     'Dhaniṣṭhā': 'La Rica',
+    'Dhanishtha': 'La Rica',
     'Śatabhiṣā': 'Los Cien Curanderos',
+    'Shatabhisha': 'Los Cien Curanderos',
     'Pūrvabhādrapadā': 'La Primera Favorable',
+    'Purva Bhadrapada': 'La Primera Favorable',
     'Uttarabhādrapadā': 'La Segunda Favorable',
-    'Revatī': 'La Rica'
+    'Uttara Bhadrapada': 'La Segunda Favorable',
+    'Revatī': 'La Rica',
+    'Revati': 'La Rica'
   }
   return translations[name] || 'Constelación lunar'
 }
 
 const getNakshatraDeity = (name: string): string => {
   const deities: Record<string, string> = {
+    // Variantes con diacríticos
     'Aśvinī': 'Aśvinī Kumaras',
+    'Ashwini': 'Aśvinī Kumaras',
     'Bharaṇī': 'Yama',
+    'Bharani': 'Yama',
     'Kṛttikā': 'Agni',
+    'Krittika': 'Agni',
     'Rohiṇī': 'Brahmā',
+    'Rohini': 'Brahmā',
     'Mṛgaśirā': 'Soma',
+    'Mrigashira': 'Soma',
     'Ārdrā': 'Rudra',
+    'Ardra': 'Rudra',
     'Punarvasu': 'Aditi',
     'Puṣya': 'Bṛhaspati',
+    'Pushya': 'Bṛhaspati',
     'Āśleṣā': 'Nāgas',
+    'Ashlesha': 'Nāgas',
     'Maghā': 'Pitṛs',
+    'Magha': 'Pitṛs',
     'Pūrvaphalgunī': 'Bhaga',
+    'Purva Phalguni': 'Bhaga',
     'Uttaraphalgunī': 'Aryaman',
+    'Uttara Phalguni': 'Aryaman',
     'Hasta': 'Savitṛ',
     'Citrā': 'Tvaṣṭṛ',
+    'Chitra': 'Tvaṣṭṛ',
     'Svātī': 'Vāyu',
+    'Swati': 'Vāyu',
     'Viśākhā': 'Indrāgni',
+    'Vishakha': 'Indrāgni',
     'Anurādhā': 'Mitra',
+    'Anuradha': 'Mitra',
     'Jyeṣṭhā': 'Indra',
+    'Jyeshtha': 'Indra',
     'Mūla': 'Nirṛti',
+    'Mula': 'Nirṛti',
     'Pūrvāṣāḍhā': 'Āpas',
+    'Purva Ashadha': 'Āpas',
     'Uttarāṣāḍhā': 'Viśve Devas',
+    'Uttara Ashadha': 'Viśve Devas',
     'Śravaṇa': 'Viṣṇu',
+    'Shravana': 'Viṣṇu',
     'Dhaniṣṭhā': 'Vasu',
+    'Dhanishtha': 'Vasu',
     'Śatabhiṣā': 'Varuṇa',
+    'Shatabhisha': 'Varuṇa',
     'Pūrvabhādrapadā': 'Aja Ekapāda',
+    'Purva Bhadrapada': 'Aja Ekapāda',
     'Uttarabhādrapadā': 'Ahir Budhnya',
-    'Revatī': 'Pūṣan'
+    'Uttara Bhadrapada': 'Ahir Budhnya',
+    'Revatī': 'Pūṣan',
+    'Revati': 'Pūṣan'
   }
   return deities[name] || 'Deidad lunar'
 }
 
 const getNakshatraClassification = (name: string): string => {
   const classifications: Record<string, string> = {
+    // Variantes con diacríticos
     'Aśvinī': 'Mṛdu (Suave)',
+    'Ashwini': 'Mṛdu (Suave)',
     'Bharaṇī': 'Ugra (Feroz)',
+    'Bharani': 'Ugra (Feroz)',
     'Kṛttikā': 'Ugra (Feroz)',
+    'Krittika': 'Ugra (Feroz)',
     'Rohiṇī': 'Mṛdu (Suave)',
+    'Rohini': 'Mṛdu (Suave)',
     'Mṛgaśirā': 'Mṛdu (Suave)',
+    'Mrigashira': 'Mṛdu (Suave)',
     'Ārdrā': 'Ugra (Feroz)',
+    'Ardra': 'Ugra (Feroz)',
     'Punarvasu': 'Mṛdu (Suave)',
     'Puṣya': 'Mṛdu (Suave)',
+    'Pushya': 'Mṛdu (Suave)',
     'Āśleṣā': 'Ugra (Feroz)',
+    'Ashlesha': 'Ugra (Feroz)',
     'Maghā': 'Ugra (Feroz)',
+    'Magha': 'Ugra (Feroz)',
     'Pūrvaphalgunī': 'Mṛdu (Suave)',
+    'Purva Phalguni': 'Mṛdu (Suave)',
     'Uttaraphalgunī': 'Mṛdu (Suave)',
+    'Uttara Phalguni': 'Mṛdu (Suave)',
     'Hasta': 'Mṛdu (Suave)',
     'Citrā': 'Mṛdu (Suave)',
+    'Chitra': 'Mṛdu (Suave)',
     'Svātī': 'Mṛdu (Suave)',
+    'Swati': 'Mṛdu (Suave)',
     'Viśākhā': 'Ugra (Feroz)',
+    'Vishakha': 'Ugra (Feroz)',
     'Anurādhā': 'Mṛdu (Suave)',
+    'Anuradha': 'Mṛdu (Suave)',
     'Jyeṣṭhā': 'Ugra (Feroz)',
+    'Jyeshtha': 'Ugra (Feroz)',
     'Mūla': 'Ugra (Feroz)',
+    'Mula': 'Ugra (Feroz)',
     'Pūrvāṣāḍhā': 'Ugra (Feroz)',
+    'Purva Ashadha': 'Ugra (Feroz)',
     'Uttarāṣāḍhā': 'Mṛdu (Suave)',
+    'Uttara Ashadha': 'Mṛdu (Suave)',
     'Śravaṇa': 'Mṛdu (Suave)',
+    'Shravana': 'Mṛdu (Suave)',
     'Dhaniṣṭhā': 'Ugra (Feroz)',
+    'Dhanishtha': 'Ugra (Feroz)',
     'Śatabhiṣā': 'Ugra (Feroz)',
+    'Shatabhisha': 'Ugra (Feroz)',
     'Pūrvabhādrapadā': 'Ugra (Feroz)',
+    'Purva Bhadrapada': 'Ugra (Feroz)',
     'Uttarabhādrapadā': 'Mṛdu (Suave)',
-    'Revatī': 'Mṛdu (Suave)'
+    'Uttara Bhadrapada': 'Mṛdu (Suave)',
+    'Revatī': 'Mṛdu (Suave)',
+    'Revati': 'Mṛdu (Suave)'
   }
   return classifications[name] || 'Clasificación lunar'
 }
 
-const getNakshatraRecommendations = (): string => {
-  return 'Favorables: actividades relacionadas con la naturaleza de la constelación. Desfavorables: actividades contrarias a su energía.'
+const getNakshatraRecommendations = (name: string): string => {
+  // Función auxiliar para generar recomendaciones básicas si no hay datos de la API
+  const basicRecommendations: Record<string, string> = {
+    'Aśvinī': 'Favorables: iniciar proyectos, viajes, actividades de curación. Desfavorables: actividades destructivas.',
+    'Bharaṇī': 'Favorables: actividades de transformación, purificación. Desfavorables: actividades de acumulación excesiva.',
+    'Kṛttikā': 'Favorables: actividades de purificación, fuego, cocina. Desfavorables: actividades que requieren paciencia.',
+    'Rohiṇī': 'Favorables: actividades creativas, arte, agricultura. Desfavorables: actividades de destrucción.',
+    'Mṛgaśirā': 'Favorables: búsqueda, investigación, actividades de exploración. Desfavorables: actividades rutinarias.',
+    'Ārdrā': 'Favorables: actividades de transformación, lluvia, purificación. Desfavorables: actividades que requieren estabilidad.',
+    'Punarvasu': 'Favorables: retorno, renovación, actividades familiares. Desfavorables: actividades de separación.',
+    'Puṣya': 'Favorables: nutrición, cuidado, actividades de crecimiento. Desfavorables: actividades de destrucción.',
+    'Āśleṣā': 'Favorables: actividades profundas, transformación, sanación. Desfavorables: actividades superficiales.',
+    'Maghā': 'Favorables: actividades de poder, liderazgo, ceremonias. Desfavorables: actividades de humildad excesiva.',
+    'Pūrvaphalgunī': 'Favorables: actividades creativas, arte, celebración. Desfavorables: actividades de trabajo pesado.',
+    'Uttaraphalgunī': 'Favorables: actividades de apoyo, servicio, amistad. Desfavorables: actividades egoístas.',
+    'Hasta': 'Favorables: actividades manuales, artesanía, habilidades. Desfavorables: actividades que requieren fuerza bruta.',
+    'Citrā': 'Favorables: actividades artísticas, creatividad, belleza. Desfavorables: actividades mundanas.',
+    'Svātī': 'Favorables: actividades independientes, libertad, movimiento. Desfavorables: actividades restrictivas.',
+    'Viśākhā': 'Favorables: actividades de logro, éxito, determinación. Desfavorables: actividades de abandono.',
+    'Anurādhā': 'Favorables: actividades de seguimiento, apoyo, amistad. Desfavorables: actividades de liderazgo.',
+    'Jyeṣṭhā': 'Favorables: actividades de autoridad, liderazgo, poder. Desfavorables: actividades de sumisión.',
+    'Mūla': 'Favorables: actividades de raíz, fundamentos, investigación. Desfavorables: actividades superficiales.',
+    'Pūrvāṣāḍhā': 'Favorables: actividades de victoria, conquista, logro. Desfavorables: actividades de derrota.',
+    'Uttarāṣāḍhā': 'Favorables: actividades de victoria final, culminación. Desfavorables: actividades de inicio.',
+    'Śravaṇa': 'Favorables: actividades de aprendizaje, escucha, conocimiento. Desfavorables: actividades de ignorancia.',
+    'Dhaniṣṭhā': 'Favorables: actividades de riqueza, música, abundancia. Desfavorables: actividades de pobreza.',
+    'Śatabhiṣā': 'Favorables: actividades de curación, medicina, transformación. Desfavorables: actividades de enfermedad.',
+    'Pūrvabhādrapadā': 'Favorables: actividades de transformación, purificación. Desfavorables: actividades de contaminación.',
+    'Uttarabhādrapadā': 'Favorables: actividades de liberación, moksha, espiritualidad. Desfavorables: actividades mundanas.',
+    'Revatī': 'Favorables: actividades de completitud, viajes, abundancia. Desfavorables: actividades de incompletitud.'
+  }
+  
+  return basicRecommendations[name] || 'Favorables: actividades según la naturaleza de la constelación. Desfavorables: actividades contrarias a su energía.'
 }
 
 const getTithiTranslation = (name: string): string => {
@@ -154,8 +263,28 @@ const getTithiElement = (name: string): string => {
   return elements[name] || 'Elemento lunar'
 }
 
-const getTithiRecommendations = (): string => {
-  return 'Favorables: actividades según la fase lunar. Desfavorables: actividades contrarias al período lunar.'
+const getTithiRecommendations = (name: string): string => {
+  // Función auxiliar para generar recomendaciones básicas si no hay datos de la API
+  const basicRecommendations: Record<string, string> = {
+    'Pratipada': 'Favorables: iniciar proyectos, comienzos, actividades creativas. Desfavorables: finalizar asuntos importantes.',
+    'Dvitiya': 'Favorables: actividades de crecimiento, desarrollo, expansión. Desfavorables: actividades destructivas.',
+    'Tritiya': 'Favorables: actividades de prosperidad, abundancia, celebración. Desfavorables: actividades de escasez.',
+    'Chaturthi': 'Favorables: actividades de obstáculos, desafíos, superación. Desfavorables: actividades fáciles.',
+    'Panchami': 'Favorables: actividades de poder, autoridad, liderazgo. Desfavorables: actividades de sumisión.',
+    'Shashthi': 'Favorables: actividades de salud, curación, bienestar. Desfavorables: actividades de enfermedad.',
+    'Saptami': 'Favorables: actividades de viaje, movimiento, cambio. Desfavorables: actividades estáticas.',
+    'Ashtami': 'Favorables: actividades de transformación, cambio, renovación. Desfavorables: actividades de estabilidad.',
+    'Navami': 'Favorables: actividades de poder, fuerza, determinación. Desfavorables: actividades de debilidad.',
+    'Dashami': 'Favorables: actividades de logro, éxito, victoria. Desfavorables: actividades de derrota.',
+    'Ekadashi': 'Favorables: actividades espirituales, ayuno, purificación. Desfavorables: actividades mundanas.',
+    'Dwadashi': 'Favorables: actividades de adoración, devoción, espiritualidad. Desfavorables: actividades materiales.',
+    'Trayodashi': 'Favorables: actividades de poder, autoridad, liderazgo. Desfavorables: actividades de sumisión.',
+    'Chaturdashi': 'Favorables: actividades de transformación, cambio, renovación. Desfavorables: actividades de estabilidad.',
+    'Purnima': 'Favorables: actividades de completitud, celebración, abundancia. Desfavorables: actividades de incompletitud.',
+    'Amavasya': 'Favorables: actividades de nuevos comienzos, purificación, renovación. Desfavorables: actividades de finalización.'
+  }
+  
+  return basicRecommendations[name] || 'Favorables: actividades según la fase lunar. Desfavorables: actividades contrarias al período lunar.'
 }
 
 const getKaranaTranslation = (name: string): string => {
@@ -163,14 +292,19 @@ const getKaranaTranslation = (name: string): string => {
     'Bava': 'Nacimiento',
     'Bālava': 'Fuerza',
     'Kaulava': 'Familia',
-    'Taitila': 'Sesamo',
+    'Taitila': 'Sésamo',
     'Garija': 'Montaña',
     'Vanija': 'Comercio',
     'Viṣṭi': 'Servicio',
+    'Visti': 'Servicio',
     'Śakuni': 'Pájaro',
+    'Shakuni': 'Pájaro',
     'Catuṣpāda': 'Cuatro patas',
+    'Chatushpada': 'Cuatro patas',
     'Nāga': 'Serpiente',
-    'Kiṃstughna': 'Pequeño'
+    'Naga': 'Serpiente',
+    'Kiṃstughna': 'Pequeño',
+    'Kimstughna': 'Pequeño'
   }
   return translations[name] || 'Mitad de tithi'
 }
@@ -179,21 +313,44 @@ const getKaranaDeity = (name: string): string => {
   const deities: Record<string, string> = {
     'Bava': 'Indra',
     'Bālava': 'Brahmā',
-    'Kaulava': 'Indra',
+    'Kaulava': 'Mitra',
     'Taitila': 'Agni',
     'Garija': 'Indra',
     'Vanija': 'Brahmā',
     'Viṣṭi': 'Yama',
+    'Visti': 'Yama',
     'Śakuni': 'Agni',
+    'Shakuni': 'Agni',
     'Catuṣpāda': 'Brahmā',
+    'Chatushpada': 'Brahmā',
     'Nāga': 'Indra',
-    'Kiṃstughna': 'Agni'
+    'Naga': 'Indra',
+    'Kiṃstughna': 'Agni',
+    'Kimstughna': 'Agni'
   }
   return deities[name] || 'Deidad del karana'
 }
 
-const getKaranaRecommendations = (): string => {
-  return 'Favorables: actividades según la naturaleza del karana. Desfavorables: actividades contrarias a su energía.'
+const getKaranaRecommendations = (name: string): string => {
+  const recommendations: Record<string, string> = {
+    'Bava': 'Favorables: iniciar proyectos, nacimientos, comienzos. Desfavorables: finalizar asuntos importantes.',
+    'Bālava': 'Favorables: actividades que requieren fuerza, construcción, trabajos físicos. Desfavorables: actividades delicadas.',
+    'Kaulava': 'Favorables: socializar, amistades, networking, alianzas, trabajo en equipo. Desfavorables: actividades solitarias.',
+    'Taitila': 'Favorables: agricultura, cocina, actividades relacionadas con semillas. Desfavorables: actividades destructivas.',
+    'Garija': 'Favorables: escalar, conquistar, actividades de montaña. Desfavorables: actividades en terrenos bajos.',
+    'Vanija': 'Favorables: comercio, negocios, intercambios, ventas. Desfavorables: actividades no comerciales.',
+    'Viṣṭi': 'Favorables: servicio, trabajo para otros, actividades de ayuda. Desfavorables: actividades egoístas.',
+    'Visti': 'Favorables: servicio, trabajo para otros, actividades de ayuda. Desfavorables: actividades egoístas.',
+    'Śakuni': 'Favorables: observación, espionaje, actividades de vigilancia. Desfavorables: actividades abiertas.',
+    'Shakuni': 'Favorables: observación, espionaje, actividades de vigilancia. Desfavorables: actividades abiertas.',
+    'Catuṣpāda': 'Favorables: estabilidad, actividades con animales, agricultura. Desfavorables: actividades inestables.',
+    'Chatushpada': 'Favorables: estabilidad, actividades con animales, agricultura. Desfavorables: actividades inestables.',
+    'Nāga': 'Favorables: transformación, sanación, actividades profundas. Desfavorables: actividades superficiales.',
+    'Naga': 'Favorables: transformación, sanación, actividades profundas. Desfavorables: actividades superficiales.',
+    'Kiṃstughna': 'Favorables: actividades pequeñas, detalles, trabajos minuciosos. Desfavorables: proyectos grandes.',
+    'Kimstughna': 'Favorables: actividades pequeñas, detalles, trabajos minuciosos. Desfavorables: proyectos grandes.'
+  }
+  return recommendations[name] || 'Favorables: actividades según la naturaleza del karana. Desfavorables: actividades contrarias a su energía.'
 }
 
 const getVaraTranslation = (name: string): string => {
@@ -222,8 +379,19 @@ const getVaraPlanet = (name: string): string => {
   return planets[name] || 'Planeta regente'
 }
 
-const getVaraRecommendations = (): string => {
-  return 'Favorables: actividades relacionadas con el planeta regente. Desfavorables: actividades contrarias a su energía.'
+const getVaraRecommendations = (name: string): string => {
+  // Función auxiliar para generar recomendaciones básicas si no hay datos de la API
+  const basicRecommendations: Record<string, string> = {
+    'Sunday': 'Favorables: actividades de liderazgo, autoridad, poder. Desfavorables: actividades de sumisión.',
+    'Monday': 'Favorables: actividades emocionales, familia, cuidado. Desfavorables: actividades de confrontación.',
+    'Tuesday': 'Favorables: actividades de energía, acción, coraje. Desfavorables: actividades de pasividad.',
+    'Wednesday': 'Favorables: actividades de comunicación, aprendizaje, comercio. Desfavorables: actividades de aislamiento.',
+    'Thursday': 'Favorables: actividades de sabiduría, enseñanza, expansión. Desfavorables: actividades de restricción.',
+    'Friday': 'Favorables: actividades de belleza, arte, relaciones. Desfavorables: actividades de conflicto.',
+    'Saturday': 'Favorables: actividades de disciplina, trabajo duro, responsabilidad. Desfavorables: actividades de ocio excesivo.'
+  }
+  
+  return basicRecommendations[name] || 'Favorables: actividades según la naturaleza del día. Desfavorables: actividades contrarias a su energía.'
 }
 
 const getYogaTranslation = (name: string): string => {
@@ -263,8 +431,39 @@ const getYogaType = (): string => {
   return 'Yoga solar-lunar'
 }
 
-const getYogaRecommendations = (): string => {
-  return 'Favorables: actividades según la naturaleza del yoga. Desfavorables: actividades contrarias a su energía.'
+const getYogaRecommendations = (name: string): string => {
+  // Función auxiliar para generar recomendaciones básicas si no hay datos de la API
+  const basicRecommendations: Record<string, string> = {
+    'Vishkumbha': 'Favorables: actividades de estabilidad, construcción, fundamentos. Desfavorables: actividades inestables.',
+    'Priti': 'Favorables: actividades de amor, afecto, relaciones. Desfavorables: actividades de odio.',
+    'Ayushman': 'Favorables: actividades de salud, longevidad, bienestar. Desfavorables: actividades de enfermedad.',
+    'Saubhagya': 'Favorables: actividades de buena fortuna, prosperidad, éxito. Desfavorables: actividades de mala suerte.',
+    'Shobhana': 'Favorables: actividades de belleza, arte, estética. Desfavorables: actividades de fealdad.',
+    'Atiganda': 'Favorables: actividades de superación de obstáculos. Desfavorables: actividades fáciles.',
+    'Sukarman': 'Favorables: actividades de buen trabajo, productividad. Desfavorables: actividades de trabajo malo.',
+    'Dhriti': 'Favorables: actividades de firmeza, determinación. Desfavorables: actividades de indecisión.',
+    'Shula': 'Favorables: actividades de penetración, enfoque. Desfavorables: actividades dispersas.',
+    'Ganda': 'Favorables: actividades de unión, conexión. Desfavorables: actividades de separación.',
+    'Vriddhi': 'Favorables: actividades de crecimiento, expansión. Desfavorables: actividades de contracción.',
+    'Dhruva': 'Favorables: actividades de estabilidad, permanencia. Desfavorables: actividades de cambio constante.',
+    'Vyaghata': 'Favorables: actividades de confrontación, desafío. Desfavorables: actividades de evitación.',
+    'Harshana': 'Favorables: actividades de alegría, celebración. Desfavorables: actividades de tristeza.',
+    'Vajra': 'Favorables: actividades de poder, fuerza. Desfavorables: actividades de debilidad.',
+    'Siddhi': 'Favorables: actividades de perfección, logro. Desfavorables: actividades de fracaso.',
+    'Vyatipata': 'Favorables: actividades de cambio radical. Desfavorables: actividades de estabilidad.',
+    'Variyan': 'Favorables: actividades de agua, purificación. Desfavorables: actividades de sequía.',
+    'Parigha': 'Favorables: actividades de barrera, protección. Desfavorables: actividades de exposición.',
+    'Shiva': 'Favorables: actividades auspiciosas, bendiciones. Desfavorables: actividades inauspiciosas.',
+    'Siddha': 'Favorables: actividades de perfección, logro. Desfavorables: actividades de imperfección.',
+    'Sadhya': 'Favorables: actividades realizables, factibles. Desfavorables: actividades imposibles.',
+    'Shubha': 'Favorables: actividades auspiciosas, positivas. Desfavorables: actividades inauspiciosas.',
+    'Shukla': 'Favorables: actividades puras, limpias. Desfavorables: actividades impuras.',
+    'Brahma': 'Favorables: actividades creativas, de creación. Desfavorables: actividades destructivas.',
+    'Indra': 'Favorables: actividades de poder, autoridad. Desfavorables: actividades de debilidad.',
+    'Vaidhriti': 'Favorables: actividades de separación, distinción. Desfavorables: actividades de mezcla.'
+  }
+  
+  return basicRecommendations[name] || 'Favorables: actividades según la naturaleza del yoga. Desfavorables: actividades contrarias a su energía.'
 }
 
 interface PanchangaElement {
@@ -328,6 +527,58 @@ const PanchangaDetailPanel: React.FC<PanchangaDetailPanelProps> = ({
 }) => {
   const [generatedPrompt, setGeneratedPrompt] = useState<string>('')
   const [enrichedPanchanga, setEnrichedPanchanga] = useState<any>(null)
+  const [apiRecommendations, setApiRecommendations] = useState<any>(null)
+  const [loadingApiData, setLoadingApiData] = useState(false)
+
+  // Función para cargar recomendaciones de la nueva API
+  const loadApiRecommendations = async () => {
+    console.log('🚀 Iniciando carga de recomendaciones de la API...')
+    setLoadingApiData(true)
+    try {
+      // Cargar datos generales del panchanga
+      console.log('📡 Cargando datos generales del panchanga...')
+      const generalData = await getPanchangaDataFromAPI()
+      console.log('📊 General panchanga data from API:', generalData)
+      
+      // Cargar recomendaciones específicas para la fecha usando los datos del panchanga
+      console.log('📡 Cargando recomendaciones diarias...')
+      console.log('📊 Panchanga data for API call:', {
+        vara: panchanga?.vara?.name,
+        tithi: panchanga?.tithi?.name,
+        nakshatra: panchanga?.nakshatra?.name,
+        yoga: panchanga?.yoga?.name
+      })
+      
+      const dailyRecommendations = await getDailyRecommendationsFromAPI(
+        date, 
+        19.0760, // Mumbai latitude por defecto
+        72.8777, // Mumbai longitude por defecto
+        {
+          vara: panchanga?.vara?.name,
+          tithi: panchanga?.tithi?.name,
+          nakshatra: panchanga?.nakshatra?.name,
+          yoga: panchanga?.yoga?.name
+        }
+      )
+      console.log('📅 Daily recommendations from API:', dailyRecommendations)
+      
+      const apiData = {
+        general: generalData,
+        daily: dailyRecommendations
+      }
+      
+      console.log('💾 Guardando datos de la API:', apiData)
+      setApiRecommendations(apiData)
+      console.log('✅ Datos de la API guardados exitosamente')
+      
+    } catch (error) {
+      console.error('❌ Error loading API recommendations:', error)
+      toast.error('Error al cargar recomendaciones de la API')
+    } finally {
+      setLoadingApiData(false)
+      console.log('🏁 Carga de API completada')
+    }
+  }
 
   // Función para enriquecer los datos básicos de la API con información detallada desde JSON
   const enrichPanchangaData = async (basicData: any) => {
@@ -360,35 +611,35 @@ const PanchangaDetailPanel: React.FC<PanchangaDetailPanelProps> = ({
           translation: getNakshatraTranslation(basicData.nakshatra.name),
           deity: getNakshatraDeity(basicData.nakshatra.name),
           classification: getNakshatraClassification(basicData.nakshatra.name),
-          recommendations: getNakshatraRecommendations()
+          recommendations: getNakshatraRecommendations(basicData.nakshatra.name)
         } : null),
         tithi: details.tithi || (basicData.tithi?.name ? {
           name: basicData.tithi.name,
           nameIAST: basicData.tithi.name,
           translation: getTithiTranslation(basicData.tithi.name),
           element: getTithiElement(basicData.tithi.name),
-          recommendations: getTithiRecommendations()
+          recommendations: getTithiRecommendations(basicData.tithi.name)
         } : null),
         karana: details.karana || (basicData.karana?.name ? {
           name: basicData.karana.name,
           nameIAST: basicData.karana.name,
           translation: getKaranaTranslation(basicData.karana.name),
           deity: getKaranaDeity(basicData.karana.name),
-          recommendations: getKaranaRecommendations()
+          recommendations: getKaranaRecommendations(basicData.karana.name)
         } : null),
         vara: details.vara || (basicData.vara?.name ? {
           name: basicData.vara.name,
           nameIAST: basicData.vara.name,
           translation: getVaraTranslation(basicData.vara.name),
           planet: getVaraPlanet(basicData.vara.name),
-          recommendations: getVaraRecommendations()
+          recommendations: getVaraRecommendations(basicData.vara.name)
         } : null),
         yoga: details.yoga || (basicData.yoga?.name ? {
           name: basicData.yoga.name,
           nameIAST: basicData.yoga.name,
           translation: getYogaTranslation(basicData.yoga.name),
           type: getYogaType(),
-          recommendations: getYogaRecommendations()
+          recommendations: getYogaRecommendations(basicData.yoga.name)
         } : null),
         specialYogas: basicData.specialYogas || []
       }
@@ -415,35 +666,35 @@ const PanchangaDetailPanel: React.FC<PanchangaDetailPanelProps> = ({
           translation: getNakshatraTranslation(basicData.nakshatra.name),
           deity: getNakshatraDeity(basicData.nakshatra.name),
           classification: getNakshatraClassification(basicData.nakshatra.name),
-          recommendations: getNakshatraRecommendations()
+          recommendations: getNakshatraRecommendations(basicData.nakshatra.name)
         } : null,
         tithi: basicData.tithi?.name ? {
           name: basicData.tithi.name,
           nameIAST: basicData.tithi.name,
           translation: getTithiTranslation(basicData.tithi.name),
           element: getTithiElement(basicData.tithi.name),
-          recommendations: getTithiRecommendations()
+          recommendations: getTithiRecommendations(basicData.tithi.name)
         } : null,
         karana: basicData.karana?.name ? {
           name: basicData.karana.name,
           nameIAST: basicData.karana.name,
           translation: getKaranaTranslation(basicData.karana.name),
           deity: getKaranaDeity(basicData.karana.name),
-          recommendations: getKaranaRecommendations()
+          recommendations: getKaranaRecommendations(basicData.karana.name)
         } : null,
         vara: basicData.vara?.name ? {
           name: basicData.vara.name,
           nameIAST: basicData.vara.name,
           translation: getVaraTranslation(basicData.vara.name),
           planet: getVaraPlanet(basicData.vara.name),
-          recommendations: getVaraRecommendations()
+          recommendations: getVaraRecommendations(basicData.vara.name)
         } : null,
         yoga: basicData.yoga?.name ? {
           name: basicData.yoga.name,
           nameIAST: basicData.yoga.name,
           translation: getYogaTranslation(basicData.yoga.name),
           type: getYogaType(),
-          recommendations: getYogaRecommendations()
+          recommendations: getYogaRecommendations(basicData.yoga.name)
         } : null,
         specialYogas: basicData.specialYogas || []
       }
@@ -457,6 +708,9 @@ const PanchangaDetailPanel: React.FC<PanchangaDetailPanelProps> = ({
     
     if (isOpen && panchanga) {
       console.log('📊 Processing panchanga data:', panchanga)
+      
+      // Cargar recomendaciones de la nueva API
+      loadApiRecommendations()
       
       // Enriquecer los datos básicos de la API de forma asíncrona
       const loadEnrichedData = async () => {
@@ -915,8 +1169,8 @@ Recuerda: **no uses "pada/sector/subsector"**, evita placeholders, y mantén un 
             </div>
           </div>
 
-                     {/* Yogas Especiales */}
-           {enrichedPanchanga.specialYogas && enrichedPanchanga.specialYogas.length > 0 && (
+          {/* Yogas Especiales */}
+          {enrichedPanchanga.specialYogas && enrichedPanchanga.specialYogas.length > 0 && (
              <>
                <Separator />
                <div className="space-y-3">
@@ -926,7 +1180,7 @@ Recuerda: **no uses "pada/sector/subsector"**, evita placeholders, y mantén un 
                    </Badge>
                  </div>
                  <div className="ml-4 space-y-4">
-                                       {enrichedPanchanga.specialYogas.map((yoga: any, index: number) => (
+                   {enrichedPanchanga.specialYogas.map((yoga: any, index: number) => (
                      <div key={index} className="space-y-2">
                        <h4 className="text-md font-semibold">
                          {yoga.name_sanskrit || yoga.name || 'No disponible'}
@@ -1026,6 +1280,191 @@ Recuerda: **no uses "pada/sector/subsector"**, evita placeholders, y mantén un 
                </div>
              </>
            )}
+
+          {/* API Recommendations */}
+          {loadingApiData && (
+            <>
+              <Separator />
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary"></div>
+                  <h3 className="text-lg font-semibold">Cargando recomendaciones de la API...</h3>
+                </div>
+              </div>
+            </>
+          )}
+
+          {apiRecommendations && (
+            <>
+              <Separator />
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="h-5 w-5 text-green-600" />
+                  <h3 className="text-lg font-semibold">Recomendaciones de la API</h3>
+                </div>
+                
+                {/* Recomendaciones Diarias Específicas */}
+                {apiRecommendations.daily?.data?.recommendations && (
+                  <div className="space-y-4">
+                    <h4 className="font-semibold text-blue-800 mb-3">📅 Recomendaciones Específicas para {apiRecommendations.daily.data.date}</h4>
+                    
+                    {/* Vara */}
+                    {apiRecommendations.daily.data.recommendations.vara && (
+                      <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <h5 className="font-semibold text-blue-800 mb-2">☀️ Vara (Día de la Semana)</h5>
+                        <div className="text-sm text-blue-700 space-y-2">
+                          <p><strong>{apiRecommendations.daily.data.recommendations.vara.nombre}</strong> - {apiRecommendations.daily.data.recommendations.vara.planeta}</p>
+                          <p className="italic">{apiRecommendations.daily.data.recommendations.vara.descripcion}</p>
+                          {apiRecommendations.daily.data.recommendations.vara.actividades_sugeridas && apiRecommendations.daily.data.recommendations.vara.actividades_sugeridas.length > 0 && (
+                            <div>
+                              <p className="font-medium text-green-700">✅ Actividades recomendadas:</p>
+                              <ul className="list-disc list-inside ml-4">
+                                {apiRecommendations.daily.data.recommendations.vara.actividades_sugeridas.map((activity: string, index: number) => (
+                                  <li key={index}>{activity}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          {apiRecommendations.daily.data.recommendations.vara.evitar && apiRecommendations.daily.data.recommendations.vara.evitar.length > 0 && (
+                            <div>
+                              <p className="font-medium text-red-700">⚠️ Evitar:</p>
+                              <ul className="list-disc list-inside ml-4">
+                                {apiRecommendations.daily.data.recommendations.vara.evitar.map((activity: string, index: number) => (
+                                  <li key={index}>{activity}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Tithi */}
+                    {apiRecommendations.daily.data.recommendations.tithi && (
+                      <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <h5 className="font-semibold text-green-800 mb-2">🌕 Tithi (Día Lunar)</h5>
+                        <div className="text-sm text-green-700 space-y-2">
+                          <p><strong>{apiRecommendations.daily.data.recommendations.tithi.nombre}</strong> - Grupo: {apiRecommendations.daily.data.recommendations.tithi.grupo}</p>
+                          <p className="italic">{apiRecommendations.daily.data.recommendations.tithi.descripcion}</p>
+                          {apiRecommendations.daily.data.recommendations.tithi.actividades_favorables && apiRecommendations.daily.data.recommendations.tithi.actividades_favorables.length > 0 && (
+                            <div>
+                              <p className="font-medium text-green-700">✅ Actividades favorables:</p>
+                              <ul className="list-disc list-inside ml-4">
+                                {apiRecommendations.daily.data.recommendations.tithi.actividades_favorables.map((activity: string, index: number) => (
+                                  <li key={index}>{activity}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          {apiRecommendations.daily.data.recommendations.tithi.actividades_desfavorables && apiRecommendations.daily.data.recommendations.tithi.actividades_desfavorables.length > 0 && (
+                            <div>
+                              <p className="font-medium text-red-700">⚠️ Actividades desfavorables:</p>
+                              <ul className="list-disc list-inside ml-4">
+                                {apiRecommendations.daily.data.recommendations.tithi.actividades_desfavorables.map((activity: string, index: number) => (
+                                  <li key={index}>{activity}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Nakshatra */}
+                    {apiRecommendations.daily.data.recommendations.nakshatra && (
+                      <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                        <h5 className="font-semibold text-purple-800 mb-2">⭐ Nakshatra (Constelación Lunar)</h5>
+                        <div className="text-sm text-purple-700 space-y-2">
+                          <p><strong>{apiRecommendations.daily.data.recommendations.nakshatra.nombre}</strong> - Deidad: {apiRecommendations.daily.data.recommendations.nakshatra.deidad}</p>
+                          <p className="italic">{apiRecommendations.daily.data.recommendations.nakshatra.descripcion}</p>
+                          {apiRecommendations.daily.data.recommendations.nakshatra.favorables && apiRecommendations.daily.data.recommendations.nakshatra.favorables.length > 0 && (
+                            <div>
+                              <p className="font-medium text-green-700">✅ Actividades favorables:</p>
+                              <ul className="list-disc list-inside ml-4">
+                                {apiRecommendations.daily.data.recommendations.nakshatra.favorables.map((activity: string, index: number) => (
+                                  <li key={index}>{activity}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          {apiRecommendations.daily.data.recommendations.nakshatra.desfavorables && apiRecommendations.daily.data.recommendations.nakshatra.desfavorables.length > 0 && (
+                            <div>
+                              <p className="font-medium text-red-700">⚠️ Actividades desfavorables:</p>
+                              <ul className="list-disc list-inside ml-4">
+                                {apiRecommendations.daily.data.recommendations.nakshatra.desfavorables.map((activity: string, index: number) => (
+                                  <li key={index}>{activity}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Nitya Yoga */}
+                    {apiRecommendations.daily.data.recommendations.nitya_yoga && (
+                      <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
+                        <h5 className="font-semibold text-orange-800 mb-2">🧘 Nitya Yoga (Yoga Diario)</h5>
+                        <div className="text-sm text-orange-700 space-y-2">
+                          <p><strong>{apiRecommendations.daily.data.recommendations.nitya_yoga.nombre}</strong></p>
+                          <p className="italic">{apiRecommendations.daily.data.recommendations.nitya_yoga.descripcion}</p>
+                          {apiRecommendations.daily.data.recommendations.nitya_yoga.actividades_favorables && apiRecommendations.daily.data.recommendations.nitya_yoga.actividades_favorables.length > 0 && (
+                            <div>
+                              <p className="font-medium text-green-700">✅ Actividades favorables:</p>
+                              <ul className="list-disc list-inside ml-4">
+                                {apiRecommendations.daily.data.recommendations.nitya_yoga.actividades_favorables.map((activity: string, index: number) => (
+                                  <li key={index}>{activity}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          {apiRecommendations.daily.data.recommendations.nitya_yoga.actividades_desfavorables && apiRecommendations.daily.data.recommendations.nitya_yoga.actividades_desfavorables.length > 0 && (
+                            <div>
+                              <p className="font-medium text-red-700">⚠️ Actividades desfavorables:</p>
+                              <ul className="list-disc list-inside ml-4">
+                                {apiRecommendations.daily.data.recommendations.nitya_yoga.actividades_desfavorables.map((activity: string, index: number) => (
+                                  <li key={index}>{activity}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Información General de la API */}
+                {apiRecommendations.general?.data && (
+                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <h4 className="font-semibold text-gray-800 mb-3">📊 Base de Datos de Recomendaciones</h4>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                      <div className="text-center">
+                        <p className="font-medium text-gray-700">Varas</p>
+                        <p className="text-2xl font-bold text-blue-600">{apiRecommendations.general.data.varas?.length || 0}</p>
+                        <p className="text-xs text-gray-500">días de la semana</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="font-medium text-gray-700">Tithis</p>
+                        <p className="text-2xl font-bold text-green-600">{apiRecommendations.general.data.tithis?.length || 0}</p>
+                        <p className="text-xs text-gray-500">días lunares</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="font-medium text-gray-700">Nakshatras</p>
+                        <p className="text-2xl font-bold text-purple-600">{apiRecommendations.general.data.nakshatras?.length || 0}</p>
+                        <p className="text-xs text-gray-500">constelaciones</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="font-medium text-gray-700">Nitya Yogas</p>
+                        <p className="text-2xl font-bold text-orange-600">{apiRecommendations.general.data.nitya_yogas?.length || 0}</p>
+                        <p className="text-xs text-gray-500">yogas diarios</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </>
+          )}
 
           {/* AI Prompt Generator */}
           <Separator />

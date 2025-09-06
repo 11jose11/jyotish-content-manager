@@ -39,6 +39,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     { name: 'Chesta Bala', href: '/chesta-bala', icon: '⚡' },
     { name: 'Eclipses', href: '/eclipses', icon: '🌑' },
     { name: 'Diagnóstico', href: '/diagnostics', icon: '🔧' },
+    { name: 'Debug API', href: '/debug-api', icon: '🔍' },
   ]
 
   const isActive = (href: string) => location.pathname === href

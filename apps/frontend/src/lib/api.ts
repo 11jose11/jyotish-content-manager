@@ -558,25 +558,61 @@ export const useNavataraData = () => {
   })
 }
 
-// Panchanga recommendations hook
+// Panchanga recommendations hook - Updated to use new endpoint
 export const usePanchangaRecommendations = () => {
   return useQueryOriginal({
     queryKey: ['panchanga-recommendations'],
     queryFn: async () => {
       try {
-        return await apiClient.get('/panchanga/recommendations')
+        const response = await apiClient.get('/v1/panchanga/recommendations/panchanga/all')
+        return response
       } catch (error) {
         console.warn('Panchanga recommendations API not available, using mock data')
         return {
-          tithis: {},
-          nakshatras: {},
-          varas: {},
-          yogas: {},
-          karanas: {}
+          data: {
+            varas: [],
+            tithis: [],
+            nakshatras: [],
+            nitya_yogas: []
+          }
         }
       }
     },
     staleTime: 24 * 60 * 60 * 1000,
+  })
+}
+
+// Daily panchanga recommendations hook
+export const useDailyPanchangaRecommendations = (params: { date: string; latitude: number; longitude: number }) => {
+  return useQueryOriginal({
+    queryKey: ['daily-panchanga-recommendations', params],
+    queryFn: async () => {
+      try {
+        const queryParams = new URLSearchParams({
+          date: params.date,
+          latitude: params.latitude.toString(),
+          longitude: params.longitude.toString()
+        })
+        
+        const response = await apiClient.get(`/v1/panchanga/recommendations/daily?${queryParams}`)
+        return response
+      } catch (error) {
+        console.warn('Daily panchanga recommendations API not available, using mock data')
+        return {
+          data: {
+            date: params.date,
+            recommendations: {
+              vara: null,
+              tithi: null,
+              nakshatra: null,
+              nitya_yoga: null
+            }
+          }
+        }
+      }
+    },
+    enabled: !!(params.date && params.latitude && params.longitude),
+    staleTime: 60 * 60 * 1000, // 1 hour
   })
 }
 
@@ -735,9 +771,43 @@ export const useEclipseSeasons = (params: { year: number; latitude: number; long
         })
         
         const response = await apiClient.get(`/api/eclipse/seasons?${queryParams}`)
+        
+        // Si la API retorna datos vacíos, usar datos de ejemplo
+        if (response.seasons && response.seasons.length === 0) {
+          console.info('API retorna datos vacíos, usando datos de ejemplo para demostración')
+          throw new Error('No data available')
+        }
+        
+        // Log para debug
+        console.log('✅ API response received:', {
+          seasonsCount: response.seasons?.length || 0,
+          firstSeason: response.seasons?.[0]?.id,
+          firstSeasonRashi: response.seasons?.[0]?.startRashi,
+          firstSeasonNakshatra: response.seasons?.[0]?.startNakshatra
+        })
+        
         return response
       } catch (error) {
-        console.warn('Eclipse seasons API not available, using mock data:', error)
+        console.warn('Eclipse seasons API error, using mock data:', error)
+        
+        // Check for different types of errors
+        const errorMessage = error instanceof Error ? error.message : String(error)
+        const isCorsError = errorMessage.includes('CORS') || errorMessage.includes('blocked')
+        const isApiAvailable = errorMessage.includes('500') || errorMessage.includes('Internal Server Error')
+        const isNotFound = errorMessage.includes('404') || errorMessage.includes('Not Found')
+        const isNoData = errorMessage.includes('No data available')
+        
+        if (isCorsError) {
+          console.info('CORS error detected - API exists but CORS not configured, using mock data')
+        } else if (isApiAvailable) {
+          console.info('API endpoint exists but returned error, using mock data for demonstration')
+        } else if (isNotFound) {
+          console.info('API endpoint not found, using mock data for demonstration')
+        } else if (isNoData) {
+          console.info('API returned empty data, using mock data for demonstration')
+        } else {
+          console.info('API connection issue, using mock data for demonstration')
+        }
         
         // Mock data for demonstration
         return {

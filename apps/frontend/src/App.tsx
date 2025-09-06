@@ -11,6 +11,7 @@ import Navatara from './pages/Navatara'
 import ChestaBala from './pages/ChestaBala'
 import EclipseDashboard from './pages/EclipseDashboard'
 import Diagnostics from './pages/Diagnostics'
+import DebugAPI from './pages/DebugAPI'
 
 // Create a client
 const queryClient = new QueryClient({
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/chesta-bala" element={<ChestaBala />} />
                 <Route path="/eclipses" element={<EclipseDashboard />} />
                 <Route path="/diagnostics" element={<Diagnostics />} />
+                <Route path="/debug-api" element={<DebugAPI />} />
               </Routes>
             </Layout>
           </Router>

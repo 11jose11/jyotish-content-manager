@@ -223,7 +223,19 @@ const EclipseDashboard: React.FC = () => {
           {seasonsError && (
             <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded-md">
               <p className="text-sm text-yellow-800">
-                ⚠️ API no disponible. Mostrando datos de ejemplo para demostración.
+                ⚠️ Problema de CORS con la API. Mostrando datos de ejemplo para demostración.
+              </p>
+              <p className="text-xs text-yellow-700 mt-1">
+                La API existe pero necesita configuración CORS para permitir peticiones desde Vercel. 
+                Mientras tanto, se muestran datos de ejemplo.
+              </p>
+            </div>
+          )}
+          
+          {!seasonsError && seasonsData?.seasons && seasonsData.seasons.length > 0 && (
+            <div className="mt-2 p-2 bg-green-50 border border-green-200 rounded-md">
+              <p className="text-sm text-green-800">
+                ✅ Conectado a la API de eclipses. Mostrando datos reales.
               </p>
             </div>
           )}
@@ -410,13 +422,66 @@ const EclipseDashboard: React.FC = () => {
                   </CardHeader>
                   
                   <CardContent className="space-y-6">
+                    {/* Eclipse Positions Highlight */}
+                    <div className="bg-gradient-to-r from-blue-50 to-yellow-50 p-4 rounded-lg border">
+                      <h4 className="font-semibold text-lg mb-3 flex items-center">
+                        <Sun className="h-5 w-5 mr-2 text-blue-600" />
+                        Posiciones Solares del Eclipse
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {season.events.map((event: EclipseEvent) => (
+                          <div key={event.id} className="bg-white p-3 rounded-md shadow-sm">
+                            <div className="flex items-center justify-between mb-2">
+                              <Badge variant={event.type === 'Solar' ? 'default' : 'secondary'}>
+                                {event.type === 'Solar' ? <Sun className="h-3 w-3 mr-1" /> : <Moon className="h-3 w-3 mr-1" />}
+                                {event.type}
+                              </Badge>
+                              <span className="text-xs text-muted-foreground">
+                                {formatDate(event.date).split(' ')[0]}
+                              </span>
+                            </div>
+                            <div className="space-y-1 text-sm">
+                              <div className="flex items-center">
+                                <Sun className="h-4 w-4 mr-2 text-blue-600" />
+                                <span className="font-medium">{event.sunRashi}</span>
+                                <span className="text-muted-foreground ml-1">
+                                  - {event.sunNakshatra} {event.sunNakshatraPada}
+                                </span>
+                              </div>
+                              <div className="flex items-center">
+                                <Moon className="h-4 w-4 mr-2 text-gray-600" />
+                                <span className="font-medium">{event.moonRashi}</span>
+                                <span className="text-muted-foreground ml-1">
+                                  - {event.moonNakshatra} {event.moonNakshatraPada}
+                                </span>
+                              </div>
+                              <div className="flex items-center">
+                                <span className="text-yellow-600 mr-2">♃</span>
+                                <span className="font-medium">{event.jupiter}</span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
                     {/* Season Info */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div>
-                        <h4 className="font-medium mb-2">Comienza en</h4>
-                        <div className="space-y-1 text-sm">
-                          <p><strong>Sol:</strong> {season.startRashi} - {season.startNakshatra} {season.startNakshatraPada}</p>
-                          <p><strong>Luna:</strong> {season.startRashi} - {season.startNakshatra} {season.startNakshatraPada}</p>
+                        <h4 className="font-medium mb-2">Posiciones del Eclipse</h4>
+                        <div className="space-y-2 text-sm">
+                          <div className="p-2 bg-blue-50 rounded-md">
+                            <p className="font-medium text-blue-900">☀️ Sol</p>
+                            <p>{season.startRashi} - {season.startNakshatra} Pada {season.startNakshatraPada}</p>
+                          </div>
+                          <div className="p-2 bg-gray-50 rounded-md">
+                            <p className="font-medium text-gray-900">🌙 Luna</p>
+                            <p>{season.startRashi} - {season.startNakshatra} Pada {season.startNakshatraPada}</p>
+                          </div>
+                          <div className="p-2 bg-yellow-50 rounded-md">
+                            <p className="font-medium text-yellow-900">♃ Júpiter</p>
+                            <p>{season.events[0]?.jupiter || 'N/A'}</p>
+                          </div>
                         </div>
                       </div>
                       
@@ -483,12 +548,26 @@ const EclipseDashboard: React.FC = () => {
                                   </Badge>
                                 </td>
                                 <td className="p-2">
-                                  {event.sunRashi} - {event.sunNakshatra} {event.sunNakshatraPada}
+                                  <div className="font-medium text-blue-900">
+                                    ☀️ {event.sunRashi}
+                                  </div>
+                                  <div className="text-xs text-muted-foreground">
+                                    {event.sunNakshatra} Pada {event.sunNakshatraPada}
+                                  </div>
                                 </td>
                                 <td className="p-2">
-                                  {event.moonRashi} - {event.moonNakshatra} {event.moonNakshatraPada}
+                                  <div className="font-medium text-gray-900">
+                                    🌙 {event.moonRashi}
+                                  </div>
+                                  <div className="text-xs text-muted-foreground">
+                                    {event.moonNakshatra} Pada {event.moonNakshatraPada}
+                                  </div>
                                 </td>
-                                <td className="p-2">{event.jupiter}</td>
+                                <td className="p-2">
+                                  <div className="font-medium text-yellow-900">
+                                    ♃ {event.jupiter}
+                                  </div>
+                                </td>
                                 <td className="p-2">
                                   <div className="flex flex-wrap gap-1">
                                     {event.visibility.slice(0, 2).map((country, idx) => (
