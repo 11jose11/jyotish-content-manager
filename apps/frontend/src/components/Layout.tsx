@@ -37,6 +37,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     { name: 'Pañchāṅga', href: '/panchanga', icon: '📅' },
     { name: 'Navatāra', href: '/navatara', icon: '🌌' },
     { name: 'Chesta Bala', href: '/chesta-bala', icon: '⚡' },
+    { name: 'Eclipses', href: '/eclipses', icon: '🌑' },
     { name: 'Diagnóstico', href: '/diagnostics', icon: '🔧' },
   ]
 

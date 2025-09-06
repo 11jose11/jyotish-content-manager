@@ -24,6 +24,18 @@ const Home: React.FC = () => {
       icon: '🌌'
     },
     {
+      title: '⚡ Chesta Bala',
+      description: 'Análisis de cambios de velocidad planetaria',
+      href: '/chesta-bala',
+      icon: '⚡'
+    },
+    {
+      title: '🌑 Eclipses',
+      description: 'Dashboard de temporadas de eclipses y su impacto astrológico',
+      href: '/eclipses',
+      icon: '🌑'
+    },
+    {
       title: '🔧 Diagnóstico',
       description: 'Estado de conexión y diagnóstico de la API',
       href: '/diagnostics',

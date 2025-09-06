@@ -1,4 +1,5 @@
 import { useQuery as useQueryOriginal } from '@tanstack/react-query'
+import { useState } from 'react'
 
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://jyotish-api-ndcfqrjivq-uc.a.run.app'
@@ -718,6 +719,103 @@ export const useApiHealth = () => {
     retry: 2,
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 5000),
   })
+}
+
+// Eclipse Seasons hook
+export const useEclipseSeasons = (params: { year: number; latitude: number; longitude: number; countryISO: string }) => {
+  return useQueryOriginal({
+    queryKey: ['eclipse-seasons', params],
+    queryFn: async () => {
+      try {
+        const queryParams = new URLSearchParams({
+          year: params.year.toString(),
+          latitude: params.latitude.toString(),
+          longitude: params.longitude.toString(),
+          countryISO: params.countryISO
+        })
+        
+        const response = await apiClient.get(`/api/eclipse/seasons?${queryParams}`)
+        return response
+      } catch (error) {
+        console.warn('Eclipse seasons API not available:', error)
+        return {
+          seasons: [],
+          summary: {
+            totalEclipses: 0,
+            totalSeasons: 0,
+            seasonsWith3Events: 0
+          }
+        }
+      }
+    },
+    enabled: !!(params.year && params.latitude && params.longitude && params.countryISO),
+    staleTime: 10 * 60 * 1000, // 10 minutes
+  })
+}
+
+// Eclipse Legend hook
+export const useEclipseLegend = () => {
+  return useQueryOriginal({
+    queryKey: ['eclipse-legend'],
+    queryFn: async () => {
+      try {
+        const response = await apiClient.get('/api/eclipse/legend')
+        return response
+      } catch (error) {
+        console.warn('Eclipse legend API not available:', error)
+        return {
+          content: `
+            <h3>Leyenda de Eclipses</h3>
+            <p>Los eclipses son eventos astrológicos significativos que pueden tener un impacto profundo en nuestras vidas.</p>
+            
+            <h4>Tipos de Veredicto:</h4>
+            <ul>
+              <li><strong>Bhoga:</strong> Eclipses que traen beneficios y oportunidades</li>
+              <li><strong>Mokṣa:</strong> Eclipses que traen liberación y transformación</li>
+              <li><strong>Neutral:</strong> Eclipses con efectos equilibrados</li>
+            </ul>
+            
+            <h4>Regla 8.7:</h4>
+            <p>La regla 8.7 se refiere a la división del día en 8 partes y la noche en 7 partes para determinar la fuerza del eclipse.</p>
+            
+            <h4>Ventana de 18 años:</h4>
+            <p>Los efectos de un eclipse pueden manifestarse hasta 18 años después del evento, especialmente cuando afecta planetas natales importantes.</p>
+          `
+        }
+      }
+    },
+    staleTime: 24 * 60 * 60 * 1000, // 24 hours
+  })
+}
+
+// Eclipse Check mutation function
+export const useEclipseCheck = () => {
+  const [data, setData] = useState<any>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<any>(null)
+  
+  const mutate = async (requestData: {
+    natalPoints: any
+    year: number
+    latitude: number
+    longitude: number
+  }) => {
+    setIsLoading(true)
+    setError(null)
+    
+    try {
+      const response = await apiClient.post('/api/eclipse/check', requestData)
+      setData(response)
+      return response
+    } catch (err) {
+      setError(err)
+      throw err
+    } finally {
+      setIsLoading(false)
+    }
+  }
+  
+  return { data, isLoading, error, mutate }
 }
 
 export { apiClient }
