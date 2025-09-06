@@ -38,7 +38,6 @@ const Panchanga: React.FC = () => {
   const [selectedDay, setSelectedDay] = useState<string | null>(null)
   const [selectedDayData, setSelectedDayData] = useState<any>(null)
   const [isDetailPanelOpen, setIsDetailPanelOpen] = useState(false)
-  const [isLoadingDetails, setIsLoadingDetails] = useState(false)
 
 
   // Precargar datos JSON al montar el componente
@@ -56,32 +55,37 @@ const Panchanga: React.FC = () => {
     longitude: location.longitude,
   })
 
-  const handleDayClick = async (day: any) => {
-    try {
-      setIsLoadingDetails(true)
-      setSelectedDay(day.date)
-      
-      // Usar directamente los datos de la API que ya incluyen toda la información
-      console.log('🖱️ Day clicked:', day)
-      console.log('📊 Day data from API:', {
-        tithi: day.tithi,
-        nakshatra: day.nakshatra,
-        yoga: day.yoga,
-        karana: day.karana,
-        vara: day.vara,
-        specialYogas: day.specialYogas,
-        trafficLight: day.trafficLight
+  const handleDayClick = (day: any) => {
+    console.log('🔍 Day data from API:', {
+      date: day.date,
+      tithi: day.tithi,
+      vara: day.vara,
+      nakshatra: day.nakshatra,
+      yoga: day.yoga,
+      karana: day.karana,
+      specialYogas: day.specialYogas
+    })
+    
+    // Log especial para yogas especiales
+    if (day.specialYogas && day.specialYogas.length > 0) {
+      console.log('✨ Special Yogas Details:', day.specialYogas)
+      day.specialYogas.forEach((yoga: any, index: number) => {
+        console.log(`Yoga ${index + 1}:`, {
+          name: yoga.name,
+          type: yoga.type,
+          polarity: yoga.polarity,
+          description: yoga.description,
+          fullObject: yoga
+        })
       })
-      
-      setSelectedDayData(day)
-      setIsDetailPanelOpen(true)
-      toast.success(`Detalles del ${new Date(day.date).toLocaleDateString('es-ES')}`)
-    } catch (error) {
-      console.error('❌ Error loading day details:', error)
-      toast.error('Error al cargar los detalles del día')
-    } finally {
-      setIsLoadingDetails(false)
+    } else {
+      console.log('❌ No special yogas found for this day')
     }
+    
+    setSelectedDay(day.date)
+    setSelectedDayData(day)
+    setIsDetailPanelOpen(true)
+    toast.success(`Detalles del ${new Date(day.date).toLocaleDateString('es-ES')}`)
   }
 
   const handleCloseDetailPanel = () => {
@@ -358,14 +362,6 @@ const Panchanga: React.FC = () => {
               <p className="text-xs text-muted-foreground mt-2">
                 Carga por lotes de 3 días con pausas para evitar errores CORS
               </p>
-              {isLoadingDetails && (
-                <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-                  <div className="flex items-center gap-2">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
-                    <span className="text-sm text-blue-800">Cargando detalles del panchanga...</span>
-                  </div>
-                </div>
-              )}
             </div>
           ) : (
             renderCalendar()
@@ -383,15 +379,6 @@ const Panchanga: React.FC = () => {
         />
       )}
 
-      {/* Loading Overlay for Details */}
-      {isLoadingDetails && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-            <p className="mt-2 text-center">Cargando detalles del pañcāṅga...</p>
-          </div>
-        </div>
-      )}
 
       {/* Debug Component - Temporary */}
       <JsonDataDebug />
