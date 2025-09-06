@@ -220,6 +220,13 @@ const EclipseDashboard: React.FC = () => {
           <p className="text-muted-foreground">
             Análisis de temporadas de eclipses y su impacto astrológico
           </p>
+          {seasonsError && (
+            <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded-md">
+              <p className="text-sm text-yellow-800">
+                ⚠️ API no disponible. Mostrando datos de ejemplo para demostración.
+              </p>
+            </div>
+          )}
         </div>
         <div className="flex items-center gap-2">
           <MapPin className="h-4 w-4" />
