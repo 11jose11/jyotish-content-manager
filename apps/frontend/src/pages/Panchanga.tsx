@@ -9,6 +9,7 @@ import { usePanchangaMonth, useApiHealth } from '@/lib/api'
 import LocationAutocomplete from '@/components/LocationAutocomplete'
 import PanchangaDetailPanel from '@/components/PanchangaDetailPanel'
 import JsonDataDebug from '@/components/JsonDataDebug'
+import ErrorBoundary from '@/components/ErrorBoundary'
 import { toast } from 'sonner'
 import { useEffect } from 'react'
 
@@ -56,6 +57,13 @@ const Panchanga: React.FC = () => {
   })
 
   const handleDayClick = (day: any) => {
+    // Validar que day sea un objeto válido
+    if (!day || typeof day !== 'object') {
+      console.error('Invalid day object:', day)
+      toast.error('Error: Datos del día no válidos')
+      return
+    }
+
     console.log('🔍 Day data from API:', {
       date: day.date,
       tithi: day.tithi,
@@ -70,11 +78,25 @@ const Panchanga: React.FC = () => {
     if (day.specialYogas && day.specialYogas.length > 0) {
       console.log('✨ Special Yogas Details:', day.specialYogas)
       day.specialYogas.forEach((yoga: any, index: number) => {
-        console.log(`Yoga ${index + 1}:`, {
+        console.log(`🔮 Yoga ${index + 1} - ${yoga.name || 'Sin nombre'}:`, {
           name: yoga.name,
           type: yoga.type,
           polarity: yoga.polarity,
+          rule: yoga.rule,
+          explain: yoga.explain,
+          reason: yoga.reason,
           description: yoga.description,
+          activities: yoga.activities,
+          avoid: yoga.avoid,
+          beneficial_activities: yoga.beneficial_activities,
+          avoid_activities: yoga.avoid_activities,
+          deity: yoga.deity,
+          planet: yoga.planet,
+          element: yoga.element,
+          classification: yoga.classification,
+          category: yoga.category,
+          priority: yoga.priority,
+          notes: yoga.notes,
           fullObject: yoga
         })
       })
@@ -163,32 +185,32 @@ const Panchanga: React.FC = () => {
                       <div className="space-y-2 text-xs">
                         <div className="text-center">
                           <span className="font-medium text-blue-600">
-                            {day.tithi?.name || 'N/A'}
+                            {typeof day.tithi === 'string' ? day.tithi : (day.tithi?.name || 'N/A')}
                           </span>
                         </div>
                         <div className="text-center">
                           <span className="text-green-600">
-                            {day.vara?.name || 'N/A'}
+                            {typeof day.vara === 'string' ? day.vara : (day.vara?.name || 'N/A')}
                           </span>
                         </div>
                         <div className="text-center">
                           <span className="text-purple-600">
-                            {day.nakshatra?.name || 'N/A'}
+                            {typeof day.nakshatra === 'string' ? day.nakshatra : (day.nakshatra?.name || 'N/A')}
                           </span>
                           {day.nakshatra?.pada && (
                             <Badge variant="outline" className="ml-1 text-xs">
-                              p{day.nakshatra.pada}
+                              p{day.nakshatra?.pada}
                             </Badge>
                           )}
                         </div>
                         <div className="text-center">
                           <span className="text-orange-600">
-                            {day.yoga?.name || 'N/A'}
+                            {typeof day.yoga === 'string' ? day.yoga : (day.yoga?.name || 'N/A')}
                           </span>
                         </div>
                         <div className="text-center">
                           <span className="text-indigo-600">
-                            {day.karana?.name || 'N/A'}
+                            {typeof day.karana === 'string' ? day.karana : (day.karana?.name || 'N/A')}
                           </span>
                         </div>
                         {/* Semáforo de colores para el día */}
@@ -209,10 +231,10 @@ const Panchanga: React.FC = () => {
                             {day.specialYogas.slice(0, 2).map((yoga: any, index: number) => (
                               <div key={index} className="flex justify-center">
                                 <Badge 
-                                  variant={yoga.polarity === 'positive' ? 'default' : 'destructive'} 
+                                  variant={yoga?.polarity === 'positive' ? 'default' : 'destructive'} 
                                   className="text-xs px-1 py-0.5"
                                 >
-                                  {yoga.name || yoga.type || 'Yoga'}
+                                  {yoga?.name || yoga?.type || 'Yoga'}
                                 </Badge>
                               </div>
                             ))}
@@ -371,12 +393,14 @@ const Panchanga: React.FC = () => {
 
       {/* Detail Panel */}
       {selectedDayData && selectedDay && (
-        <PanchangaDetailPanel
-          date={selectedDay}
-          panchanga={selectedDayData.details || selectedDayData}
-          isOpen={isDetailPanelOpen}
-          onClose={handleCloseDetailPanel}
-        />
+        <ErrorBoundary>
+          <PanchangaDetailPanel
+            date={selectedDay}
+            panchanga={selectedDayData.details || selectedDayData}
+            isOpen={isDetailPanelOpen}
+            onClose={handleCloseDetailPanel}
+          />
+        </ErrorBoundary>
       )}
 
 

@@ -73,7 +73,8 @@ app.add_middleware(
         "http://localhost:5173",  # Local development
         "http://localhost:3000",  # Alternative local port
         "https://jyotish-content-manager.vercel.app",  # Main Vercel domain
-        "https://jyotish-content-manager-5zmiphx2e-11jose11s-projects.vercel.app",  # Current deployment
+        "https://jyotish-content-manager-ndxiyg05w-11jose11s-projects.vercel.app",  # Current deployment
+        "https://jyotish-content-manager-5zmiphx2e-11jose11s-projects.vercel.app",  # Previous deployment
         "https://jyotish-content-manager-17mlfqb6m-11jose11s-projects.vercel.app",  # Previous deployment
         "https://jyotish-content-manager-q1j0djcof-11jose11s-projects.vercel.app",  # Previous deployment
         "https://jyotish-content-manager-xccgfos13-11jose11s-projects.vercel.app",  # Previous deployment

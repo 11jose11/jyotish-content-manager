@@ -3,9 +3,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
-import { Copy, Sparkles, Star, Sun, Moon, Zap, Calendar, X, CheckCircle, XCircle } from 'lucide-react'
+import { Copy, Sparkles, Star, Sun, Moon, Zap, Calendar, X, CheckCircle, XCircle, Bot, FileText } from 'lucide-react'
 import { toast } from 'sonner'
 import { panchangaSimplifiedService } from '@/lib/panchangaSimplifiedService'
+import { AIReportGeneratorV2 } from '@/lib/aiReportGeneratorV2'
 
 interface PanchangaDetailPanelProps {
   date: string
@@ -22,6 +23,14 @@ const PanchangaDetailPanel: React.FC<PanchangaDetailPanelProps> = ({
 }) => {
   const [recommendations, setRecommendations] = useState<any>(null)
   const [loading, setLoading] = useState(false)
+  const [aiPrompt, setAiPrompt] = useState<string>('')
+  const [generatingPrompt, setGeneratingPrompt] = useState(false)
+
+  // Validar que panchanga sea un objeto válido
+  if (!panchanga || typeof panchanga !== 'object') {
+    console.error('PanchangaDetailPanel: Invalid panchanga object:', panchanga)
+    return null
+  }
 
   useEffect(() => {
     if (isOpen && panchanga) {
@@ -73,6 +82,45 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
     toast.success('Información copiada al portapapeles')
   }
 
+  const generateAIPrompt = async () => {
+    setGeneratingPrompt(true)
+    try {
+      console.log('🤖 Generando prompt de IA para:', date)
+      const prompt = await AIReportGeneratorV2.generateDailyReportPrompt({
+        date,
+        tithi: panchanga.tithi,
+        vara: panchanga.vara,
+        nakshatra: panchanga.nakshatra,
+        yoga: panchanga.yoga,
+        karana: panchanga.karana,
+        specialYogas: panchanga.specialYogas || []
+      })
+      
+      setAiPrompt(prompt)
+      toast.success('Prompt de IA generado exitosamente')
+    } catch (error) {
+      console.error('Error generating AI prompt:', error)
+      toast.error('Error al generar el prompt de IA')
+    } finally {
+      setGeneratingPrompt(false)
+    }
+  }
+
+  const copyAIPromptToClipboard = async () => {
+    try {
+      if (!aiPrompt) {
+        toast.error('No hay prompt generado para copiar')
+        return
+      }
+      
+      await navigator.clipboard.writeText(aiPrompt)
+      toast.success('Prompt de IA copiado al portapapeles')
+    } catch (error) {
+      console.error('Error copying AI prompt to clipboard:', error)
+      toast.error('Error al copiar el prompt de IA')
+    }
+  }
+
   if (!isOpen) return null
 
   return (
@@ -91,6 +139,27 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
             </CardTitle>
           </div>
           <div className="flex items-center gap-2">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={generateAIPrompt}
+              disabled={generatingPrompt}
+              className="bg-blue-50 hover:bg-blue-100 border-blue-200 text-blue-700"
+            >
+              <Bot className="h-4 w-4 mr-1" />
+              {generatingPrompt ? 'Generando...' : 'IA Reporte'}
+            </Button>
+            {aiPrompt && (
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={copyAIPromptToClipboard}
+                className="bg-green-50 hover:bg-green-100 border-green-200 text-green-700"
+              >
+                <FileText className="h-4 w-4 mr-1" />
+                Copiar Prompt
+              </Button>
+            )}
             <Button variant="outline" size="sm" onClick={copyToClipboard}>
               <Copy className="h-4 w-4 mr-1" />
               Copiar
@@ -137,9 +206,9 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                       <div><strong>Special Yogas Details:</strong></div>
                       {panchanga.specialYogas.map((yoga: any, index: number) => (
                         <div key={index} className="ml-2 text-xs">
-                          {index + 1}. {yoga.name || yoga.type || 'Sin nombre'} 
-                          ({yoga.polarity || 'Sin polaridad'})
-                          {yoga.description && ` - ${yoga.description.substring(0, 50)}...`}
+                          {index + 1}. {yoga?.name || yoga?.type || 'Sin nombre'} 
+                          ({yoga?.polarity || 'Sin polaridad'})
+                          {yoga?.description && ` - ${yoga.description.substring(0, 50)}...`}
                         </div>
                       ))}
                     </div>
@@ -153,23 +222,23 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                 <CardHeader className="bg-blue-50">
                   <CardTitle className="flex items-center gap-2 text-blue-800">
                     <Moon className="h-5 w-5" />
-                    1. NAKSHATRA - {recommendations.nakshatra.name}
+                    1. NAKSHATRA - {recommendations.nakshatra?.name || 'No disponible'}
                   </CardTitle>
                   <CardDescription className="text-blue-700">
-                    {recommendations.nakshatra.translation} | Deidad: {recommendations.nakshatra.deity} | Planeta: {recommendations.nakshatra.planet} | Elemento: {recommendations.nakshatra.element}
+                    {recommendations.nakshatra?.translation || 'N/A'} | Deidad: {recommendations.nakshatra?.deity || 'N/A'} | Planeta: {recommendations.nakshatra?.planet || 'N/A'} | Elemento: {recommendations.nakshatra?.element || 'N/A'}
                   </CardDescription>
                   <Badge variant="outline" className="w-fit">
-                    {recommendations.nakshatra.classification}
+                    {recommendations.nakshatra?.classification || 'N/A'}
                   </Badge>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
                     <h4 className="font-semibold text-green-700 mb-2 flex items-center gap-1">
                       <CheckCircle className="h-4 w-4" />
-                      Actividades Favorables ({recommendations.nakshatra.favorables.length})
+                      Actividades Favorables ({recommendations.nakshatra?.favorables?.length || 0})
                     </h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                      {recommendations.nakshatra.favorables.map((activity: string, index: number) => (
+                      {(recommendations.nakshatra?.favorables || []).map((activity: string, index: number) => (
                         <Badge key={index} variant="secondary" className="bg-green-100 text-green-800 text-xs">
                           {activity}
                         </Badge>
@@ -180,10 +249,10 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                   <div>
                     <h4 className="font-semibold text-red-700 mb-2 flex items-center gap-1">
                       <XCircle className="h-4 w-4" />
-                      Actividades a Evitar ({recommendations.nakshatra.desfavorables.length})
+                      Actividades a Evitar ({recommendations.nakshatra?.desfavorables?.length || 0})
                     </h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                      {recommendations.nakshatra.desfavorables.map((activity: string, index: number) => (
+                      {(recommendations.nakshatra?.desfavorables || []).map((activity: string, index: number) => (
                         <Badge key={index} variant="destructive" className="text-xs">
                           {activity}
                         </Badge>
@@ -200,24 +269,24 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                 <CardHeader className="bg-orange-50">
                   <CardTitle className="flex items-center gap-2 text-orange-800">
                     <Sun className="h-5 w-5" />
-                    2. TITHI - {recommendations.tithi.name}
+                    2. TITHI - {recommendations.tithi?.name || 'No disponible'}
                   </CardTitle>
                   <CardDescription className="text-orange-700">
-                    {recommendations.tithi.translation} | Deidad: {recommendations.tithi.deity} | Elemento: {recommendations.tithi.element}
+                    {recommendations.tithi?.translation || 'N/A'} | Deidad: {recommendations.tithi?.deity || 'N/A'} | Elemento: {recommendations.tithi?.element || 'N/A'}
                     {panchanga.tithi.index && ` | Día ${panchanga.tithi.index}`}
                   </CardDescription>
                   <Badge variant="outline" className="w-fit">
-                    {recommendations.tithi.classification}
+                    {recommendations.tithi?.classification || 'N/A'}
                   </Badge>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
                     <h4 className="font-semibold text-green-700 mb-2 flex items-center gap-1">
                       <CheckCircle className="h-4 w-4" />
-                      Actividades Favorables ({recommendations.tithi.favorables.length})
+                      Actividades Favorables ({recommendations.tithi?.favorables?.length || 0})
                     </h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                      {recommendations.tithi.favorables.map((activity: string, index: number) => (
+                      {(recommendations.tithi?.favorables || []).map((activity: string, index: number) => (
                         <Badge key={index} variant="secondary" className="bg-green-100 text-green-800 text-xs">
                           {activity}
                         </Badge>
@@ -228,10 +297,10 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                   <div>
                     <h4 className="font-semibold text-red-700 mb-2 flex items-center gap-1">
                       <XCircle className="h-4 w-4" />
-                      Actividades a Evitar ({recommendations.tithi.desfavorables.length})
+                      Actividades a Evitar ({recommendations.tithi?.desfavorables?.length || 0})
                     </h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                      {recommendations.tithi.desfavorables.map((activity: string, index: number) => (
+                      {(recommendations.tithi?.desfavorables || []).map((activity: string, index: number) => (
                         <Badge key={index} variant="destructive" className="text-xs">
                           {activity}
                         </Badge>
@@ -248,7 +317,7 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                 <CardHeader className="bg-purple-50">
                   <CardTitle className="flex items-center gap-2 text-purple-800">
                     <Star className="h-5 w-5" />
-                    3. KARANA - {panchanga.karana.name}
+                    3. KARANA - {typeof panchanga.karana === 'string' ? panchanga.karana : (panchanga.karana?.name || 'No disponible')}
                   </CardTitle>
                   <CardDescription className="text-purple-700">
                     El karana es la mitad de un tithi y representa las actividades más específicas del día
@@ -256,7 +325,7 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                 </CardHeader>
                 <CardContent>
                   <div className="text-sm text-muted-foreground">
-                    <p>El karana actual es <strong>{panchanga.karana.name}</strong>, que influye en las actividades más detalladas del día.</p>
+                    <p>El karana actual es <strong>{typeof panchanga.karana === 'string' ? panchanga.karana : (panchanga.karana?.name || 'No disponible')}</strong>, que influye en las actividades más detalladas del día.</p>
                   </div>
                 </CardContent>
               </Card>
@@ -268,23 +337,23 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                 <CardHeader className="bg-green-50">
                   <CardTitle className="flex items-center gap-2 text-green-800">
                     <Calendar className="h-5 w-5" />
-                    4. VARA - {recommendations.vara.name}
+                    4. VARA - {recommendations.vara?.name || 'No disponible'}
                   </CardTitle>
                   <CardDescription className="text-green-700">
-                    {recommendations.vara.translation} | Planeta: {recommendations.vara.planet}
+                    {recommendations.vara?.translation || 'N/A'} | Planeta: {recommendations.vara?.planet || 'N/A'}
                   </CardDescription>
                   <Badge variant="outline" className="w-fit">
-                    {recommendations.vara.classification}
+                    {recommendations.vara?.classification || 'N/A'}
                   </Badge>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
                     <h4 className="font-semibold text-green-700 mb-2 flex items-center gap-1">
                       <CheckCircle className="h-4 w-4" />
-                      Actividades Favorables ({recommendations.vara.favorables.length})
+                      Actividades Favorables ({recommendations.vara?.favorables?.length || 0})
                     </h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                      {recommendations.vara.favorables.map((activity: string, index: number) => (
+                      {(recommendations.vara?.favorables || []).map((activity: string, index: number) => (
                         <Badge key={index} variant="secondary" className="bg-green-100 text-green-800 text-xs">
                           {activity}
                         </Badge>
@@ -295,10 +364,10 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                   <div>
                     <h4 className="font-semibold text-red-700 mb-2 flex items-center gap-1">
                       <XCircle className="h-4 w-4" />
-                      Actividades a Evitar ({recommendations.vara.desfavorables.length})
+                      Actividades a Evitar ({recommendations.vara?.desfavorables?.length || 0})
                     </h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                      {recommendations.vara.desfavorables.map((activity: string, index: number) => (
+                      {(recommendations.vara?.desfavorables || []).map((activity: string, index: number) => (
                         <Badge key={index} variant="destructive" className="text-xs">
                           {activity}
                         </Badge>
@@ -315,28 +384,28 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                 <CardHeader className="bg-yellow-50">
                   <CardTitle className="flex items-center gap-2 text-yellow-800">
                     <Zap className="h-5 w-5" />
-                    5. YOGA - {recommendations.yoga.name}
+                    5. YOGA - {recommendations.yoga?.name || 'No disponible'}
                   </CardTitle>
                   <CardDescription className="text-yellow-700">
-                    {recommendations.yoga.translation} | Deidad: {recommendations.yoga.deity} | Planeta: {recommendations.yoga.planet}
+                    {recommendations.yoga?.translation || 'N/A'} | Deidad: {recommendations.yoga?.deity || 'N/A'} | Planeta: {recommendations.yoga?.planet || 'N/A'}
                   </CardDescription>
                   <Badge variant="outline" className="w-fit">
-                    {recommendations.yoga.classification}
+                    {recommendations.yoga?.classification || 'N/A'}
                   </Badge>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {recommendations.yoga.detailed_description && (
+                  {recommendations.yoga?.detailed_description && (
                     <div className="p-3 bg-yellow-100 rounded-lg">
-                      <p className="text-sm text-yellow-800">{recommendations.yoga.detailed_description}</p>
+                      <p className="text-sm text-yellow-800">{recommendations.yoga?.detailed_description}</p>
                     </div>
                   )}
                   <div>
                     <h4 className="font-semibold text-green-700 mb-2 flex items-center gap-1">
                       <CheckCircle className="h-4 w-4" />
-                      Actividades Favorables ({recommendations.yoga.favorables.length})
+                      Actividades Favorables ({recommendations.yoga?.favorables?.length || 0})
                     </h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                      {recommendations.yoga.favorables.map((activity: string, index: number) => (
+                      {(recommendations.yoga?.favorables || []).map((activity: string, index: number) => (
                         <Badge key={index} variant="secondary" className="bg-green-100 text-green-800 text-xs">
                           {activity}
                         </Badge>
@@ -347,10 +416,10 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                   <div>
                     <h4 className="font-semibold text-red-700 mb-2 flex items-center gap-1">
                       <XCircle className="h-4 w-4" />
-                      Actividades a Evitar ({recommendations.yoga.desfavorables.length})
+                      Actividades a Evitar ({recommendations.yoga?.desfavorables?.length || 0})
                     </h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                      {recommendations.yoga.desfavorables.map((activity: string, index: number) => (
+                      {(recommendations.yoga?.desfavorables || []).map((activity: string, index: number) => (
                         <Badge key={index} variant="destructive" className="text-xs">
                           {activity}
                         </Badge>
@@ -370,129 +439,236 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                     6. YOGAS ESPECIALES ({panchanga.specialYogas.length})
                   </CardTitle>
                   <CardDescription className="text-indigo-700">
-                    Yogas especiales que ocurren en este día específico
+                    Yogas especiales que ocurren en este día específico con recomendaciones detalladas
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     {panchanga.specialYogas.map((yoga: any, index: number) => (
-                      <div key={index} className="p-4 border rounded-lg bg-white">
-                        <div className="flex items-start justify-between mb-3">
+                      <div key={index} className="p-5 border-2 rounded-xl bg-gradient-to-br from-white to-indigo-50 shadow-sm">
+                        {/* Header del Yoga */}
+                        <div className="flex items-start justify-between mb-4">
                           <div className="flex-1">
-                            <h4 className="font-semibold text-lg mb-1">
-                              {yoga.name || yoga.type || `Yoga Especial ${index + 1}`}
+                            <h4 className="font-bold text-xl mb-2 text-indigo-900">
+                              {yoga?.name || `Yoga Especial ${index + 1}`}
                             </h4>
-                            {yoga.type && yoga.type !== yoga.name && (
-                              <p className="text-sm text-muted-foreground mb-2">
-                                Tipo: {yoga.type}
+                            {yoga?.type && yoga.type !== yoga?.name && (
+                              <p className="text-sm text-indigo-600 mb-2 font-medium">
+                                Tipo: {yoga?.type}
                               </p>
                             )}
                           </div>
                           <Badge 
-                            variant={yoga.polarity === 'positive' ? 'default' : 'destructive'}
-                            className="text-xs"
+                            variant={yoga?.polarity === 'auspicious' || yoga?.polarity === 'positive' ? 'default' : 'destructive'}
+                            className="text-sm font-semibold px-3 py-1"
                           >
-                            {yoga.polarity === 'positive' ? 'Auspicioso' : 'Desfavorable'}
+                            {yoga?.polarity === 'auspicious' || yoga?.polarity === 'positive' ? '✨ Auspicioso' : '⚠️ Desfavorable'}
                           </Badge>
                         </div>
                         
                         {/* Información detallada del yoga */}
-                        <div className="space-y-3">
-                          {yoga.description && (
-                            <div className="p-3 bg-gray-50 rounded-lg">
-                              <h5 className="font-medium text-sm mb-1">Descripción:</h5>
-                              <p className="text-sm text-gray-700">
-                                {yoga.description}
+                        <div className="space-y-4">
+                          {/* Descripción Principal */}
+                          {(yoga?.explain || yoga?.description) && (
+                            <div className="p-4 bg-blue-50 border-l-4 border-blue-400 rounded-r-lg">
+                              <h5 className="font-semibold text-sm mb-2 text-blue-800 flex items-center gap-2">
+                                <Sparkles className="h-4 w-4" />
+                                Descripción y Significado:
+                              </h5>
+                              <p className="text-sm text-blue-700 leading-relaxed">
+                                {yoga?.explain || yoga?.description}
                               </p>
                             </div>
                           )}
                           
-                          {/* Información adicional si está disponible */}
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                            {yoga.deity && (
-                              <div>
-                                <span className="font-medium">Deidad:</span> {yoga.deity}
+                          {/* Condiciones de Formación */}
+                          <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg">
+                            <h5 className="font-semibold text-sm mb-3 text-blue-800 flex items-center gap-2">
+                              <Star className="h-4 w-4" />
+                              🔍 Condiciones de Formación:
+                            </h5>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                              <div className="space-y-2">
+                                <div className="flex items-center gap-2">
+                                  <span className="font-medium text-blue-700 text-sm">Vara (día):</span>
+                                  <span className="text-blue-600 text-sm bg-blue-100 px-2 py-1 rounded">
+                                    {typeof panchanga.vara === 'string' ? panchanga.vara : (panchanga.vara?.name || 'No disponible')}
+                                  </span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <span className="font-medium text-blue-700 text-sm">Grupo de Tithi:</span>
+                                  <span className="text-blue-600 text-sm bg-blue-100 px-2 py-1 rounded">
+                                    {panchanga.tithi?.group || 'No disponible'}
+                                  </span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <span className="font-medium text-blue-700 text-sm">Nakshatra:</span>
+                                  <span className="text-blue-600 text-sm bg-blue-100 px-2 py-1 rounded">
+                                    {panchanga.nakshatra?.nameIAST || panchanga.nakshatra?.name || 'No disponible'}
+                                  </span>
+                                </div>
                               </div>
-                            )}
-                            {yoga.planet && (
-                              <div>
-                                <span className="font-medium">Planeta:</span> {yoga.planet}
+                              <div className="space-y-2">
+                                <div className="flex items-center gap-2">
+                                  <span className="font-medium text-blue-700 text-sm">Índice Nakshatra:</span>
+                                  <span className="text-blue-600 text-sm bg-blue-100 px-2 py-1 rounded">
+                                    {panchanga.nakshatra?.index || 'No disponible'}
+                                  </span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <span className="font-medium text-blue-700 text-sm">Tithi:</span>
+                                  <span className="text-blue-600 text-sm bg-blue-100 px-2 py-1 rounded">
+                                    {panchanga.tithi?.code || 'No disponible'}
+                                  </span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <span className="font-medium text-blue-700 text-sm">Índice Tithi:</span>
+                                  <span className="text-blue-600 text-sm bg-blue-100 px-2 py-1 rounded">
+                                    {panchanga.tithi?.index || 'No disponible'}
+                                  </span>
+                                </div>
                               </div>
-                            )}
-                            {yoga.element && (
-                              <div>
-                                <span className="font-medium">Elemento:</span> {yoga.element}
-                              </div>
-                            )}
-                            {yoga.classification && (
-                              <div>
-                                <span className="font-medium">Clasificación:</span> {yoga.classification}
-                              </div>
-                            )}
-                            {yoga.category && (
-                              <div>
-                                <span className="font-medium">Categoría:</span> {yoga.category}
-                              </div>
-                            )}
-                            {yoga.priority && (
-                              <div>
-                                <span className="font-medium">Prioridad:</span> {yoga.priority}
+                            </div>
+                            {yoga?.rule && (
+                              <div className="mt-3 p-3 bg-white border rounded-lg">
+                                <h6 className="font-semibold text-sm mb-2 text-gray-700">Regla Astrológica:</h6>
+                                <p className="text-sm text-gray-600 font-mono bg-gray-50 p-2 rounded border">
+                                  {yoga?.rule}
+                                </p>
                               </div>
                             )}
                           </div>
                           
-                          {/* Actividades específicas del yoga */}
-                          {(yoga.beneficial_activities || yoga.favorables) && (
-                            <div>
-                              <h5 className="font-medium text-sm mb-2 text-green-700">
-                                Actividades Beneficiosas:
+                          {/* Razón del Yoga */}
+                          {yoga?.reason && (
+                            <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                              <h5 className="font-semibold text-sm mb-2 text-yellow-800 flex items-center gap-2">
+                                <Zap className="h-4 w-4" />
+                                Razón de la Formación:
                               </h5>
-                              <div className="flex flex-wrap gap-1">
-                                {(yoga.beneficial_activities || yoga.favorables || []).map((activity: string, actIndex: number) => (
-                                  <Badge key={actIndex} variant="secondary" className="bg-green-100 text-green-800 text-xs">
-                                    {activity}
-                                  </Badge>
-                                ))}
+                              <p className="text-sm text-yellow-700">
+                                {yoga?.reason}
+                              </p>
+                            </div>
+                          )}
+                          
+                          {/* Información Astrológica Adicional */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                            {yoga?.deity && (
+                              <div className="p-3 bg-purple-50 border border-purple-200 rounded-lg">
+                                <span className="font-semibold text-purple-800 text-sm">Deidad:</span>
+                                <p className="text-purple-700 text-sm mt-1">{yoga?.deity}</p>
                               </div>
-                            </div>
-                          )}
-                          
-                          {(yoga.avoid_activities || yoga.desfavorables) && (
-                            <div>
-                              <h5 className="font-medium text-sm mb-2 text-red-700">
-                                Actividades a Evitar:
-                              </h5>
-                              <div className="flex flex-wrap gap-1">
-                                {(yoga.avoid_activities || yoga.desfavorables || []).map((activity: string, actIndex: number) => (
-                                  <Badge key={actIndex} variant="destructive" className="text-xs">
-                                    {activity}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                          
-                          {/* Notas adicionales */}
-                          {yoga.notes && (
-                            <div className="p-2 bg-yellow-50 border border-yellow-200 rounded">
-                              <h5 className="font-medium text-sm mb-1 text-yellow-800">Notas:</h5>
-                              <p className="text-xs text-yellow-700">{yoga.notes}</p>
-                            </div>
-                          )}
-                          
-                          {/* Indicador visual de polaridad */}
-                          <div className="flex items-center gap-2 pt-2 border-t">
-                            {yoga.polarity === 'positive' ? (
-                              <CheckCircle className="h-4 w-4 text-green-600" />
-                            ) : (
-                              <XCircle className="h-4 w-4 text-red-600" />
                             )}
-                            <span className="text-sm text-muted-foreground">
-                              {yoga.polarity === 'positive' 
-                                ? 'Este yoga es favorable para actividades importantes y auspiciosas' 
-                                : 'Este yoga requiere precaución en actividades importantes'
-                              }
-                            </span>
+                            {yoga?.planet && (
+                              <div className="p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                                <span className="font-semibold text-orange-800 text-sm">Planeta:</span>
+                                <p className="text-orange-700 text-sm mt-1">{yoga?.planet}</p>
+                              </div>
+                            )}
+                            {yoga?.element && (
+                              <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
+                                <span className="font-semibold text-green-800 text-sm">Elemento:</span>
+                                <p className="text-green-700 text-sm mt-1">{yoga?.element}</p>
+                              </div>
+                            )}
+                            {yoga?.classification && (
+                              <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                                <span className="font-semibold text-red-800 text-sm">Clasificación:</span>
+                                <p className="text-red-700 text-sm mt-1">{yoga?.classification}</p>
+                              </div>
+                            )}
+                            {yoga?.category && (
+                              <div className="p-3 bg-teal-50 border border-teal-200 rounded-lg">
+                                <span className="font-semibold text-teal-800 text-sm">Categoría:</span>
+                                <p className="text-teal-700 text-sm mt-1">{yoga?.category}</p>
+                              </div>
+                            )}
+                            {yoga?.priority && (
+                              <div className="p-3 bg-pink-50 border border-pink-200 rounded-lg">
+                                <span className="font-semibold text-pink-800 text-sm">Prioridad:</span>
+                                <p className="text-pink-700 text-sm mt-1">{yoga?.priority}</p>
+                              </div>
+                            )}
+                          </div>
+                          
+                          {/* Recomendaciones Específicas */}
+                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            {/* Actividades Beneficiosas */}
+                            {(yoga?.beneficial_activities || yoga?.favorables || yoga?.activities) && (
+                              <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                                <h5 className="font-semibold text-sm mb-3 text-green-800 flex items-center gap-2">
+                                  <CheckCircle className="h-4 w-4" />
+                                  Actividades Recomendadas:
+                                </h5>
+                                <div className="space-y-2">
+                                  {(yoga?.beneficial_activities || yoga?.favorables || yoga?.activities || []).map((activity: string, actIndex: number) => (
+                                    <div key={actIndex} className="flex items-center gap-2">
+                                      <CheckCircle className="h-3 w-3 text-green-600 flex-shrink-0" />
+                                      <span className="text-sm text-green-700 bg-green-100 px-2 py-1 rounded-full">
+                                        {activity}
+                                      </span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            
+                            {/* Actividades a Evitar */}
+                            {(yoga?.avoid_activities || yoga?.desfavorables || yoga?.avoid) && (
+                              <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                                <h5 className="font-semibold text-sm mb-3 text-red-800 flex items-center gap-2">
+                                  <XCircle className="h-4 w-4" />
+                                  Actividades a Evitar:
+                                </h5>
+                                <div className="space-y-2">
+                                  {(yoga?.avoid_activities || yoga?.desfavorables || yoga?.avoid || []).map((activity: string, actIndex: number) => (
+                                    <div key={actIndex} className="flex items-center gap-2">
+                                      <XCircle className="h-3 w-3 text-red-600 flex-shrink-0" />
+                                      <span className="text-sm text-red-700 bg-red-100 px-2 py-1 rounded-full">
+                                        {activity}
+                                      </span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                          
+                          {/* Notas Adicionales */}
+                          {yoga?.notes && (
+                            <div className="p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-lg">
+                              <h5 className="font-semibold text-sm mb-2 text-yellow-800 flex items-center gap-2">
+                                <Star className="h-4 w-4" />
+                                Notas Importantes:
+                              </h5>
+                              <p className="text-sm text-yellow-700 leading-relaxed">{yoga?.notes}</p>
+                            </div>
+                          )}
+                          
+                          {/* Resumen de Impacto */}
+                          <div className="p-4 bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg">
+                            <div className="flex items-center gap-3">
+                              {yoga.polarity === 'auspicious' || yoga.polarity === 'positive' ? (
+                                <CheckCircle className="h-6 w-6 text-green-600" />
+                              ) : (
+                                <XCircle className="h-6 w-6 text-red-600" />
+                              )}
+                              <div>
+                                <h5 className="font-semibold text-sm text-indigo-800">
+                                  {yoga.polarity === 'auspicious' || yoga.polarity === 'positive' 
+                                    ? 'Impacto Positivo' 
+                                    : 'Impacto Negativo'
+                                  }
+                                </h5>
+                                <p className="text-sm text-indigo-600">
+                                  {yoga.polarity === 'auspicious' || yoga.polarity === 'positive' 
+                                    ? 'Este yoga es altamente favorable para actividades importantes, ceremonias y decisiones significativas.' 
+                                    : 'Este yoga requiere precaución especial. Evite actividades importantes y tome decisiones con cuidado.'
+                                  }
+                                </p>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -539,6 +715,59 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                             <span className="text-sm">{activity}</span>
                           </div>
                         ))}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* SECCIÓN DE PROMPT DE IA */}
+            {aiPrompt && (
+              <Card className="border-purple-200 bg-gradient-to-br from-purple-50 to-blue-50">
+                <CardHeader className="bg-purple-100">
+                  <CardTitle className="flex items-center gap-2 text-purple-800">
+                    <Bot className="h-5 w-5" />
+                    🤖 PROMPT PARA REPORTE DE IA
+                  </CardTitle>
+                  <CardDescription className="text-purple-700">
+                    Prompt profesional estructurado para generar reportes narrativos de 2-3 minutos con IA
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="p-4 bg-white border border-purple-200 rounded-lg">
+                      <div className="flex items-center justify-between mb-3">
+                        <h4 className="font-semibold text-purple-800">Prompt Generado:</h4>
+                        <div className="flex gap-2">
+                          <Button 
+                            size="sm" 
+                            onClick={copyAIPromptToClipboard}
+                            className="bg-purple-600 hover:bg-purple-700 text-white"
+                          >
+                            <Copy className="h-3 w-3 mr-1" />
+                            Copiar Todo
+                          </Button>
+                        </div>
+                      </div>
+                      <div className="max-h-96 overflow-y-auto">
+                        <pre className="text-xs text-gray-700 whitespace-pre-wrap font-mono bg-gray-50 p-3 rounded border">
+                          {aiPrompt}
+                        </pre>
+                      </div>
+                    </div>
+                    
+                    <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                      <h5 className="font-semibold text-blue-800 mb-2 flex items-center gap-2">
+                        <Sparkles className="h-4 w-4" />
+                        Instrucciones de Uso:
+                      </h5>
+                      <div className="text-sm text-blue-700 space-y-1">
+                        <p>1. Copia el prompt completo usando el botón "Copiar Todo"</p>
+                        <p>2. Pégalo en ChatGPT, Claude, Gemini o cualquier IA de texto</p>
+                        <p>3. La IA generará un reporte narrativo de 2-3 minutos (320-450 palabras)</p>
+                        <p>4. El reporte incluirá análisis integrado, plan práctico y cita clásica védica</p>
+                        <p>5. Formato optimizado para TTS (texto a voz) en español natural</p>
                       </div>
                     </div>
                   </div>
