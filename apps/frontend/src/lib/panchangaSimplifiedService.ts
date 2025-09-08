@@ -20,6 +20,9 @@ export interface TithiData {
   deity: string
   element: string
   classification: string
+  categoryDescription?: string
+  astrologicalInfluence?: string
+  recommendation?: string
   favorables: string[]
   desfavorables: string[]
 }
@@ -34,6 +37,20 @@ export interface VaraData {
   desfavorables: string[]
 }
 
+export interface KaranaData {
+  name: string
+  nameIAST: string
+  translation: string
+  deity: string
+  planet: string
+  classification: string
+  mount?: string
+  description?: string
+  recommendation?: string
+  favorables: string[]
+  desfavorables: string[]
+}
+
 export interface YogaData {
   name: string
   nameIAST: string
@@ -41,6 +58,7 @@ export interface YogaData {
   deity: string
   planet: string
   classification: string
+  explanation?: string
   favorables: string[]
   desfavorables: string[]
   detailed_description?: string
@@ -51,6 +69,20 @@ export interface YogaData {
   beneficial_activities?: string[]
   avoid_activities?: string[]
   notes?: string
+}
+
+export interface SpecialYogaData {
+  name: string
+  nameIAST: string
+  type: string
+  polarity: 'positive' | 'negative' | 'neutral'
+  priority: number
+  color: string
+  description: string
+  detailedDescription: string
+  favorables: string[]
+  desfavorables: string[]
+  recommendation: string
 }
 
 export interface PanchangaSimplifiedData {
@@ -64,6 +96,8 @@ export interface PanchangaSimplifiedData {
   tithis: TithiData[]
   varas: VaraData[]
   yogas: YogaData[]
+  karanas: KaranaData[]
+  specialYogas: SpecialYogaData[]
 }
 
 class PanchangaSimplifiedService {
@@ -90,11 +124,12 @@ class PanchangaSimplifiedService {
 
   private async fetchData(): Promise<PanchangaSimplifiedData> {
     try {
-      const response = await fetch('/panchanga-simplified.json')
+      const response = await fetch('/json-database/panchanga-simplified.json')
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
       const data = await response.json()
+      console.log('✅ Panchanga data loaded successfully:', data)
       return data as PanchangaSimplifiedData
     } catch (error) {
       console.error('Error loading panchanga simplified data:', error)
@@ -104,7 +139,9 @@ class PanchangaSimplifiedService {
         nakshatras: [],
         tithis: [],
         varas: [],
-        yogas: []
+        yogas: [],
+        karanas: [],
+        specialYogas: []
       }
     }
   }
@@ -194,18 +231,74 @@ class PanchangaSimplifiedService {
     return result
   }
 
+  async getKaranaByName(name: string): Promise<KaranaData | undefined> {
+    if (!name) return undefined
+    
+    const data = await this.loadData()
+    const mappedName = getMappedName(name)
+    
+    console.log(`🔍 Searching karana: "${name}" -> mapped: "${mappedName}"`)
+    console.log(`📊 Available karanas:`, data.karanas.map(k => k.name))
+    
+    const result = findBestMatch(data.karanas, mappedName)
+    
+    if (result) {
+      console.log(`✅ Found karana: ${result.name}`, result)
+    } else {
+      console.log(`❌ No karana found for: ${name}`)
+      console.log(`🔍 Trying exact match...`)
+      const exactMatch = data.karanas.find(k => k.name === name || k.name === mappedName)
+      if (exactMatch) {
+        console.log(`✅ Found exact match:`, exactMatch)
+        return exactMatch
+      }
+    }
+    
+    return result
+  }
+
+  async getSpecialYogaByName(name: string): Promise<SpecialYogaData | undefined> {
+    if (!name) return undefined
+    
+    const data = await this.loadData()
+    const mappedName = getMappedName(name)
+    
+    console.log(`🔍 Searching special yoga: "${name}" -> mapped: "${mappedName}"`)
+    console.log(`📊 Available special yogas:`, data.specialYogas.map(y => y.name))
+    
+    const result = findBestMatch(data.specialYogas, mappedName)
+    
+    if (result) {
+      console.log(`✅ Found special yoga: ${result.name}`, result)
+    } else {
+      console.log(`❌ No special yoga found for: ${name}`)
+      console.log(`🔍 Trying exact match...`)
+      const exactMatch = data.specialYogas.find(y => y.name === name || y.name === mappedName)
+      if (exactMatch) {
+        console.log(`✅ Found exact match:`, exactMatch)
+        return exactMatch
+      }
+    }
+    
+    return result
+  }
+
   // Obtener recomendaciones completas para un día
   async getDayRecommendations(dayData: {
     tithi?: { name: string }
     vara?: { name: string }
     nakshatra?: { name: string }
     yoga?: { name: string }
+    karana?: { name: string }
+    specialYogas?: string[]
   }) {
     const recommendations = {
       tithi: null as TithiData | null,
       vara: null as VaraData | null,
       nakshatra: null as NakshatraData | null,
       yoga: null as YogaData | null,
+      karana: null as KaranaData | null,
+      specialYogas: [] as SpecialYogaData[],
       summary: {
         favorableActivities: [] as string[],
         avoidActivities: [] as string[],
@@ -225,6 +318,23 @@ class PanchangaSimplifiedService {
     }
     if (dayData.yoga?.name) {
       recommendations.yoga = await this.getYogaByName(dayData.yoga.name) || null
+    }
+    if (dayData.karana?.name) {
+      console.log(`🔄 Loading karana recommendations for: ${dayData.karana.name}`)
+      recommendations.karana = await this.getKaranaByName(dayData.karana.name) || null
+      console.log(`📋 Karana recommendations result:`, recommendations.karana)
+    }
+    
+    // Cargar yogas especiales
+    if (dayData.specialYogas && dayData.specialYogas.length > 0) {
+      console.log(`🔄 Loading special yogas:`, dayData.specialYogas)
+      for (const yogaName of dayData.specialYogas) {
+        const specialYoga = await this.getSpecialYogaByName(yogaName)
+        if (specialYoga) {
+          recommendations.specialYogas.push(specialYoga)
+        }
+      }
+      console.log(`📋 Special yogas loaded:`, recommendations.specialYogas.length)
     }
 
     // Compilar actividades favorables y desfavorables
@@ -247,19 +357,29 @@ class PanchangaSimplifiedService {
       allFavorables.push(...recommendations.yoga.favorables)
       allDesfavorables.push(...recommendations.yoga.desfavorables)
     }
+    if (recommendations.karana) {
+      allFavorables.push(...recommendations.karana.favorables)
+      allDesfavorables.push(...recommendations.karana.desfavorables)
+    }
+    
+    // Incluir yogas especiales
+    for (const specialYoga of recommendations.specialYogas) {
+      allFavorables.push(...specialYoga.favorables)
+      allDesfavorables.push(...specialYoga.desfavorables)
+    }
 
     // Eliminar duplicados
     recommendations.summary.favorableActivities = [...new Set(allFavorables)]
     recommendations.summary.avoidActivities = [...new Set(allDesfavorables)]
 
     // Determinar el estado general del día
-    const auspiciousCount = [recommendations.tithi, recommendations.vara, recommendations.nakshatra, recommendations.yoga]
+    const auspiciousCount = [recommendations.tithi, recommendations.vara, recommendations.nakshatra, recommendations.yoga, recommendations.karana]
       .filter(item => item && (item.classification?.toLowerCase().includes('auspicious') || item.classification?.toLowerCase().includes('favorable')))
-      .length
+      .length + recommendations.specialYogas.filter(yoga => yoga.polarity === 'positive').length
 
-    const inauspiciousCount = [recommendations.tithi, recommendations.vara, recommendations.nakshatra, recommendations.yoga]
-      .filter(item => item && (item.classification?.toLowerCase().includes('inauspicious') || item.classification?.toLowerCase().includes('cruel') || item.classification?.toLowerCase().includes('feroz')))
-      .length
+    const inauspiciousCount = [recommendations.tithi, recommendations.vara, recommendations.nakshatra, recommendations.yoga, recommendations.karana]
+      .filter(item => item && (item.classification?.toLowerCase().includes('inauspicious') || item.classification?.toLowerCase().includes('cruel') || item.classification?.toLowerCase().includes('feroz') || item.classification?.toLowerCase().includes('desfavorable')))
+      .length + recommendations.specialYogas.filter(yoga => yoga.polarity === 'negative').length
 
     if (auspiciousCount > inauspiciousCount) {
       recommendations.summary.overallMood = 'auspicious'

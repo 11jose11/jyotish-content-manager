@@ -213,6 +213,11 @@ const Panchanga: React.FC = () => {
                             {typeof day.karana === 'string' ? day.karana : (day.karana?.name || 'N/A')}
                           </span>
                         </div>
+                        <div className="text-center">
+                          <span className="text-cyan-600">
+                            {typeof day.nityaYoga === 'string' ? day.nityaYoga : (day.nityaYoga?.name || 'N/A')}
+                          </span>
+                        </div>
                         {/* Semáforo de colores para el día */}
                         {day.trafficLight && day.trafficLight !== 'neutral' && (
                           <div className="flex justify-center mb-1">

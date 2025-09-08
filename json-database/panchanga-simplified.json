@@ -566,282 +566,468 @@
       "name": "Pratipada",
       "nameIAST": "Pratipadā",
       "translation": "Primer día lunar",
-      "deity": "Brahmā",
-      "element": "Agua",
+      "deity": "Rudra",
+      "element": "Agni (Fuego)",
       "classification": "Nandā",
+      "categoryDescription": "Los Tithis de Nandā, gobernados por Agni, están asociados con la pasión, la energía y el inicio de nuevas aventuras emocionales",
+      "astrologicalInfluence": "El comienzo es crítico. Se dice que aquellos nacidos en este Tithi enfrentan un período de supervivencia delicado en los primeros días o meses de vida. Si superan este desafío, se vuelven fuertes y radiantes. Son personas sumamente emprendedoras, virtuosas y justas",
       "favorables": [
-        "inicios de proyectos",
         "nuevos comienzos",
-        "actividades creativas",
-        "planificación"
+        "actividades auspiciosas",
+        "abrir el corazón a nuevas experiencias",
+        "iniciar proyectos que te apasionen",
+        "encender la chispa en relaciones",
+        "expresar deseos",
+        "fortalecer compromiso mutuo",
+        "actividades que requieren entusiasmo y dinamismo"
       ],
       "desfavorables": [
         "actividades destructivas",
-        "finales de ciclos"
-      ]
+        "decisiones importantes basadas en emociones intensas"
+      ],
+      "recommendation": "Se recomienda realizar remedios astrológicos para promover la longevidad"
     },
     {
       "name": "Dvitiya",
       "nameIAST": "Dvitīyā",
       "translation": "Segundo día lunar",
-      "deity": "Vidhātā",
-      "element": "Tierra",
+      "deity": "Sarpa",
+      "element": "Prithvi (Tierra)",
       "classification": "Bhadrā",
+      "categoryDescription": "Bhadrā Tithis, regidos por Prithvi, representan estabilidad, seguridad y crecimiento",
+      "astrologicalInfluence": "Las personas nacidas bajo este Tithi suelen ser honestas, felices desde el nacimiento, con tendencia a ser vanidosas, pero muy atentas en su trabajo. Gozan de abundancia en riqueza, fama y fuerza",
       "favorables": [
-        "actividades estables",
-        "construcción",
-        "trabajos de larga duración",
-        "fundamentos"
+        "fortalecer los cimientos de relaciones",
+        "seguridad emocional",
+        "confianza mutua",
+        "estabilidad a largo plazo",
+        "bases sólidas y confiables",
+        "bienestar y protección emocional",
+        "enfoque en estabilidad emocional",
+        "actividades que promuevan el bienestar"
       ],
       "desfavorables": [
         "actividades inestables",
+        "relaciones sin fundamento",
         "cambios repentinos"
-      ]
+      ],
+      "recommendation": "Es un buen día para fortalecer las relaciones existentes y cultivar la confianza mutua"
     },
     {
       "name": "Tritiya",
       "nameIAST": "Tritīyā",
       "translation": "Tercer día lunar",
-      "deity": "Hari",
-      "element": "Aire",
+      "deity": "Mitra",
+      "element": "Akasha (Éter)",
       "classification": "Jayā",
+      "categoryDescription": "Jayā Tithis, bajo la influencia de Akasha, están relacionados con la expansión, la comunicación y la comprensión espiritual en las relaciones",
+      "astrologicalInfluence": "Estas personas pueden tener una inclinación hacia los placeres sensuales y enfrentan dificultades emocionales. Sin embargo, suelen seguir votos religiosos y ayunos, son enérgicas, elocuentes y tienen buenos modales. A pesar de ser tímidas, buscan la rectitud",
       "favorables": [
-        "actividades expansivas",
-        "victorias",
-        "deportes",
-        "competencia"
+        "abrir diálogos profundos",
+        "resolver malentendidos",
+        "conectar a nivel elevado",
+        "claridad mental y visión compartida",
+        "decisiones importantes",
+        "mayor entendimiento y unidad",
+        "actividades que aumenten confianza y autoestima",
+        "enfrentar miedos",
+        "decisiones valientes"
       ],
       "desfavorables": [
-        "actividades restrictivas",
-        "derrotas"
-      ]
+        "actividades débiles",
+        "comunicación superficial",
+        "actividades restrictivas"
+      ],
+      "recommendation": "Es un buen día para enfrentar tus miedos y tomar decisiones valientes"
     },
     {
       "name": "Chaturthi",
       "nameIAST": "Caturthī",
       "translation": "Cuarto día lunar",
-      "deity": "Yama",
-      "element": "Agua",
+      "deity": "Pitṛ",
+      "element": "Jala (Agua)",
       "classification": "Riktā",
+      "categoryDescription": "Riktā Tithis, asociados con Jala, simbolizan la fluidez, la introspección y las emociones profundas",
+      "astrologicalInfluence": "Los nacidos en este día son aventureros y valientes, pero pueden ser mezquinos y manipuladores. Su mente es inestable y pueden tener un interés especial en las ciencias de los mantras",
       "favorables": [
-        "limpieza",
-        "purificación",
-        "eliminación"
+        "reflexión emocional",
+        "autocuidado",
+        "explorar emociones profundas",
+        "sanar heridas pasadas",
+        "permitir que las emociones fluyan",
+        "introspección",
+        "meditación",
+        "limpieza emocional",
+        "calma y observación de sentimientos"
       ],
       "desfavorables": [
+        "nuevos comienzos en relaciones",
+        "forzar situaciones",
+        "iniciar proyectos importantes",
         "actividades auspiciosas",
-        "inicios importantes"
-      ]
+        "decisiones importantes basadas en emociones intensas"
+      ],
+      "recommendation": "Evita tomar decisiones importantes basadas en emociones intensas. Es mejor dedicar este día a la calma y la observación de tus sentimientos"
     },
     {
       "name": "Panchami",
       "nameIAST": "Pañcamī",
       "translation": "Quinto día lunar",
-      "deity": "Candra",
-      "element": "Aire",
+      "deity": "Vasu",
+      "element": "Vayu (Aire)",
       "classification": "Pūrṇa",
+      "categoryDescription": "Pūrṇa Tithis, gobernados por Vayu, están asociados con la plenitud, la liberación y el movimiento",
+      "astrologicalInfluence": "Se dice que son honorables, inteligentes, de mente estable y honestos. Están profundamente dedicados al estudio de las ciencias y escrituras, aunque pueden ser algo lujuriosos y vacilantes en su naturaleza",
       "favorables": [
-        "actividades completas",
-        "cierre de proyectos",
-        "celebración"
+        "completar ciclos emocionales",
+        "cerrar capítulos de manera armoniosa",
+        "libertad emocional",
+        "desapego",
+        "soltar lo que ya no sirve",
+        "abrazar nuevos comienzos con ligereza",
+        "finalizar proyectos emocionales",
+        "meditar sobre liberación",
+        "buscar equilibrio en relaciones"
       ],
       "desfavorables": [
+        "actividades restrictivas",
+        "apegos excesivos",
         "inicios",
         "actividades incompletas"
-      ]
+      ],
+      "recommendation": "Es un buen momento para finalizar proyectos emocionales y meditar sobre la liberación"
     },
     {
       "name": "Shashthi",
       "nameIAST": "Ṣaṣṭhī",
       "translation": "Sexto día lunar",
-      "deity": "Kartikeya",
-      "element": "Tierra",
+      "deity": "Jala",
+      "element": "Agni (Fuego)",
       "classification": "Nandā",
+      "categoryDescription": "Los Tithis de Nandā, gobernados por Agni, están asociados con la pasión, la energía y el inicio de nuevas aventuras emocionales",
+      "astrologicalInfluence": "Estas personas pueden tener cicatrices en el cuerpo, pero poseen una disposición estable. Aunque tienen una inclinación hacia los placeres sensuales, son prósperos, sabios y pueden ser muy temperamentales",
       "favorables": [
-        "actividades de coraje",
-        "deportes",
-        "militar",
-        "actividades que requieren fuerza"
+        "salud y bienestar",
+        "actividades de curación",
+        "nutrición",
+        "priorizar bienestar emocional y físico",
+        "actividades que fortalezcan amor propio",
+        "energía y dinamismo",
+        "actividades que requieren entusiasmo"
       ],
       "desfavorables": [
+        "actividades que dañen la salud",
+        "negligencia del bienestar",
         "actividades pacíficas"
-      ]
+      ],
+      "recommendation": "Prioriza tu bienestar emocional y físico. Realiza actividades que te hagan sentir bien y fortalezcan tu amor propio"
     },
     {
       "name": "Saptami",
       "nameIAST": "Saptamī",
       "translation": "Séptimo día lunar",
-      "deity": "Indra",
-      "element": "Fuego",
+      "deity": "Viśvedeva",
+      "element": "Prithvi (Tierra)",
       "classification": "Bhadrā",
+      "categoryDescription": "Bhadrā Tithis, regidos por Prithvi, representan estabilidad, seguridad y crecimiento",
+      "astrologicalInfluence": "Son ricos, virtuosos y devotos de los dioses y maestros. Tienen una voz fuerte y son líderes naturales. Sin embargo, pueden tener una disposición flemática",
       "favorables": [
-        "actividades de poder",
-        "liderazgo",
-        "autoridad",
-        "gobierno"
+        "actividades de crecimiento",
+        "estabilidad emocional",
+        "bienestar",
+        "seguridad emocional",
+        "confianza mutua",
+        "bases sólidas",
+        "protección emocional",
+        "crecimiento personal y emocional",
+        "proyectos que den sensación de seguridad y logro"
       ],
       "desfavorables": [
+        "actividades inestables",
+        "relaciones sin fundamento",
         "actividades subordinadas"
-      ]
+      ],
+      "recommendation": "Dedica tiempo a actividades que promuevan el crecimiento personal y emocional. Trabaja en proyectos que te den una sensación de seguridad y logro"
     },
     {
       "name": "Ashtami",
       "nameIAST": "Aṣṭamī",
       "translation": "Octavo día lunar",
-      "deity": "Vasu",
-      "element": "Agua",
+      "deity": "Vidhātā (Abhijit)",
+      "element": "Akasha (Éter)",
       "classification": "Jayā",
+      "categoryDescription": "Jayā Tithis, bajo la influencia de Akasha, están relacionados con la expansión, la comunicación y la comprensión espiritual en las relaciones",
+      "astrologicalInfluence": "Las personas nacidas en este Tithi tienden a ser muy habladoras, inconstantes y muy duras. Son extremadamente lujuriosas y están apegadas a sus parejas y familias, aunque su salud puede estar afectada por una naturaleza flemática",
       "favorables": [
-        "actividades expansivas",
-        "victorias",
-        "deportes",
-        "competencia"
+        "superar obstáculos y retos",
+        "disciplina y concentración",
+        "diálogos profundos",
+        "resolver malentendidos",
+        "conexión espiritual",
+        "claridad mental",
+        "paciencia y perseverancia",
+        "superar obstáculos emocionales",
+        "fortalecer resiliencia"
       ],
       "desfavorables": [
+        "actividades sin disciplina",
+        "comunicación superficial",
         "actividades restrictivas"
-      ]
+      ],
+      "recommendation": "Practica la paciencia y la perseverancia. Trabaja en superar obstáculos emocionales y fortalece tu resiliencia"
     },
     {
       "name": "Navami",
       "nameIAST": "Navamī",
       "translation": "Noveno día lunar",
-      "deity": "Sarpa",
-      "element": "Aire",
+      "deity": "Brahmā",
+      "element": "Jala (Agua)",
       "classification": "Riktā",
+      "categoryDescription": "Riktā Tithis, asociados con Jala, simbolizan la fluidez, la introspección y las emociones profundas",
+      "astrologicalInfluence": "Se describen como personas extremadamente lujuriosas, audaces y valientes. Tienen un gran interés en las artes como la música y la danza, y son conocidas por su encanto, aunque pueden enfrentarse a problemas familiares",
       "favorables": [
-        "actividades ocultas",
-        "medicina",
-        "venenos"
+        "descanso y rejuvenecimiento",
+        "introspección",
+        "reflexión emocional",
+        "autocuidado",
+        "explorar emociones profundas",
+        "sanar heridas pasadas",
+        "permitir que las emociones fluyan",
+        "meditación",
+        "limpieza emocional",
+        "autocuidado y relajación",
+        "actividades que traigan paz interior"
       ],
       "desfavorables": [
-        "actividades auspiciosas",
-        "inicios importantes"
-      ]
+        "actividades importantes",
+        "nuevos proyectos",
+        "nuevos comienzos en relaciones",
+        "forzar situaciones",
+        "situaciones estresantes",
+        "actividades auspiciosas"
+      ],
+      "recommendation": "Practica el autocuidado y la relajación. Evita situaciones estresantes y dale prioridad a actividades que te traigan paz interior"
     },
     {
       "name": "Dashami",
       "nameIAST": "Daśamī",
       "translation": "Décimo día lunar",
-      "deity": "Dharma",
-      "element": "Tierra",
+      "deity": "Indra",
+      "element": "Vayu (Aire)",
       "classification": "Pūrṇa",
+      "categoryDescription": "Pūrṇa Tithis, gobernados por Vayu, están asociados con la plenitud, la liberación y el movimiento",
+      "astrologicalInfluence": "Las personas nacidas en este Tithi son prósperas, inteligentes y elocuentes. Suelen ser justas y están bendecidas con parejas e hijos, aunque pueden tener una disposición inestable",
       "favorables": [
+        "completar ciclos",
+        "liberación emocional",
+        "equilibrio",
+        "plenitud",
+        "movimiento",
+        "libertad emocional",
+        "desapego",
+        "soltar lo que ya no sirve",
+        "abrazar nuevos comienzos con ligereza",
+        "finalizar proyectos emocionales",
+        "meditar sobre liberación",
         "actividades justas",
         "ley",
-        "religión",
-        "actividades auspiciosas"
+        "religión"
       ],
       "desfavorables": [
+        "actividades restrictivas",
+        "apegos excesivos",
         "actividades injustas"
-      ]
+      ],
+      "recommendation": "Es un buen momento para completar ciclos emocionales y buscar equilibrio en tus relaciones"
     },
     {
       "name": "Ekadashi",
       "nameIAST": "Ekādaśī",
       "translation": "Undécimo día lunar",
-      "deity": "Viṣṇu",
-      "element": "Agua",
+      "deity": "Indrāgni",
+      "element": "Agni (Fuego)",
       "classification": "Nandā",
+      "categoryDescription": "Los Tithis de Nandā, gobernados por Agni, están asociados con la pasión, la energía y el inicio de nuevas aventuras emocionales",
+      "astrologicalInfluence": "Son especialistas en múltiples actividades empresariales, hábiles en las artes, y se destacan por su honestidad y determinación. También son muy devotos de las deidades y los Brahmanes, y disfrutan de la riqueza y la abundancia",
       "favorables": [
-        "ayuno",
-        "meditación",
-        "actividades espirituales",
+        "espiritualidad y devoción",
+        "ayuno y meditación",
+        "conexión espiritual",
+        "compasión y amor incondicional",
+        "energía y dinamismo",
+        "actividades que requieren entusiasmo",
+        "encender la chispa en relaciones",
+        "expresar deseos",
+        "fortalecer compromiso mutuo",
         "purificación"
       ],
       "desfavorables": [
+        "actividades mundanas excesivas",
+        "negligencia espiritual",
         "actividades materiales",
         "excesos"
-      ]
+      ],
+      "recommendation": "Dedica tiempo a la meditación y a la conexión espiritual. Es un buen día para practicar la compasión y el amor incondicional"
     },
     {
       "name": "Dwadashi",
       "nameIAST": "Dvādaśī",
       "translation": "Duodécimo día lunar",
-      "deity": "Sūrya",
-      "element": "Fuego",
+      "deity": "Nirṛti/Rākṣasa",
+      "element": "Prithvi (Tierra)",
       "classification": "Bhadrā",
+      "categoryDescription": "Bhadrā Tithis, regidos por Prithvi, representan estabilidad, seguridad y crecimiento",
+      "astrologicalInfluence": "Las personas nacidas en este día son impacientes y pueden ser inconstantes, pero están comprometidas con las buenas acciones y la caridad. Tienen una inteligencia aguda y están involucradas en actividades virtuosas",
       "favorables": [
+        "generosidad y compasión",
+        "bienestar emocional",
+        "estabilidad y seguridad",
+        "crecimiento",
+        "seguridad emocional",
+        "confianza mutua",
+        "bases sólidas",
+        "protección emocional",
+        "actividades que fomenten bienestar emocional de la comunidad",
         "actividades solares",
         "energía",
         "poder",
         "liderazgo"
       ],
       "desfavorables": [
+        "egoísmo",
+        "avaricia",
+        "actividades inestables",
         "actividades nocturnas",
         "debilidad"
-      ]
+      ],
+      "recommendation": "Practica la generosidad y la compasión. Es un día excelente para actividades que fomenten el bienestar emocional de tu comunidad o círculo cercano"
     },
     {
       "name": "Trayodashi",
       "nameIAST": "Trayodaśī",
       "translation": "Decimotercer día lunar",
-      "deity": "Śiva",
-      "element": "Aire",
+      "deity": "Varuṇa",
+      "element": "Akasha (Éter)",
       "classification": "Jayā",
+      "categoryDescription": "Jayā Tithis, bajo la influencia de Akasha, están relacionados con la expansión, la comunicación y la comprensión espiritual en las relaciones",
+      "astrologicalInfluence": "Son sabios y justos, con inclinaciones hacia las prácticas religiosas y los ayunos. Aunque pueden ser hostiles con sus allegados, son personas muy prósperas y lujuriosas",
       "favorables": [
+        "purificación y ayunos",
+        "limpieza y eliminación de negatividad",
+        "diálogos profundos",
+        "resolver malentendidos",
+        "conexión espiritual",
+        "claridad mental",
+        "actividades de limpieza emocional",
+        "introspección",
+        "liberarse de patrones emocionales negativos",
         "actividades espirituales",
         "meditación",
-        "ascetismo",
-        "purificación"
+        "ascetismo"
       ],
       "desfavorables": [
+        "actividades impuras",
+        "comunicación superficial",
         "actividades materiales",
         "excesos"
-      ]
+      ],
+      "recommendation": "Realiza actividades de limpieza emocional. Es un buen momento para la introspección y para liberarte de patrones emocionales negativos"
     },
     {
       "name": "Chaturdashi",
       "nameIAST": "Caturdaśī",
       "translation": "Decimocuarto día lunar",
-      "deity": "Śiva",
-      "element": "Agua",
+      "deity": "Aryama",
+      "element": "Jala (Agua)",
       "classification": "Riktā",
+      "categoryDescription": "Riktā Tithis, asociados con Jala, simbolizan la fluidez, la introspección y las emociones profundas",
+      "astrologicalInfluence": "Estas personas son muy inteligentes y ejecutan todo sin fallos. Son protectores de sus familiares, pero también pueden ser coléricos y codiciosos, especialmente con respecto a los bienes y parejas de los demás",
       "favorables": [
-        "actividades destructivas",
+        "introspección y planificación",
+        "reflexión emocional",
+        "autocuidado",
+        "explorar emociones profundas",
+        "sanar heridas pasadas",
+        "permitir que las emociones fluyan",
+        "meditación",
+        "limpieza emocional",
+        "reflexionar sobre emociones y patrones de comportamiento",
+        "planificar cambios positivos",
         "limpieza",
         "purificación",
         "medicina"
       ],
       "desfavorables": [
-        "actividades auspiciosas",
-        "inicios importantes"
-      ]
+        "iniciar nuevas empresas",
+        "actividades importantes",
+        "nuevos comienzos en relaciones",
+        "forzar situaciones",
+        "actividades auspiciosas"
+      ],
+      "recommendation": "Reflexiona sobre tus emociones y patrones de comportamiento. Es un buen día para la introspección y para planificar cambios positivos en tu vida emocional"
     },
     {
       "name": "Purnima",
       "nameIAST": "Pūrṇimā",
       "translation": "Luna llena",
-      "deity": "Candra",
-      "element": "Agua",
+      "deity": "Bhaga",
+      "element": "Vayu (Aire)",
       "classification": "Pūrṇa",
+      "categoryDescription": "Pūrṇa Tithis, gobernados por Vayu, están asociados con la plenitud, la liberación y el movimiento",
+      "astrologicalInfluence": "Los nacidos en este día disfrutan de una vida abundante y estable. Son personas felices, altamente virtuosas y afortunadas. Suelen ser muy ricos y traen prestigio a sus familias",
       "favorables": [
+        "rituales religiosos y espirituales",
+        "completar proyectos",
+        "conectar emocionalmente con seres queridos",
+        "practicar gratitud",
+        "actividades que nutran el espíritu",
+        "fortalecer lazos afectivos",
+        "plenitud y liberación",
+        "libertad emocional",
+        "equilibrio en relaciones",
         "celebración",
         "actividades completas",
         "cierre de proyectos",
         "actividades auspiciosas"
       ],
       "desfavorables": [
+        "actividades destructivas",
+        "apegos excesivos",
         "inicios",
         "actividades incompletas"
-      ]
+      ],
+      "recommendation": "Aprovecha este día para conectar emocionalmente con tus seres queridos y practicar la gratitud. Realiza actividades que nutran tu espíritu y fortalezcan tus lazos afectivos"
     },
     {
       "name": "Amavasya",
       "nameIAST": "Amāvasyā",
       "translation": "Luna nueva",
-      "deity": "Pitṛs",
-      "element": "Tierra",
-      "classification": "Riktā",
+      "deity": "Pitṛ",
+      "element": "Vayu (Aire)",
+      "classification": "Pūrṇa",
+      "categoryDescription": "Pūrṇa Tithis, gobernados por Vayu, están asociados con la plenitud, la liberación y el movimiento",
+      "astrologicalInfluence": "Las personas nacidas en este día pueden tener cuerpos débiles, pero están llenas de fortuna y felicidad. Pueden enfrentar angustias mentales, pero son devotos a la adoración de los ancestros y deidades",
       "favorables": [
+        "rituales ancestrales",
+        "introspección",
+        "nuevos comienzos",
+        "reflexión personal",
+        "perdón",
+        "liberar emociones negativas",
+        "establecer nuevas intenciones",
+        "bienestar emocional",
+        "plenitud y liberación",
+        "libertad emocional",
         "actividades con ancestros",
         "rituales fúnebres",
-        "introspección",
         "meditación"
       ],
       "desfavorables": [
-        "actividades auspiciosas",
+        "actividades auspiciosas importantes",
+        "apegos excesivos",
         "inicios importantes"
-      ]
+      ],
+      "recommendation": "Dedica tiempo a la reflexión personal y al perdón. Es un buen momento para liberar emociones negativas y establecer nuevas intenciones para tu bienestar emocional"
     }
   ],
   "karanas": [
@@ -852,15 +1038,26 @@
       "deity": "Indra",
       "planet": "Sol",
       "classification": "Móvil",
+      "mount": "Tigre",
+      "description": "Bava Karana es ideal para actividades que promuevan la salud y el confort. Si estás buscando mejorar tu bienestar o el de otros, este es el momento perfecto para enfocarte en actividades curativas, ya sea en un sentido físico, emocional o espiritual",
       "favorables": [
         "salud y confort",
         "autocuidado",
         "terapias",
-        "mejoras de entorno"
+        "mejoras de entorno",
+        "iniciar rutinas de autocuidado",
+        "participar en terapias curativas",
+        "implementar cambios en el entorno",
+        "promover vida saludable y equilibrada",
+        "ejercicio y meditación",
+        "mejoras en dieta",
+        "crear ambiente cómodo y acogedor",
+        "actividades curativas físicas, emocionales y espirituales"
       ],
       "desfavorables": [
         "actividades destructivas"
-      ]
+      ],
+      "recommendation": "Utiliza este Karana para enfocar tu energía en mejorar la salud y el bienestar. Considera incorporar prácticas saludables en tu vida diaria, como ejercicio, meditación o mejoras en tu dieta. Este también es un buen momento para crear un ambiente cómodo y acogedor en tu hogar o espacio de trabajo, promoviendo así una sensación general de bienestar"
     },
     {
       "name": "Balava",
@@ -869,14 +1066,26 @@
       "deity": "Brahmā",
       "planet": "Luna",
       "classification": "Móvil",
+      "mount": "Tigre",
+      "description": "Este Karana es ideal para actividades que involucren la caridad y el apoyo a otros. Si tienes la intención de contribuir a causas benéficas, hacer donaciones, o participar en voluntariados, Balava es el momento adecuado",
       "favorables": [
-        "actividades creativas",
-        "estudio",
-        "meditación"
+        "actividades de caridad",
+        "donaciones",
+        "voluntariados",
+        "contribuir a causas benéficas",
+        "fortalecer imagen pública y reputación",
+        "actos de generosidad",
+        "ofrecer mentoría a colegas",
+        "iniciar proyectos que beneficien a la comunidad",
+        "ayudar a otros en su desarrollo profesional",
+        "construir relaciones sólidas en el trabajo",
+        "mostrar espíritu generoso y cooperativo"
       ],
       "desfavorables": [
+        "actividades egoístas",
         "actividades destructivas"
-      ]
+      ],
+      "recommendation": "Utiliza este Karana para construir relaciones sólidas en el trabajo, mostrando un espíritu generoso y cooperativo. Las acciones que beneficien a otros te traerán recompensas a largo plazo"
     },
     {
       "name": "Kaulava",
@@ -885,15 +1094,30 @@
       "deity": "Mitra",
       "planet": "Marte",
       "classification": "Móvil",
+      "mount": "Jabalí",
+      "description": "Kaulava Karana es favorable para actividades sociales y el fortalecimiento de amistades. En el entorno laboral, este es un momento excelente para trabajar en equipo, construir alianzas estratégicas, y participar en eventos de networking",
       "favorables": [
-        "actividades familiares",
-        "amistad",
-        "cooperación"
+        "actividades sociales",
+        "fortalecimiento de amistades",
+        "trabajar en equipo",
+        "construir alianzas estratégicas",
+        "eventos de networking",
+        "colaboración",
+        "reuniones de grupo",
+        "desarrollo de proyectos conjuntos",
+        "negociaciones",
+        "resolver conflictos",
+        "fortalecer camaradería",
+        "reuniones sociales fuera de la oficina",
+        "actividades de team building"
       ],
       "desfavorables": [
         "conflictos",
-        "separaciones"
-      ]
+        "separaciones",
+        "actividades solitarias",
+        "aislamiento"
+      ],
+      "recommendation": "Enfócate en mejorar la dinámica de grupo en tu equipo de trabajo. Organiza reuniones sociales fuera de la oficina o actividades de team building para reforzar la unidad y la confianza mutua"
     },
     {
       "name": "Taitila",
@@ -902,15 +1126,28 @@
       "deity": "Aryama",
       "planet": "Mercurio",
       "classification": "Móvil",
+      "mount": "Burro",
+      "description": "Este Karana es especialmente adecuado para proyectos de gran escala relacionados con obras públicas o infraestructura. En el ámbito profesional, es un momento excelente para planificar y ejecutar proyectos a largo plazo",
       "favorables": [
-        "comunicación",
-        "comercio",
-        "negocios"
+        "proyectos de gran escala",
+        "obras públicas",
+        "infraestructura",
+        "planificar y ejecutar proyectos a largo plazo",
+        "construcción de instalaciones",
+        "desarrollo de productos con impacto duradero",
+        "mejora de condiciones laborales",
+        "fortalecer bases de organización o departamento",
+        "planificación cuidadosa",
+        "ejecución meticulosa",
+        "establecer procesos eficientes y duraderos",
+        "construcción de tanques, represas, lugares de descanso"
       ],
       "desfavorables": [
         "silencios",
-        "aislamiento"
-      ]
+        "aislamiento",
+        "proyectos pequeños o temporales"
+      ],
+      "recommendation": "Dedica este tiempo a proyectos que requieren una planificación cuidadosa y una ejecución meticulosa. Es un buen momento para establecer procesos eficientes y duraderos en tu trabajo"
     },
     {
       "name": "Gara",
@@ -919,14 +1156,27 @@
       "deity": "Bhū (Prithvi)",
       "planet": "Júpiter",
       "classification": "Móvil",
+      "mount": "Elefante",
+      "description": "Gara Karana es ideal para actividades relacionadas con la agricultura y la construcción. En un contexto laboral, esto puede traducirse en la planificación y ejecución de proyectos que implican el desarrollo físico o estructural",
       "favorables": [
+        "actividades agrícolas",
         "construcción",
-        "agricultura",
+        "cultivar tierras",
+        "sembrar semillas",
+        "construir casas",
+        "planificación y ejecución de proyectos de desarrollo físico",
+        "expansión de oficinas",
+        "implementación de nuevos sistemas",
+        "creación o mejora de espacios de trabajo",
+        "sembrar semillas de nuevas ideas o proyectos",
+        "proyectos que requieran crecimiento sólido y estable",
         "actividades estables"
       ],
       "desfavorables": [
-        "actividades inestables"
-      ]
+        "actividades inestables",
+        "proyectos temporales"
+      ],
+      "recommendation": "Aprovecha este Karana para construir y desarrollar, ya sea en sentido literal o figurado. Es el momento perfecto para iniciar proyectos que requieran un crecimiento sólido y estable"
     },
     {
       "name": "Vanija",
@@ -935,7 +1185,22 @@
       "deity": "Śrī (Lakṣmī)",
       "planet": "Venus",
       "classification": "Móvil",
+      "mount": "Búfalo",
+      "description": "Vanija Karana es altamente favorable para actividades comerciales y negocios. Este es el momento óptimo para iniciar un nuevo negocio, lanzar un producto, o realizar actividades comerciales que requieren estabilidad y éxito a largo plazo",
       "favorables": [
+        "actividades comerciales",
+        "negocios",
+        "iniciar nuevo negocio",
+        "lanzar producto",
+        "actividades comerciales con estabilidad y éxito a largo plazo",
+        "planificación financiera",
+        "inversiones",
+        "decisiones estratégicas",
+        "asegurar crecimiento y prosperidad",
+        "trabajos de naturaleza fija",
+        "tratos con comerciantes",
+        "construcción de casa",
+        "creación de negocio",
         "comercio",
         "arte",
         "belleza",
@@ -943,8 +1208,10 @@
       ],
       "desfavorables": [
         "pérdidas",
-        "pobreza"
-      ]
+        "pobreza",
+        "actividades no comerciales"
+      ],
+      "recommendation": "Utiliza este periodo para enfocarte en la estabilidad financiera y el éxito comercial. Cualquier actividad relacionada con la expansión de negocios o la consolidación de tu posición en el mercado se verá favorecida"
     },
     {
       "name": "Vishti",
@@ -953,14 +1220,33 @@
       "deity": "Yama",
       "planet": "Saturno",
       "classification": "Móvil",
+      "mount": "Caballo",
+      "description": "Visti Karana, también conocido como Bhadra, es un periodo que se presta para actividades que requieren fuerza y determinación, especialmente en situaciones de alta tensión o conflicto. En el trabajo, es un buen momento para abordar desafíos difíciles, tomar decisiones firmes, o enfrentar a la competencia",
       "favorables": [
+        "actividades que requieren fuerza y determinación",
+        "situaciones de alta tensión o conflicto",
+        "abordar desafíos difíciles",
+        "tomar decisiones firmes",
+        "enfrentar a la competencia",
+        "cortar de raíz problemas",
+        "eliminar obstáculos",
         "destrucción de enemigos",
-        "manejo de venenos"
+        "manejo de venenos",
+        "actos violentos/crueles",
+        "destrucción de oposición",
+        "batalla",
+        "asasinato",
+        "sacrificio",
+        "dar o tomar sustancias venenosas"
       ],
       "desfavorables": [
+        "actividades rutinarias",
+        "enfoque suave",
         "actividades auspiciosas",
-        "inicios importantes"
-      ]
+        "inicios importantes",
+        "Śubhakarmas"
+      ],
+      "recommendation": "Aprovecha este Karana para resolver problemas difíciles y tomar decisiones contundentes. Es un buen momento para actuar con determinación y enfocarte en eliminar barreras que obstaculizan tu progreso"
     },
     {
       "name": "Shakuni",
@@ -969,15 +1255,31 @@
       "deity": "Kālī",
       "planet": "Rahu",
       "classification": "Fijo",
+      "mount": "Perro",
+      "description": "Este Karana es ideal para actividades de curación y regeneración. En el entorno laboral, es un buen momento para revisar y mejorar procesos, tomar medidas correctivas, y hacer ajustes que mejoren el bienestar general en el trabajo",
       "favorables": [
+        "actividades de curación",
+        "regeneración",
+        "revisar y mejorar procesos",
+        "tomar medidas correctivas",
+        "hacer ajustes que mejoren bienestar general",
+        "desarrollo personal y profesional",
+        "tomar cursos",
+        "recibir mentoría",
+        "trabajar en habilidades que necesiten fortalecerse",
         "medicina",
+        "tomar medicamentos",
         "mūla mantras",
+        "aprender o repetir Mūla Mantras",
+        "práctica de magia negra (Abhicāra)",
+        "buenos Mantras potentes bajo auspicios de Guru calificado",
         "salud",
         "confort"
       ],
       "desfavorables": [
         "actividades destructivas"
-      ]
+      ],
+      "recommendation": "Utiliza este tiempo para sanar y fortalecer, tanto en términos de procesos laborales como en el desarrollo de habilidades. Considera la posibilidad de implementar mejoras que incrementen la eficiencia y el bienestar en el lugar de trabajo"
     },
     {
       "name": "Chatushpada",
@@ -986,15 +1288,31 @@
       "deity": "Vṛṣa (Brahmā)",
       "planet": "Rahu",
       "classification": "Fijo",
+      "mount": "Cabra",
+      "description": "Este Karana es adecuado para actividades que implican cuidado y servicio, temas relacionados a la gestión pública, lidiar con organismos gubernamentales, especialmente aquellas que requieren atención al detalle y dedicación",
       "favorables": [
+        "actividades que implican cuidado y servicio",
+        "gestión pública",
+        "lidiar con organismos gubernamentales",
+        "atención al detalle y dedicación",
+        "proyectos que requieran minuciosidad",
+        "auditorías",
+        "revisiones detalladas",
+        "trabajos de investigación",
+        "cuidar de las relaciones laborales",
+        "asegurar que todo esté en orden y funcionando",
         "actividades con vacas",
         "brāhmaṇas",
         "pitṛs",
-        "rey"
+        "rey",
+        "realizar Pitṛ Śrāddha o Tarpaṇa",
+        "servir al rey"
       ],
       "desfavorables": [
-        "actividades destructivas"
-      ]
+        "actividades destructivas",
+        "negligencia en detalles"
+      ],
+      "recommendation": "Dedica este Karana a tareas que requieran atención cuidadosa y detallada. Es un buen momento para asegurarte de que todo en el trabajo esté en su lugar y funcionando correctamente"
     },
     {
       "name": "Naga",
@@ -1003,15 +1321,31 @@
       "deity": "Sarpa",
       "planet": "Ketu",
       "classification": "Fijo",
+      "mount": "Buey",
+      "description": "Naga Karana es favorable para acciones que requieren discreción, precisión, y a veces, un enfoque más estratégico y encubierto. En el trabajo, esto puede significar llevar a cabo investigaciones, planear movimientos estratégicos que no se deben revelar aún, o trabajar en proyectos confidenciales",
       "favorables": [
+        "acciones que requieren discreción",
+        "precisión",
+        "enfoque estratégico y encubierto",
+        "llevar a cabo investigaciones",
+        "planear movimientos estratégicos",
+        "trabajar en proyectos confidenciales",
+        "preparación cuidadosa y discreta",
         "trabajos fijos",
         "actos crueles",
         "sigilo",
-        "malévolos"
+        "malévolos",
+        "Sthirakarma",
+        "acciones crueles/violentas",
+        "espionaje",
+        "actividades encubiertas",
+        "cosas que se hacen en la oscuridad"
       ],
       "desfavorables": [
-        "actividades auspiciosas"
-      ]
+        "actividades auspiciosas",
+        "revelar planes prematuramente"
+      ],
+      "recommendation": "Usa este periodo para trabajar en proyectos que necesiten un enfoque estratégico y reservado. Es el momento para planificar en secreto, preparar estrategias de largo plazo, y asegurarte de que todos los detalles estén cubiertos antes de revelar tus planes"
     },
     {
       "name": "Kimstughna",
@@ -1020,13 +1354,25 @@
       "deity": "Vāyu",
       "planet": "Rahu",
       "classification": "Fijo",
+      "mount": "Gallo",
+      "description": "Kimstughna Karana es fantástico para actividades de curación y resolución de problemas difíciles. En el ámbito laboral, es un buen momento para abordar problemas complejos que han sido difíciles de resolver",
       "favorables": [
+        "actividades de curación",
+        "resolución de problemas difíciles",
+        "abordar problemas complejos",
+        "implementar soluciones innovadoras",
+        "mejorar eficiencia o moral en el trabajo",
+        "superar desafíos persistentes en carrera",
         "cualquier obra para salud/confort",
-        "śubhakarmas"
+        "śubhakarmas",
+        "tomar medicinas para curar enfermedades difíciles de curar",
+        "cualquier trabajo para aumentar salud y comodidad"
       ],
       "desfavorables": [
-        "actividades destructivas"
-      ]
+        "actividades destructivas",
+        "evitar problemas"
+      ],
+      "recommendation": "Aprovecha este tiempo para enfocarte en la resolución de problemas y la curación de cualquier área que necesite atención en tu trabajo. Es un buen momento para implementar soluciones que realmente marquen la diferencia"
     }
   ],
   "varas": [
@@ -1238,17 +1584,21 @@
     {
       "name": "Vishkumbha",
       "nameIAST": "Viśkumbha",
-      "translation": "Pilar",
-      "deity": "Ganesha",
-      "planet": "Venus",
-      "classification": "Auspicioso",
+      "translation": "Recipiente de veneno",
+      "deity": "Yama",
+      "planet": "Marte",
+      "classification": "Desfavorable",
+      "explanation": "Asociado con el dios de la muerte",
       "favorables": [
-        "construcción",
-        "fundamentos",
-        "actividades estables"
+        "actividades de limpieza",
+        "purificación",
+        "meditación"
       ],
       "desfavorables": [
-        "actividades inestables"
+        "iniciar nuevos proyectos",
+        "matrimonios",
+        "actividades auspiciosas",
+        "viajes importantes"
       ]
     },
     {
@@ -1256,17 +1606,20 @@
       "nameIAST": "Prīti",
       "translation": "Amor",
       "deity": "Lakshmi",
-      "planet": "Mercurio",
+      "planet": "Venus",
       "classification": "Auspicioso",
+      "explanation": "Favorable para actividades de amor y armonía",
       "favorables": [
         "romance",
         "amistad",
         "actividades sociales",
-        "celebración"
+        "celebración",
+        "matrimonios"
       ],
       "desfavorables": [
         "conflictos",
-        "separaciones"
+        "separaciones",
+        "actividades agresivas"
       ]
     },
     {
@@ -1276,14 +1629,17 @@
       "deity": "Surya",
       "planet": "Sol",
       "classification": "Auspicioso",
+      "explanation": "Favorable para salud y longevidad",
       "favorables": [
         "salud",
         "longevidad",
         "actividades de curación",
-        "medicina"
+        "medicina",
+        "ejercicio"
       ],
       "desfavorables": [
-        "actividades destructivas"
+        "actividades destructivas",
+        "consumo de alcohol"
       ]
     },
     {
@@ -1293,11 +1649,13 @@
       "deity": "Lakshmi",
       "planet": "Luna",
       "classification": "Auspicioso",
+      "explanation": "Uno de los yogas más auspiciosos",
       "favorables": [
         "riqueza",
         "prosperidad",
         "actividades auspiciosas",
-        "celebración"
+        "celebración",
+        "inversiones"
       ],
       "desfavorables": [
         "pérdidas",
@@ -1309,17 +1667,442 @@
       "nameIAST": "Śobhana",
       "translation": "Hermoso",
       "deity": "Brahma",
-      "planet": "Marte",
+      "planet": "Mercurio",
       "classification": "Auspicioso",
+      "explanation": "Favorable para actividades estéticas y artísticas",
       "favorables": [
         "belleza",
         "arte",
         "decoración",
-        "actividades estéticas"
+        "actividades estéticas",
+        "música"
       ],
       "desfavorables": [
         "fealdad",
         "destrucción"
+      ]
+    },
+    {
+      "name": "Atiganda",
+      "nameIAST": "Atigaṇḍa",
+      "translation": "Gran peligro",
+      "deity": "Candra",
+      "planet": "Luna",
+      "classification": "Desfavorable",
+      "explanation": "Peligro para la salud y la mente",
+      "favorables": [
+        "introspección",
+        "meditación",
+        "actividades espirituales"
+      ],
+      "desfavorables": [
+        "tomar decisiones importantes",
+        "actividades arriesgadas",
+        "viajes",
+        "operaciones médicas"
+      ]
+    },
+    {
+      "name": "Sukarma",
+      "nameIAST": "Sukarmā",
+      "translation": "Buena Acción",
+      "deity": "Surya",
+      "planet": "Sol",
+      "classification": "Auspicioso",
+      "explanation": "Favorable para acciones virtuosas",
+      "favorables": [
+        "iniciar nuevos negocios",
+        "proyectos artísticos",
+        "actividades creativas",
+        "trabajo social"
+      ],
+      "desfavorables": [
+        "actividades destructivas",
+        "engaño"
+      ]
+    },
+    {
+      "name": "Dhriti",
+      "nameIAST": "Dhṛti",
+      "translation": "Firmeza",
+      "deity": "Indra",
+      "planet": "Júpiter",
+      "classification": "Auspicioso",
+      "explanation": "Favorable para estabilidad y perseverancia",
+      "favorables": [
+        "fortalecer relaciones",
+        "proyectos que requieran consistencia",
+        "estabilidad",
+        "perseverancia"
+      ],
+      "desfavorables": [
+        "inconsistencia",
+        "abandono"
+      ]
+    },
+    {
+      "name": "Shula",
+      "nameIAST": "Śūla",
+      "translation": "Lanza",
+      "deity": "Sarpas",
+      "planet": "Marte",
+      "classification": "Desfavorable",
+      "explanation": "Indica peligro agudo",
+      "favorables": [
+        "practicar paciencia",
+        "actividades que promuevan paz interior",
+        "meditación"
+      ],
+      "desfavorables": [
+        "conflictos",
+        "actividades agresivas",
+        "cirugías",
+        "viajes peligrosos"
+      ]
+    },
+    {
+      "name": "Ganda",
+      "nameIAST": "Gaṇḍa",
+      "translation": "Peligro",
+      "deity": "Agni",
+      "planet": "Marte",
+      "classification": "Desfavorable",
+      "explanation": "Indica riesgo general",
+      "favorables": [
+        "superar apegos negativos",
+        "practicar desapego",
+        "moderación"
+      ],
+      "desfavorables": [
+        "apegos excesivos",
+        "actividades extremas",
+        "inversiones arriesgadas"
+      ]
+    },
+    {
+      "name": "Vriddhi",
+      "nameIAST": "Vṛddhi",
+      "translation": "Crecimiento",
+      "deity": "Brahma",
+      "planet": "Mercurio",
+      "classification": "Auspicioso",
+      "explanation": "Favorable para expansión y crecimiento",
+      "favorables": [
+        "expansión de negocios",
+        "aprendizaje",
+        "crecimiento personal",
+        "mejorar habilidades comunicativas"
+      ],
+      "desfavorables": [
+        "estancamiento",
+        "aislamiento"
+      ]
+    },
+    {
+      "name": "Dhruva",
+      "nameIAST": "Dhruva",
+      "translation": "Fijo",
+      "deity": "Vishnu",
+      "planet": "Saturno",
+      "classification": "Auspicioso",
+      "explanation": "Favorable para estabilidad y constancia",
+      "favorables": [
+        "establecer rutinas",
+        "hábitos a largo plazo",
+        "estabilidad financiera",
+        "aprendizaje"
+      ],
+      "desfavorables": [
+        "inestabilidad",
+        "cambios constantes"
+      ]
+    },
+    {
+      "name": "Vyaghata",
+      "nameIAST": "Vyāghāta",
+      "translation": "Lesiones",
+      "deity": "Rudra",
+      "planet": "Marte",
+      "classification": "Desfavorable",
+      "explanation": "Asociado con heridas y daños",
+      "favorables": [
+        "practicar calma",
+        "actividades pacíficas",
+        "meditación"
+      ],
+      "desfavorables": [
+        "situaciones conflictivas",
+        "actividades agresivas",
+        "deportes de contacto",
+        "cirugías"
+      ]
+    },
+    {
+      "name": "Harshana",
+      "nameIAST": "Harṣaṇa",
+      "translation": "Alegría",
+      "deity": "Surya",
+      "planet": "Sol",
+      "classification": "Auspicioso",
+      "explanation": "Favorable para actividades alegres y sabias",
+      "favorables": [
+        "actividades que promuevan alegría",
+        "sabiduría",
+        "aumentar visibilidad positiva",
+        "celebración"
+      ],
+      "desfavorables": [
+        "tristeza",
+        "negatividad"
+      ]
+    },
+    {
+      "name": "Vajra",
+      "nameIAST": "Vajra",
+      "translation": "Rayo, arma de Indra",
+      "deity": "Varuṇa",
+      "planet": "Saturno",
+      "classification": "Desfavorable",
+      "explanation": "Indica fuerza destructiva",
+      "favorables": [
+        "actividades que requieran determinación",
+        "valentía controlada",
+        "meditación"
+      ],
+      "desfavorables": [
+        "actividades destructivas",
+        "conflictos",
+        "violencia"
+      ]
+    },
+    {
+      "name": "Siddhi",
+      "nameIAST": "Siddhi",
+      "translation": "Perfección",
+      "deity": "Ganesha",
+      "planet": "Mercurio",
+      "classification": "Auspicioso",
+      "explanation": "Favorable para perfección y logros espirituales",
+      "favorables": [
+        "estudios espirituales",
+        "búsqueda de conocimiento profundo",
+        "proyectos que requieran concentración",
+        "meditación"
+      ],
+      "desfavorables": [
+        "distracciones",
+        "superficialidad"
+      ]
+    },
+    {
+      "name": "Vyatipata",
+      "nameIAST": "Vyatipāta",
+      "translation": "Calamidad",
+      "deity": "Rudra",
+      "planet": "Marte",
+      "classification": "Altamente Desfavorable",
+      "explanation": "Altamente catastrófico según Nāradapurāṇa",
+      "favorables": [
+        "mantener perfil bajo",
+        "practicar claridad mental",
+        "honestidad"
+      ],
+      "desfavorables": [
+        "tomar decisiones importantes",
+        "actividades arriesgadas",
+        "viajes",
+        "cualquier actividad auspiciosa"
+      ]
+    },
+    {
+      "name": "Variyana",
+      "nameIAST": "Varīyāna",
+      "translation": "Excelente",
+      "deity": "Brahma",
+      "planet": "Mercurio",
+      "classification": "Auspicioso",
+      "explanation": "Favorable para excelencia y logros",
+      "favorables": [
+        "planificar",
+        "establecer metas ambiciosas",
+        "desarrollo profesional",
+        "crecimiento"
+      ],
+      "desfavorables": [
+        "falta de planificación",
+        "metas pequeñas"
+      ]
+    },
+    {
+      "name": "Parigha",
+      "nameIAST": "Parigha",
+      "translation": "Barra de hierro, barrera",
+      "deity": "Tvaṣṭṛ",
+      "planet": "Venus",
+      "classification": "Desfavorable",
+      "explanation": "Impide que sucedan cosas buenas",
+      "favorables": [
+        "superar obstáculos internos",
+        "practicar paciencia",
+        "perseverancia"
+      ],
+      "desfavorables": [
+        "obstáculos externos",
+        "impaciencia",
+        "iniciar proyectos importantes"
+      ]
+    },
+    {
+      "name": "Shiva",
+      "nameIAST": "Śiva",
+      "translation": "Auspicioso",
+      "deity": "Shiva",
+      "planet": "Júpiter",
+      "classification": "Auspicioso",
+      "explanation": "Favorable para paz y espiritualidad",
+      "favorables": [
+        "actividades que promuevan paz",
+        "armonía",
+        "explorar espiritualidad",
+        "buscar equilibrio"
+      ],
+      "desfavorables": [
+        "conflictos",
+        "desequilibrio"
+      ]
+    },
+    {
+      "name": "Siddha",
+      "nameIAST": "Siddha",
+      "translation": "Perfecto",
+      "deity": "Ganesha",
+      "planet": "Mercurio",
+      "classification": "Auspicioso",
+      "explanation": "Favorable para perfección y logros",
+      "favorables": [
+        "utilizar habilidades especiales",
+        "proyectos que requieran destreza",
+        "virtud",
+        "perfección"
+      ],
+      "desfavorables": [
+        "imperfección",
+        "habilidades no desarrolladas"
+      ]
+    },
+    {
+      "name": "Sadhya",
+      "nameIAST": "Sādhya",
+      "translation": "Alcanzable",
+      "deity": "Vishnu",
+      "planet": "Venus",
+      "classification": "Auspicioso",
+      "explanation": "Favorable para alcanzar metas",
+      "favorables": [
+        "crecimiento personal",
+        "alcanzar metas",
+        "verdad",
+        "pureza en acciones"
+      ],
+      "desfavorables": [
+        "falsedad",
+        "impureza"
+      ]
+    },
+    {
+      "name": "Shubha",
+      "nameIAST": "Śubha",
+      "translation": "Auspicioso",
+      "deity": "Lakshmi",
+      "planet": "Luna",
+      "classification": "Auspicioso",
+      "explanation": "Favorable para prosperidad y felicidad",
+      "favorables": [
+        "actividades que aumenten prosperidad",
+        "felicidad",
+        "cultivar belleza",
+        "gracia en la vida"
+      ],
+      "desfavorables": [
+        "pobreza",
+        "fealdad"
+      ]
+    },
+    {
+      "name": "Shukla",
+      "nameIAST": "Śukla",
+      "translation": "Blanco",
+      "deity": "Brahma",
+      "planet": "Mercurio",
+      "classification": "Auspicioso",
+      "explanation": "Favorable para pureza y conocimiento",
+      "favorables": [
+        "actividades intelectuales",
+        "actividades artísticas",
+        "mejorar elocuencia",
+        "habilidades creativas"
+      ],
+      "desfavorables": [
+        "ignorancia",
+        "falta de creatividad"
+      ]
+    },
+    {
+      "name": "Brahma",
+      "nameIAST": "Brahmā",
+      "translation": "Creador",
+      "deity": "Brahma",
+      "planet": "Júpiter",
+      "classification": "Auspicioso",
+      "explanation": "Favorable para creatividad y sabiduría",
+      "favorables": [
+        "tomar decisiones importantes",
+        "proyectos creativos",
+        "cultivar sabiduría",
+        "honor"
+      ],
+      "desfavorables": [
+        "destrucción",
+        "deshonor"
+      ]
+    },
+    {
+      "name": "Aindra",
+      "nameIAST": "Aindra",
+      "translation": "De Indra",
+      "deity": "Indra",
+      "planet": "Júpiter",
+      "classification": "Auspicioso",
+      "explanation": "Favorable para liderazgo y poder",
+      "favorables": [
+        "actividades que aumenten influencia",
+        "poder",
+        "usar intelecto para beneficiar otros",
+        "liderazgo"
+      ],
+      "desfavorables": [
+        "debilidad",
+        "egoísmo"
+      ]
+    },
+    {
+      "name": "Vaidhriti",
+      "nameIAST": "Vaidhṛti",
+      "translation": "Fluctuaciones",
+      "deity": "Aditi",
+      "planet": "Luna",
+      "classification": "Altamente Desfavorable",
+      "explanation": "Indica inestabilidad, altamente catastrófico según Nāradapurāṇa",
+      "favorables": [
+        "practicar flexibilidad",
+        "adaptabilidad",
+        "meditación"
+      ],
+      "desfavorables": [
+        "obstinación",
+        "rigidez",
+        "cualquier actividad auspiciosa",
+        "decisiones importantes"
       ]
     }
   ],
@@ -1327,70 +2110,877 @@
     {
       "name": "Amrita Siddhi",
       "nameIAST": "Amṛta Siddhi",
-      "translation": "Éxito del Néctar",
+      "type": "vara + nakshatra",
       "polarity": "positive",
-      "type": "vara+nakshatra",
+      "priority": 1,
+      "color": "#10b981",
       "description": "Yoga auspicioso para todas las actividades",
-      "detailed_description": "Uno de los yogas más auspiciosos. Ideal para iniciar nuevos proyectos, matrimonios, y actividades espirituales.",
-      "beneficial_activities": [
-        "Iniciar nuevos proyectos",
-        "Matrimonios",
-        "Actividades espirituales",
-        "Firma de contratos",
-        "Inauguraciones"
+      "detailedDescription": "Uno de los yogas más auspiciosos. Ideal para iniciar nuevos proyectos, matrimonios, y actividades espirituales.",
+      "favorables": [
+        "Consagraciones",
+        "Lanzamientos",
+        "Inversiones",
+        "Viajes clave",
+        "Compras valiosas"
       ],
-      "avoid_activities": []
+      "desfavorables": [
+        "Procedimientos de riesgo"
+      ],
+      "recommendation": "Aprovecha este yoga para actividades de máxima importancia. Es uno de los momentos más auspiciosos del calendario védico."
     },
     {
       "name": "Sarvartha Siddhi",
       "nameIAST": "Sarvārtha Siddhi",
-      "translation": "Éxito en Todos los Propósitos",
+      "type": "vara + nakshatra",
       "polarity": "positive",
-      "type": "vara+nakshatra",
+      "priority": 1,
+      "color": "#10b981",
       "description": "Yoga auspicioso para todos los propósitos",
-      "detailed_description": "Excelente para cualquier actividad importante. Garantiza éxito en todos los esfuerzos.",
-      "beneficial_activities": [
-        "Cualquier actividad importante",
-        "Negocios",
-        "Educación",
-        "Viajes",
-        "Ceremonias"
+      "detailedDescription": "Excelente para cualquier actividad importante. Garantiza éxito en todos los esfuerzos.",
+      "favorables": [
+        "Apertura de negocio",
+        "Compras grandes",
+        "Firmas",
+        "Viajes largos",
+        "Mudanzas",
+        "Rituales auspiciosos"
       ],
-      "avoid_activities": []
-    },
-    {
-      "name": "Siddha",
-      "nameIAST": "Siddha",
-      "translation": "Perfecto",
-      "polarity": "positive",
-      "type": "vara+nakshatra",
-      "description": "Yoga auspicioso para actividades espirituales",
-      "detailed_description": "Perfecto para meditación, pujas, y actividades espirituales. Favorece el crecimiento interior.",
-      "beneficial_activities": [
-        "Meditación",
-        "Pujas",
-        "Actividades espirituales",
-        "Estudio de textos sagrados",
-        "Retiros espirituales"
-      ],
-      "avoid_activities": []
+      "desfavorables": [],
+      "recommendation": "Día perfecto para cualquier actividad importante. El éxito está garantizado en todos los esfuerzos."
     },
     {
       "name": "Guru Pushya",
       "nameIAST": "Guru Puṣya",
-      "translation": "Júpiter en Pushya",
+      "type": "vara + nakshatra",
       "polarity": "positive",
-      "type": "vara+nakshatra",
+      "priority": 1,
+      "color": "#8b5cf6",
       "description": "Excelente para educación y negocios",
-      "detailed_description": "Ideal para iniciar estudios, firmar contratos, y actividades comerciales. Favorece el aprendizaje.",
-      "beneficial_activities": [
+      "detailedDescription": "Ideal para iniciar estudios, firmar contratos, y actividades comerciales. Favorece el aprendizaje.",
+      "favorables": [
         "Iniciar estudios",
         "Firmar contratos",
         "Actividades comerciales",
-        "Enseñanza",
-        "Inversiones"
+        "Inversiones financieras",
+        "Alianzas estratégicas",
+        "Publicaciones",
+        "Enseñanza"
       ],
-      "avoid_activities": []
+      "desfavorables": [],
+      "recommendation": "Momento ideal para actividades relacionadas con el conocimiento, la educación y los negocios."
+    },
+    {
+      "name": "Tripushkara",
+      "nameIAST": "Tripuṣkara",
+      "type": "vara + tithi + nakshatra",
+      "polarity": "positive",
+      "priority": 1,
+      "color": "#10b981",
+      "description": "Yoga muy auspicioso para actividades importantes",
+      "detailedDescription": "Uno de los yogas más poderosos. Excelente para actividades de gran importancia.",
+      "favorables": [
+        "Campañas en trilogía",
+        "Series de 3 eventos"
+      ],
+      "desfavorables": [
+        "Cirugías",
+        "Rupturas",
+        "Acciones 'únicas'"
+      ],
+      "recommendation": "Perfecto para actividades que se repiten o tienen múltiples fases. Evita acciones únicas o definitivas."
+    },
+    {
+      "name": "Suta",
+      "nameIAST": "Sūta",
+      "type": "vara + tithi + nakshatra",
+      "polarity": "positive",
+      "priority": 1,
+      "color": "#10b981",
+      "description": "Prosperidad, plenitud ('soma')",
+      "detailedDescription": "Prosperidad, plenitud ('soma'). Combinaciones muy específicas por día.",
+      "favorables": [
+        "Proyectos estrella",
+        "Fundaciones/actas",
+        "Compras mayores",
+        "Inicio de series/productos"
+      ],
+      "desfavorables": [],
+      "recommendation": "Ideal para proyectos que serán la base de futuros desarrollos. Momento de prosperidad y abundancia."
+    },
+    {
+      "name": "Siddha",
+      "nameIAST": "Siddha",
+      "type": "vara + nakshatra",
+      "polarity": "positive",
+      "priority": 2,
+      "color": "#10b981",
+      "description": "Yoga auspicioso para actividades espirituales",
+      "detailedDescription": "Perfecto para meditación, pujas, y actividades espirituales. Favorece el crecimiento interior.",
+      "favorables": [
+        "Meditación",
+        "Pujas",
+        "Iniciaciones espirituales",
+        "Estudio de textos sagrados",
+        "Práctica de yoga",
+        "Rituales de consagración"
+      ],
+      "desfavorables": [],
+      "recommendation": "Momento perfecto para actividades espirituales y de crecimiento interior."
+    },
+    {
+      "name": "Ravi Pushya",
+      "nameIAST": "Ravi Puṣya",
+      "type": "sun + nakshatra",
+      "polarity": "positive",
+      "priority": 2,
+      "color": "#f59e0b",
+      "description": "Ideal para actividades espirituales",
+      "detailedDescription": "Excelente para pujas, iniciaciones espirituales, y actividades religiosas.",
+      "favorables": [
+        "Pujas",
+        "Iniciaciones espirituales",
+        "Actividades religiosas",
+        "Consagración de ídolos",
+        "Rituales de Lakṣmī",
+        "Compras de oro",
+        "Registro de empresa"
+      ],
+      "desfavorables": [],
+      "recommendation": "Excelente para actividades religiosas y espirituales, especialmente relacionadas con la prosperidad."
+    },
+    {
+      "name": "Dvipushkara",
+      "nameIAST": "Dvipuṣkara",
+      "type": "vara + tithi + nakshatra",
+      "polarity": "positive",
+      "priority": 2,
+      "color": "#10b981",
+      "description": "Yoga auspicioso para actividades importantes",
+      "detailedDescription": "Favorece el éxito en actividades importantes. Bueno para inauguraciones y ceremonias.",
+      "favorables": [
+        "Inauguraciones",
+        "Ceremonias",
+        "Actividades importantes",
+        "Lanzamientos de productos",
+        "Apertura de establecimientos"
+      ],
+      "desfavorables": [],
+      "recommendation": "Ideal para inauguraciones y ceremonias importantes."
+    },
+    {
+      "name": "Dwipushkara",
+      "nameIAST": "Dvi-puṣkara",
+      "type": "vara + tithi + nakshatra",
+      "polarity": "positive",
+      "priority": 2,
+      "color": "#10b981",
+      "description": "Duplica resultados",
+      "detailedDescription": "Lo realizado tiende a repetirse dos veces. Tithis Nanda con lunes/miércoles/jueves.",
+      "favorables": [
+        "Marketing por tandas",
+        "Relanzamientos",
+        "Producción seriada",
+        "Estrategias de 'dos oleadas'"
+      ],
+      "desfavorables": [
+        "Cirugías",
+        "Separaciones definitivas",
+        "Pleitos que no quieras duplicar"
+      ],
+      "recommendation": "Perfecto para estrategias que requieren repetición o múltiples fases."
+    },
+    {
+      "name": "Siddhi",
+      "nameIAST": "Siddhi",
+      "type": "vara + tithi_group",
+      "polarity": "positive",
+      "priority": 2,
+      "color": "#10b981",
+      "description": "Competencias, litigios, tareas que exigen coraje",
+      "detailedDescription": "Favorece actividades que requieren coraje y determinación. Bueno para competencias.",
+      "favorables": [
+        "Competencias",
+        "Litigios",
+        "Tareas que exigen coraje",
+        "Actividades deportivas",
+        "Negociaciones difíciles",
+        "Desafíos profesionales"
+      ],
+      "desfavorables": [],
+      "recommendation": "Momento ideal para enfrentar desafíos y competencias que requieren coraje."
+    },
+    {
+      "name": "Amritasiddha",
+      "nameIAST": "Amṛtasiddha",
+      "type": "vara + tithi_group",
+      "polarity": "positive",
+      "priority": 2,
+      "color": "#10b981",
+      "description": "Actividades auspiciosas, especialmente espirituales",
+      "detailedDescription": "Excelente para actividades espirituales y ceremonias religiosas.",
+      "favorables": [
+        "Actividades espirituales",
+        "Ceremonias religiosas",
+        "Iniciaciones",
+        "Rituales de consagración",
+        "Estudio de textos sagrados",
+        "Meditación profunda"
+      ],
+      "desfavorables": [],
+      "recommendation": "Perfecto para actividades espirituales y ceremonias religiosas."
+    },
+    {
+      "name": "Jaya",
+      "nameIAST": "Jaya",
+      "type": "vara + tithi_group",
+      "polarity": "positive",
+      "priority": 2,
+      "color": "#10b981",
+      "description": "Victoria en competencias y litigios",
+      "detailedDescription": "Favorece la victoria en competencias, litigios y actividades competitivas.",
+      "favorables": [
+        "Competencias",
+        "Litigios",
+        "Actividades competitivas",
+        "Exámenes",
+        "Entrevistas",
+        "Presentaciones importantes",
+        "Negociaciones"
+      ],
+      "desfavorables": [],
+      "recommendation": "Día de victoria. Ideal para competencias y actividades que requieren triunfar."
+    },
+    {
+      "name": "Guru Yoga",
+      "nameIAST": "Guru Yoga",
+      "type": "vara + nakshatra",
+      "polarity": "positive",
+      "priority": 2,
+      "color": "#8b5cf6",
+      "description": "Excelente para educación y sabiduría",
+      "detailedDescription": "Favorece el aprendizaje, la enseñanza y la adquisición de sabiduría.",
+      "favorables": [
+        "Educación",
+        "Enseñanza",
+        "Adquisición de sabiduría",
+        "Estudio de textos sagrados",
+        "Iniciaciones espirituales",
+        "Publicaciones académicas"
+      ],
+      "desfavorables": [],
+      "recommendation": "Momento ideal para actividades relacionadas con el conocimiento y la sabiduría."
+    },
+    {
+      "name": "Shukra Yoga",
+      "nameIAST": "Śukra Yoga",
+      "type": "vara + nakshatra",
+      "polarity": "positive",
+      "priority": 2,
+      "color": "#ec4899",
+      "description": "Favorable para artes y relaciones",
+      "detailedDescription": "Excelente para actividades artísticas, relaciones y asuntos del corazón.",
+      "favorables": [
+        "Artes",
+        "Relaciones",
+        "Asuntos del corazón",
+        "Música",
+        "Danza",
+        "Poesía",
+        "Matrimonio",
+        "Actividades creativas"
+      ],
+      "desfavorables": [],
+      "recommendation": "Perfecto para actividades artísticas y asuntos del corazón."
+    },
+    {
+      "name": "Mangala Yoga",
+      "nameIAST": "Maṅgala Yoga",
+      "type": "vara + nakshatra",
+      "polarity": "positive",
+      "priority": 2,
+      "color": "#dc2626",
+      "description": "Favorable para coraje y energía",
+      "detailedDescription": "Favorece actividades que requieren coraje, energía y determinación.",
+      "favorables": [
+        "Actividades que requieren coraje",
+        "Energía y determinación",
+        "Deportes",
+        "Competencia",
+        "Liderazgo",
+        "Iniciativas empresariales"
+      ],
+      "desfavorables": [],
+      "recommendation": "Ideal para actividades que requieren coraje, energía y liderazgo."
+    },
+    {
+      "name": "Siddha Vara Nakshatra A",
+      "nameIAST": "Siddha (vara+nakṣatra, set A)",
+      "type": "vara + nakshatra",
+      "polarity": "positive",
+      "priority": 2,
+      "color": "#10b981",
+      "description": "Facilita operaciones; 'anda y sale'",
+      "detailedDescription": "Facilita operaciones; 'anda y sale'. Conjuntos extensos por día.",
+      "favorables": [
+        "Trámites",
+        "Viajes cortos",
+        "Acuerdos"
+      ],
+      "desfavorables": [],
+      "recommendation": "Ideal para trámites y operaciones que requieren fluidez."
+    },
+    {
+      "name": "Shobhana",
+      "nameIAST": "Śobhana",
+      "type": "vara + nakshatra",
+      "polarity": "positive",
+      "priority": 2,
+      "color": "#10b981",
+      "description": "Realce estético, reputación, encanto",
+      "detailedDescription": "Realce estético, reputación, encanto. Listas por día (principalmente con lunes y sets amplios).",
+      "favorables": [
+        "Lanzamientos de marca",
+        "Arte/diseño",
+        "Bodas"
+      ],
+      "desfavorables": [],
+      "recommendation": "Perfecto para actividades relacionadas con la belleza, el arte y la reputación."
+    },
+    {
+      "name": "Siddha Vara Tithi Grupos",
+      "nameIAST": "Siddha (vara+tithi por grupos)",
+      "type": "vara + tithi",
+      "polarity": "positive",
+      "priority": 2,
+      "color": "#10b981",
+      "description": "'Que las cosas salgan'; desbloqueo práctico",
+      "detailedDescription": "'Que las cosas salgan'; desbloqueo práctico. Parrillas exactas varían por escuela.",
+      "favorables": [
+        "Trámites",
+        "Aperturas",
+        "Envíos",
+        "Acuerdos"
+      ],
+      "desfavorables": [],
+      "recommendation": "Ideal para desbloquear situaciones y hacer que las cosas fluyan."
+    },
+    {
+      "name": "Amrita Vara Tithi Grupos",
+      "nameIAST": "Amṛta (vara+tithi por grupos)",
+      "type": "vara + tithi",
+      "polarity": "positive",
+      "priority": 2,
+      "color": "#10b981",
+      "description": "Tono dulce ('néctar'), fluidez",
+      "detailedDescription": "Tono dulce ('néctar'), fluidez. Parrillas exactas varían por escuela.",
+      "favorables": [
+        "Lanzamientos",
+        "Ceremonias",
+        "Contratos a largo plazo"
+      ],
+      "desfavorables": [],
+      "recommendation": "Momento de dulzura y fluidez. Ideal para ceremonias y contratos importantes."
+    },
+    {
+      "name": "Ravi Yoga",
+      "nameIAST": "Ravi Yoga",
+      "type": "sun + moon",
+      "polarity": "positive",
+      "priority": 3,
+      "color": "#f59e0b",
+      "description": "Yoga auspicioso basado en la relación Sol-Luna",
+      "detailedDescription": "Favorece la armonía entre el Sol y la Luna. Bueno para actividades que requieren balance.",
+      "favorables": [
+        "Emprendimientos",
+        "Firmas",
+        "Presentaciones públicas",
+        "Actividades que requieren autoridad",
+        "Negociaciones importantes"
+      ],
+      "desfavorables": [],
+      "recommendation": "Ideal para actividades que requieren balance y autoridad."
+    },
+    {
+      "name": "Subha",
+      "nameIAST": "Śubha",
+      "type": "vara + nakshatra",
+      "polarity": "positive",
+      "priority": 3,
+      "color": "#eab308",
+      "description": "Auspicioso medio; buenos comienzos sin 'premium'",
+      "detailedDescription": "Auspicioso medio; buenos comienzos sin 'premium'. Sets favorables por día.",
+      "favorables": [
+        "Aperturas simples",
+        "Envíos",
+        "Citas"
+      ],
+      "desfavorables": [],
+      "recommendation": "Bueno para actividades simples y rutinarias."
+    },
+    {
+      "name": "Subha Madhyama",
+      "nameIAST": "Śubha-madhyam",
+      "type": "vara + nakshatra",
+      "polarity": "positive",
+      "priority": 3,
+      "color": "#eab308",
+      "description": "Remueve doṣas, no promete éxito por sí solo",
+      "detailedDescription": "Remueve doṣas, no promete éxito por sí solo. Listas medias por día.",
+      "favorables": [
+        "Cuando no hay otra ventana y quieres 'desbloquear'"
+      ],
+      "desfavorables": [],
+      "recommendation": "Útil para remover obstáculos cuando no hay mejores opciones."
+    },
+    {
+      "name": "Aadala",
+      "nameIAST": "Āḍal / Adal",
+      "type": "sol-luna por nakshatra",
+      "polarity": "neutral",
+      "priority": 3,
+      "color": "#eab308",
+      "description": "Resultados mixtos/irregulares",
+      "detailedDescription": "Resultados mixtos/irregulares. Distancias específicas por nakshatra.",
+      "favorables": [
+        "Saṃskāras",
+        "Matrimonio (algunas escuelas)"
+      ],
+      "desfavorables": [
+        "Militar",
+        "Obras de piedra/agricultura"
+      ],
+      "recommendation": "Resultados impredecibles. Usar con precaución."
+    },
+    {
+      "name": "Dagdha",
+      "nameIAST": "Dagdha",
+      "type": "vara + tithi",
+      "polarity": "negative",
+      "priority": 1,
+      "color": "#ef4444",
+      "description": "Evitar matrimonio, viajes, nueva casa",
+      "detailedDescription": "Período desfavorable para actividades importantes. Evitar decisiones trascendentales.",
+      "favorables": [
+        "Finalizar proyectos pendientes",
+        "Limpieza y organización",
+        "Trabajos de mantenimiento",
+        "Revisión de documentos"
+      ],
+      "desfavorables": [
+        "Matrimonio",
+        "Viajes",
+        "Nueva casa",
+        "Decisiones trascendentales",
+        "Inversiones importantes"
+      ],
+      "recommendation": "Evitar actividades importantes. Usar para limpieza y organización."
+    },
+    {
+      "name": "Visha",
+      "nameIAST": "Viṣa",
+      "type": "vara + tithi",
+      "polarity": "negative",
+      "priority": 1,
+      "color": "#dc2626",
+      "description": "Evitar procedimientos médicos y viajes",
+      "detailedDescription": "Período desfavorable para tratamientos médicos y viajes largos.",
+      "favorables": [
+        "Meditación",
+        "Estudio",
+        "Trabajos internos",
+        "Reflexión personal",
+        "Actividades de purificación"
+      ],
+      "desfavorables": [
+        "Procedimientos médicos",
+        "Viajes",
+        "Cirugías",
+        "Contratos importantes",
+        "Decisiones financieras"
+      ],
+      "recommendation": "Evitar procedimientos médicos y viajes. Ideal para reflexión interna."
+    },
+    {
+      "name": "Utpata",
+      "nameIAST": "Utpāta",
+      "type": "vara + tithi_group",
+      "polarity": "negative",
+      "priority": 1,
+      "color": "#dc2626",
+      "description": "Evitar viajes y actividades importantes",
+      "detailedDescription": "Período desfavorable para viajes y actividades importantes. Postergar decisiones.",
+      "favorables": [
+        "Meditación",
+        "Estudio",
+        "Trabajos internos",
+        "Reflexión",
+        "Actividades de purificación"
+      ],
+      "desfavorables": [
+        "Viajes",
+        "Actividades importantes",
+        "Decisiones trascendentales",
+        "Inversiones",
+        "Cirugías"
+      ],
+      "recommendation": "Evitar viajes y actividades importantes. Usar para reflexión interna."
+    },
+    {
+      "name": "Mrityu",
+      "nameIAST": "Mṛtyu",
+      "type": "vara + tithi_group",
+      "polarity": "negative",
+      "priority": 1,
+      "color": "#dc2626",
+      "description": "Evitar actividades importantes",
+      "detailedDescription": "Período muy desfavorable. Evitar cualquier actividad importante.",
+      "favorables": [
+        "Meditación profunda",
+        "Estudio espiritual",
+        "Trabajos de purificación",
+        "Rituales de protección",
+        "Reflexión personal"
+      ],
+      "desfavorables": [
+        "Cualquier actividad importante",
+        "Viajes",
+        "Cirugías",
+        "Inversiones",
+        "Contratos",
+        "Decisiones trascendentales"
+      ],
+      "recommendation": "Período muy desfavorable. Solo actividades espirituales y de purificación."
+    },
+    {
+      "name": "Dagdha Vara Tithi",
+      "nameIAST": "Dagdha ('quemado')",
+      "type": "vara + tithi",
+      "polarity": "negative",
+      "priority": 1,
+      "color": "#ef4444",
+      "description": "Quema resultados; genera frustración",
+      "detailedDescription": "Quema resultados; genera frustración. Mapa específico por día.",
+      "favorables": [
+        "Finalizar/cortar",
+        "Limpieza de inventario"
+      ],
+      "desfavorables": [
+        "Comienzos importantes",
+        "Compras",
+        "Firmas"
+      ],
+      "recommendation": "Solo para finalizar o cortar. Evitar cualquier inicio importante."
+    },
+    {
+      "name": "Hutashana Vara Tithi",
+      "nameIAST": "Hutāśana ('fuego sacrificial')",
+      "type": "vara + tithi",
+      "polarity": "negative",
+      "priority": 1,
+      "color": "#ef4444",
+      "description": "Riesgo, pérdidas, fricción",
+      "detailedDescription": "Riesgo, pérdidas, fricción. Mapa específico por día.",
+      "favorables": [
+        "Solo trabajos de 'quemar' (demoler, limpiar)"
+      ],
+      "desfavorables": [
+        "Inicios",
+        "Viajes",
+        "Cirugías",
+        "Compras"
+      ],
+      "recommendation": "Solo para trabajos de demolición o limpieza. Evitar cualquier inicio."
+    },
+    {
+      "name": "Visha Vara Tithi",
+      "nameIAST": "Viṣa ('veneno')",
+      "type": "vara + tithi",
+      "polarity": "negative",
+      "priority": 1,
+      "color": "#dc2626",
+      "description": "Tóxico; alta probabilidad de arrepentimiento",
+      "detailedDescription": "Tóxico; alta probabilidad de arrepentimiento. Mapa específico por día.",
+      "favorables": [
+        "Meditación profunda",
+        "Estudio espiritual",
+        "Trabajos de purificación",
+        "Rituales de protección"
+      ],
+      "desfavorables": [
+        "Contratos",
+        "Viajes",
+        "Quirúrgico",
+        "Inauguraciones"
+      ],
+      "recommendation": "Período tóxico. Solo actividades espirituales y de purificación."
+    },
+    {
+      "name": "Samvartaka",
+      "nameIAST": "Samvartaka ('disolución')",
+      "type": "vara + tithi",
+      "polarity": "negative",
+      "priority": 1,
+      "color": "#dc2626",
+      "description": "Deshace planes",
+      "detailedDescription": "Deshace planes. Considerado muy adverso.",
+      "favorables": [
+        "Terminaciones definitivas"
+      ],
+      "desfavorables": [
+        "Todo inicio importante"
+      ],
+      "recommendation": "Solo para terminaciones definitivas. Evitar cualquier inicio."
+    },
+    {
+      "name": "Krakacha",
+      "nameIAST": "Krakacha / Kṛkaca ('sierra')",
+      "type": "vara + tithi",
+      "polarity": "negative",
+      "priority": 1,
+      "color": "#dc2626",
+      "description": "'Corta' resultados; muy inauspicioso",
+      "detailedDescription": "'Corta' resultados; muy inauspicioso. Secuencia técnica clásica.",
+      "favorables": [
+        "Trabajos de limpieza",
+        "Organización",
+        "Revisión de documentos",
+        "Actividades de mantenimiento"
+      ],
+      "desfavorables": [
+        "Inicios",
+        "Cirugías",
+        "Viajes",
+        "Compras"
+      ],
+      "recommendation": "Solo para limpieza y organización. Evitar cualquier inicio importante."
+    },
+    {
+      "name": "Yamaghanta",
+      "nameIAST": "Yamaghanta ('reino de Yama')",
+      "type": "vara + nakshatra",
+      "polarity": "negative",
+      "priority": 1,
+      "color": "#dc2626",
+      "description": "Muy desfavorable; peligro/luto",
+      "detailedDescription": "Muy desfavorable; peligro/luto. Pares específicos por día.",
+      "favorables": [
+        "Meditación profunda",
+        "Estudio espiritual",
+        "Trabajos de purificación",
+        "Rituales de protección"
+      ],
+      "desfavorables": [
+        "Todo inicio importante"
+      ],
+      "recommendation": "Período muy desfavorable. Solo actividades espirituales y de protección."
+    },
+    {
+      "name": "Mrityu Vara Nakshatra",
+      "nameIAST": "Mṛtyu ('muerte')",
+      "type": "vara + nakshatra",
+      "polarity": "negative",
+      "priority": 1,
+      "color": "#dc2626",
+      "description": "Interrupciones severas; fin de ciclo",
+      "detailedDescription": "Interrupciones severas; fin de ciclo. Dos juegos distintos de pares por día.",
+      "favorables": [
+        "Cierres rituales"
+      ],
+      "desfavorables": [
+        "Todo inicio"
+      ],
+      "recommendation": "Solo para cierres rituales. Evitar cualquier inicio."
+    },
+    {
+      "name": "Hutasana",
+      "nameIAST": "Hutāsana",
+      "type": "vara + tithi",
+      "polarity": "negative",
+      "priority": 2,
+      "color": "#ef4444",
+      "description": "Evitar actividades importantes",
+      "detailedDescription": "Período desfavorable para actividades importantes. Postergar decisiones.",
+      "favorables": [
+        "Trabajos de limpieza",
+        "Organización de archivos",
+        "Revisión de cuentas",
+        "Actividades de mantenimiento"
+      ],
+      "desfavorables": [
+        "Actividades importantes",
+        "Decisiones trascendentales",
+        "Inversiones",
+        "Viajes",
+        "Cirugías"
+      ],
+      "recommendation": "Evitar actividades importantes. Usar para limpieza y organización."
+    },
+    {
+      "name": "Panchaka",
+      "nameIAST": "Pañcaka",
+      "type": "nakshatra + weekday",
+      "polarity": "negative",
+      "priority": 2,
+      "color": "#dc2626",
+      "description": "Evitar actividades importantes",
+      "detailedDescription": "Período desfavorable. Evitar actividades importantes según la clasificación del día.",
+      "favorables": [
+        "Actividades de purificación",
+        "Meditación",
+        "Estudio espiritual",
+        "Trabajos de limpieza",
+        "Rituales de protección"
+      ],
+      "desfavorables": [
+        "Construcción",
+        "Techos",
+        "Viajes por aire",
+        "Inicios importantes",
+        "Compras grandes"
+      ],
+      "recommendation": "Evitar construcción y viajes por aire. Solo actividades de purificación."
+    },
+    {
+      "name": "Rikta",
+      "nameIAST": "Rikta",
+      "type": "vara + tithi_group",
+      "polarity": "negative",
+      "priority": 2,
+      "color": "#ef4444",
+      "description": "Evitar actividades importantes",
+      "detailedDescription": "Período desfavorable para actividades importantes. Evitar decisiones trascendentales.",
+      "favorables": [
+        "Trabajos de limpieza",
+        "Organización",
+        "Revisión de documentos",
+        "Actividades de mantenimiento"
+      ],
+      "desfavorables": [
+        "Actividades importantes",
+        "Decisiones trascendentales"
+      ],
+      "recommendation": "Evitar actividades importantes. Usar para limpieza y organización."
+    },
+    {
+      "name": "Kana",
+      "nameIAST": "Kaṇa",
+      "type": "vara + tithi_group",
+      "polarity": "negative",
+      "priority": 2,
+      "color": "#ef4444",
+      "description": "Evitar actividades importantes",
+      "detailedDescription": "Período desfavorable. Evitar actividades importantes y decisiones trascendentales.",
+      "favorables": [
+        "Trabajos de mantenimiento",
+        "Organización",
+        "Revisión de documentos",
+        "Actividades de limpieza"
+      ],
+      "desfavorables": [
+        "Actividades importantes",
+        "Decisiones trascendentales",
+        "Inversiones",
+        "Compras grandes",
+        "Viajes"
+      ],
+      "recommendation": "Evitar actividades importantes. Usar para mantenimiento y organización."
+    },
+    {
+      "name": "Dagdha Vara Nakshatra",
+      "nameIAST": "Dagdha (vara+nakṣatra)",
+      "type": "vara + nakshatra",
+      "polarity": "negative",
+      "priority": 2,
+      "color": "#ef4444",
+      "description": "Quema resultados",
+      "detailedDescription": "Quema resultados. Pares específicos por día.",
+      "favorables": [
+        "Cortes/terminaciones"
+      ],
+      "desfavorables": [
+        "Inauguraciones",
+        "Viajes",
+        "Compras"
+      ],
+      "recommendation": "Solo para terminaciones. Evitar inauguraciones y viajes."
+    },
+    {
+      "name": "Utpata Vara Nakshatra",
+      "nameIAST": "Utpāta ('arrancar')",
+      "type": "vara + nakshatra",
+      "polarity": "negative",
+      "priority": 2,
+      "color": "#ef4444",
+      "description": "Perturbación; saca de raíz",
+      "detailedDescription": "Perturbación; saca de raíz. Pares específicos por día.",
+      "favorables": [
+        "Extirpaciones/depuraciones"
+      ],
+      "desfavorables": [
+        "Aperturas/alianzas"
+      ],
+      "recommendation": "Solo para extirpaciones. Evitar aperturas y alianzas."
+    },
+    {
+      "name": "Kana Vara Nakshatra",
+      "nameIAST": "Kāna ('tuerto/mutilado')",
+      "type": "vara + nakshatra",
+      "polarity": "negative",
+      "priority": 2,
+      "color": "#ef4444",
+      "description": "Resultados 'a medias', carencias",
+      "detailedDescription": "Resultados 'a medias', carencias. Pares específicos por día.",
+      "favorables": [
+        "Trabajos de limpieza",
+        "Organización",
+        "Revisión de documentos",
+        "Actividades de mantenimiento"
+      ],
+      "desfavorables": [
+        "Compras/obras estructurales"
+      ],
+      "recommendation": "Evitar compras y obras estructurales. Solo limpieza y organización."
+    },
+    {
+      "name": "Nasa Vara Nakshatra",
+      "nameIAST": "Nāśa ('pérdida')",
+      "type": "vara + nakshatra",
+      "polarity": "negative",
+      "priority": 2,
+      "color": "#ef4444",
+      "description": "Pérdida/merma/errores costosos",
+      "detailedDescription": "Pérdida/merma/errores costosos. Listas amplias por día.",
+      "favorables": [
+        "Trabajos de limpieza",
+        "Organización",
+        "Revisión de documentos",
+        "Actividades de mantenimiento"
+      ],
+      "desfavorables": [
+        "Firmas",
+        "Inversiones",
+        "Viajes"
+      ],
+      "recommendation": "Evitar firmas, inversiones y viajes. Solo limpieza y organización."
+    },
+    {
+      "name": "Asubha Tithi Nakshatra",
+      "nameIAST": "Aśubha (pares tithi+nakṣatra desfavorables)",
+      "type": "tithi + nakshatra",
+      "polarity": "negative",
+      "priority": 2,
+      "color": "#ef4444",
+      "description": "Desaconseja inicios; tendencia a retrasos/pérdidas",
+      "detailedDescription": "Desaconseja inicios; tendencia a retrasos/pérdidas. Pares específicos desfavorables.",
+      "favorables": [
+        "Cierres/limpiezas si necesitas cortar algo"
+      ],
+      "desfavorables": [
+        "Inauguraciones",
+        "Firmas",
+        "Viajes"
+      ],
+      "recommendation": "Evitar inauguraciones, firmas y viajes. Solo cierres si es necesario."
     }
   ]
 }

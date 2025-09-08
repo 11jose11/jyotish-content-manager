@@ -365,6 +365,9 @@ export const usePanchangaMonth = ({ year, month, latitude, longitude }: Panchang
                 yoga: {
                   name: panchangaData.yoga?.name || 'Unknown'
                 },
+                nityaYoga: {
+                  name: panchangaData.yoga?.name || 'Unknown'
+                },
                 karana: {
                   name: panchangaData.karana?.name || 'Unknown'
                 },
@@ -381,6 +384,7 @@ export const usePanchangaMonth = ({ year, month, latitude, longitude }: Panchang
                 vara: { name: 'Unknown' },
                 nakshatra: { name: 'Unknown', pada: 1 },
                 yoga: { name: 'Unknown' },
+                nityaYoga: { name: 'Unknown' },
                 karana: { name: 'Unknown' },
                 specialYogas: [],
                 trafficLight: 'neutral'
