@@ -223,9 +223,26 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                   <CardDescription className="text-green-700">
                     {recommendations?.nakshatra?.translation || 'N/A'} | Deidad: {recommendations?.nakshatra?.deity || 'N/A'} | Planeta: {recommendations?.nakshatra?.planet || 'N/A'}
                   </CardDescription>
-                  <Badge variant="outline" className="w-fit">
-                    {recommendations?.nakshatra?.classification || 'N/A'}
-                   </Badge>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline" className="w-fit">
+                      {recommendations?.nakshatra?.classification || 'N/A'}
+                    </Badge>
+                    {recommendations?.nakshatra?.yogatara && (
+                      <Badge variant="secondary" className="w-fit">
+                        Yogatara: {recommendations.nakshatra.yogatara}
+                      </Badge>
+                    )}
+                    {recommendations?.nakshatra?.direction && (
+                      <Badge variant="secondary" className="w-fit">
+                        {recommendations.nakshatra.direction}
+                      </Badge>
+                    )}
+                  </div>
+                  {recommendations?.nakshatra?.tree && (
+                    <div className="text-sm text-green-600">
+                      <strong>Árbol sagrado:</strong> {recommendations.nakshatra.tree}
+                    </div>
+                  )}
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {recommendations?.nakshatra?.description && (
