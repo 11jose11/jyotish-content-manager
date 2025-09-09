@@ -401,7 +401,7 @@ const Panchanga: React.FC = () => {
         <ErrorBoundary>
           <PanchangaDetailPanel
             date={selectedDay}
-            panchanga={selectedDayData.details || selectedDayData}
+            panchanga={selectedDayData}
             isOpen={isDetailPanelOpen}
             onClose={handleCloseDetailPanel}
           />

@@ -1,10 +1,12 @@
-import { panchangaSimplifiedService, type NakshatraData, type TithiData, type VaraData, type YogaData } from './panchangaSimplifiedService'
+import { panchangaSimplifiedService, type NakshatraData, type TithiData, type VaraData, type YogaData, type KaranaData, type SpecialYogaData } from './panchangaSimplifiedService'
 
 export interface DayRecommendations {
   tithi: TithiData | null
   vara: VaraData | null
   nakshatra: NakshatraData | null
   yoga: YogaData | null
+  karana: KaranaData | null
+  specialYogas: SpecialYogaData[]
   summary: {
     favorableActivities: string[]
     avoidActivities: string[]
@@ -42,7 +44,7 @@ export interface DayData {
   nakshatra: any
   yoga: any
   karana: any
-  specialYogas: SpecialYoga[]
+  specialYogas: SpecialYogaData[]
 }
 
 export class AIReportGeneratorV2 {
@@ -56,7 +58,9 @@ export class AIReportGeneratorV2 {
         tithi: dayData.tithi,
         vara: dayData.vara,
         nakshatra: dayData.nakshatra,
-        yoga: dayData.yoga
+        yoga: dayData.yoga,
+        karana: dayData.karana,
+        specialYogas: dayData.specialYogas?.map(yoga => yoga.name) || []
       })
 
       const date = new Date(dayData.date)
@@ -93,64 +97,75 @@ TZ: Europe/Paris
 🌙 Nakshatra: ${dayData.nakshatra?.nameIAST || dayData.nakshatra?.name || 'No disponible'}
 • Índice: ${dayData.nakshatra?.index || 'No disponible'}
 • Pada: ${dayData.nakshatra?.pada || 'No disponible'}
-• Actividades favorables: ${recommendations.nakshatra?.favorables && recommendations.nakshatra.favorables.length > 0 ? recommendations.nakshatra.favorables.slice(0, 5).join(', ') : 'No especificadas'}
-• Actividades desfavorables: ${recommendations.nakshatra?.desfavorables && recommendations.nakshatra.desfavorables.length > 0 ? recommendations.nakshatra.desfavorables.slice(0, 5).join(', ') : 'No especificadas'}
+• Yogatara: ${recommendations.nakshatra?.yogatara || 'No especificado'} (estrellas prominentes)
+• Árbol sagrado: ${recommendations.nakshatra?.tree || 'No especificado'}
+• Dirección: ${recommendations.nakshatra?.direction || 'No especificada'}
 • Deidad: ${recommendations.nakshatra?.deity || 'Deidad lunar'}
 • Planeta: ${recommendations.nakshatra?.planet || 'Planeta lunar'}
 • Elemento: ${recommendations.nakshatra?.element || 'Elemento lunar'}
 • Clasificación: ${recommendations.nakshatra?.classification || 'Clasificación lunar'}
-• Recomendaciones completas: Favorables: ${recommendations.nakshatra?.favorables?.join(', ') || 'actividades relacionadas con la naturaleza de la constelación'}. Desfavorables: ${recommendations.nakshatra?.desfavorables?.join(', ') || 'actividades contrarias a su energía'}.
+• Actividades favorables: ${Array.isArray(recommendations.nakshatra?.favorables) && recommendations.nakshatra.favorables.length > 0 ? recommendations.nakshatra.favorables.slice(0, 8).join(', ') : 'No especificadas'}
+• Actividades desfavorables: ${Array.isArray(recommendations.nakshatra?.desfavorables) && recommendations.nakshatra.desfavorables.length > 0 ? recommendations.nakshatra.desfavorables.slice(0, 5).join(', ') : 'No especificadas'}
+• Recomendaciones completas: Favorables: ${Array.isArray(recommendations.nakshatra?.favorables) ? recommendations.nakshatra.favorables.join(', ') : 'actividades relacionadas con la naturaleza de la constelación'}. Desfavorables: ${Array.isArray(recommendations.nakshatra?.desfavorables) ? recommendations.nakshatra.desfavorables.join(', ') : 'actividades contrarias a su energía'}.
 
 🌕 Tithi: ${dayData.tithi?.code || dayData.tithi?.name || 'No disponible'} (${dayData.tithi?.index || ''})
-• Actividades favorables: ${recommendations.tithi?.favorables && recommendations.tithi.favorables.length > 0 ? recommendations.tithi.favorables.slice(0, 5).join(', ') : 'actividades según la fase lunar'}
-• Actividades desfavorables: ${recommendations.tithi?.desfavorables && recommendations.tithi.desfavorables.length > 0 ? recommendations.tithi.desfavorables.slice(0, 5).join(', ') : 'No especificadas'}
+• Actividades favorables: ${Array.isArray(recommendations.tithi?.favorables) && recommendations.tithi.favorables.length > 0 ? recommendations.tithi.favorables.slice(0, 5).join(', ') : 'actividades según la fase lunar'}
+• Actividades desfavorables: ${Array.isArray(recommendations.tithi?.desfavorables) && recommendations.tithi.desfavorables.length > 0 ? recommendations.tithi.desfavorables.slice(0, 5).join(', ') : 'No especificadas'}
 • Elemento: ${recommendations.tithi?.element || 'Agua'}
 • Grupo (si aplica): ${dayData.tithi?.group || 'Agua'}
-• Recomendaciones completas: Favorables: ${recommendations.tithi?.favorables?.join(', ') || 'actividades según la fase lunar'}. Desfavorables: ${recommendations.tithi?.desfavorables?.join(', ') || 'actividades contrarias al período lunar'}.
+• Recomendaciones completas: Favorables: ${Array.isArray(recommendations.tithi?.favorables) ? recommendations.tithi.favorables.join(', ') : 'actividades según la fase lunar'}. Desfavorables: ${Array.isArray(recommendations.tithi?.desfavorables) ? recommendations.tithi.desfavorables.join(', ') : 'actividades contrarias al período lunar'}.
 
 ⚡ Karana: ${dayData.karana?.name || dayData.karana || 'No disponible'}
-• Deidad: ${dayData.karana?.deity || 'Aryama'}
-• Recomendaciones completas: ${dayData.karana?.recommendations || 'Obras públicas/infraestructura; proyectos de largo plazo; fortalecer bases organizacionales'}.
+• Deidad: ${recommendations.karana?.deity || 'Aryama'}
+• Planeta: ${recommendations.karana?.planet || 'Planeta del karana'}
+• Montura: ${recommendations.karana?.mount || 'No especificada'}
+• Clasificación: ${recommendations.karana?.classification || 'Clasificación del karana'}
+• Actividades favorables: ${Array.isArray(recommendations.karana?.favorables) && recommendations.karana.favorables.length > 0 ? recommendations.karana.favorables.slice(0, 5).join(', ') : 'No especificadas'}
+• Actividades desfavorables: ${Array.isArray(recommendations.karana?.desfavorables) && recommendations.karana.desfavorables.length > 0 ? recommendations.karana.desfavorables.slice(0, 5).join(', ') : 'No especificadas'}
+• Recomendaciones completas: ${recommendations.karana?.recommendation || 'Actividades según la naturaleza del karana'}.
 
 ☀️ Vara: ${dayData.vara?.name || 'No disponible'} (${dayName})
-• Actividades favorables: ${recommendations.vara?.favorables && recommendations.vara.favorables.length > 0 ? recommendations.vara.favorables.slice(0, 5).join(', ') : 'No especificadas'}
-• Actividades desfavorables: ${recommendations.vara?.desfavorables && recommendations.vara.desfavorables.length > 0 ? recommendations.vara.desfavorables.slice(0, 5).join(', ') : 'No especificadas'}
+• Actividades favorables: ${Array.isArray(recommendations.vara?.favorables) && recommendations.vara.favorables.length > 0 ? recommendations.vara.favorables.slice(0, 5).join(', ') : 'No especificadas'}
+• Actividades desfavorables: ${Array.isArray(recommendations.vara?.desfavorables) && recommendations.vara.desfavorables.length > 0 ? recommendations.vara.desfavorables.slice(0, 5).join(', ') : 'No especificadas'}
 • Planeta regente: ${recommendations.vara?.planet || 'Planeta regente'}
-• Recomendaciones completas: Favorables: ${recommendations.vara?.favorables?.join(', ') || 'actividades relacionadas con el planeta regente'}. Desfavorables: ${recommendations.vara?.desfavorables?.join(', ') || 'actividades contrarias a su energía'}.
+• Recomendaciones completas: Favorables: ${Array.isArray(recommendations.vara?.favorables) ? recommendations.vara.favorables.join(', ') : 'actividades relacionadas con el planeta regente'}. Desfavorables: ${Array.isArray(recommendations.vara?.desfavorables) ? recommendations.vara.desfavorables.join(', ') : 'actividades contrarias a su energía'}.
 
 🧘 Yoga: ${dayData.yoga || 'No disponible'}
-• Actividades favorables: ${recommendations.yoga?.favorables && recommendations.yoga.favorables.length > 0 ? recommendations.yoga.favorables.slice(0, 5).join(', ') : 'actividades según la naturaleza del yoga'}
-• Actividades desfavorables: ${recommendations.yoga?.desfavorables && recommendations.yoga.desfavorables.length > 0 ? recommendations.yoga.desfavorables.slice(0, 5).join(', ') : 'No especificadas'}
+• Actividades favorables: ${Array.isArray(recommendations.yoga?.favorables) && recommendations.yoga.favorables.length > 0 ? recommendations.yoga.favorables.slice(0, 5).join(', ') : 'actividades según la naturaleza del yoga'}
+• Actividades desfavorables: ${Array.isArray(recommendations.yoga?.desfavorables) && recommendations.yoga.desfavorables.length > 0 ? recommendations.yoga.desfavorables.slice(0, 5).join(', ') : 'No especificadas'}
 • Deidad: ${recommendations.yoga?.deity || 'Deidad del yoga'}
 • Planeta: ${recommendations.yoga?.planet || 'Planeta del yoga'}
 • Elemento: Elemento del yoga
 • Tipo: Yoga solar-lunar
-• Recomendaciones completas: Favorables: ${recommendations.yoga?.favorables?.join(', ') || 'actividades según la naturaleza del yoga'}. Desfavorables: ${recommendations.yoga?.desfavorables?.join(', ') || 'actividades contrarias a su energía'}.
+• Recomendaciones completas: Favorables: ${Array.isArray(recommendations.yoga?.favorables) ? recommendations.yoga.favorables.join(', ') : 'actividades según la naturaleza del yoga'}. Desfavorables: ${Array.isArray(recommendations.yoga?.desfavorables) ? recommendations.yoga.desfavorables.join(', ') : 'actividades contrarias a su energía'}.
 
 🌟 YOGAS ESPECIALES (array; repetir bloque por cada yoga)
-${dayData.specialYogas && dayData.specialYogas.length > 0 ? 
-  dayData.specialYogas.map((yoga) => `
-🟢 ${yoga.name} (Prioridad: ${yoga.priority || '2'})
+${recommendations.specialYogas && recommendations.specialYogas.length > 0 ? 
+  recommendations.specialYogas.map((yoga) => `
+🟢 ${yoga.name} (Prioridad: ${yoga.priority || 2})
 Tipo: ${yoga.type || 'vara+tithi_group'}
-💡 Descripción: ${yoga.explain || yoga.description || 'Yoga especial que influye en las actividades del día'}
-🔍 Condiciones de Formación:
-• Regla: ${yoga.rule || 'No especificada'}
-• Razón: ${yoga.reason || 'No especificada'}
+Polaridad: ${yoga.polarity === 'positive' ? 'Auspicioso' : yoga.polarity === 'negative' ? 'Inauspicioso' : 'Neutral'}
+💡 Descripción: ${yoga.description || 'Yoga especial que influye en las actividades del día'}
+💡 Descripción Detallada: ${yoga.detailedDescription || yoga.description || 'Yoga especial que influye en las actividades del día'}
 ✅ Actividades Beneficiosas:
-• ${yoga.beneficial_activities?.join('\n• ') || yoga.activities?.join('\n• ') || yoga.favorables?.join('\n• ') || 'Actividades según la naturaleza del yoga'}
-⚠️ Evitar (si aplica): ${yoga.avoid_activities?.join(', ') || yoga.avoid?.join(', ') || yoga.desfavorables?.join(', ') || 'No especificado'}
+• ${Array.isArray(yoga.favorables) ? yoga.favorables.join('\n• ') : 'Actividades según la naturaleza del yoga'}
+⚠️ Evitar (si aplica): ${Array.isArray(yoga.desfavorables) ? yoga.desfavorables.join(', ') : 'No especificado'}
+🎯 Recomendación Específica: ${yoga.recommendation || 'Aprovecha este yoga para actividades importantes'}
 `).join('') : 
   'No hay yogas especiales en este día'}
 
 📊 RESUMEN DE ENERGÍAS DEL DÍA:
-• Nakshatra: ${dayData.nakshatra?.nameIAST || dayData.nakshatra?.name || 'No disponible'} (Índice: ${dayData.nakshatra?.index || 'N/A'}, Pada: ${dayData.nakshatra?.pada || 'N/A'})
+• Nakshatra: ${dayData.nakshatra?.nameIAST || dayData.nakshatra?.name || 'No disponible'} (Índice: ${dayData.nakshatra?.index || 'N/A'}, Pada: ${dayData.nakshatra?.pada || 'N/A'}, Yogatara: ${recommendations.nakshatra?.yogatara || 'N/A'})
+• Clasificación Nakshatra: ${recommendations.nakshatra?.classification || 'N/A'} (${recommendations.nakshatra?.direction || 'N/A'})
+• Árbol sagrado: ${recommendations.nakshatra?.tree || 'N/A'}
 • Tithi: ${dayData.tithi?.code || dayData.tithi?.name || 'No disponible'} (Grupo: ${dayData.tithi?.group || 'N/A'})
 • Vara: ${dayData.vara?.name || 'No disponible'} (Planeta: ${recommendations.vara?.planet || 'N/A'})
 • Yoga: ${dayData.yoga || 'No disponible'}
-• Karana: ${dayData.karana?.name || dayData.karana || 'No disponible'}
+• Karana: ${dayData.karana?.name || dayData.karana || 'No disponible'} (Deidad: ${recommendations.karana?.deity || 'N/A'})
 • Elementos predominantes: ${recommendations.nakshatra?.element || 'Elemento lunar'}, ${recommendations.tithi?.element || 'Elemento lunar'}, Elemento del yoga
-• Deidades activas: ${recommendations.nakshatra?.deity || 'Deidad lunar'}, ${recommendations.tithi?.deity || 'Deidad lunar'}, ${recommendations.yoga?.deity || 'Deidad del yoga'}
-• Yogas especiales activos: ${dayData.specialYogas?.length || 0}
+• Deidades activas: ${recommendations.nakshatra?.deity || 'Deidad lunar'}, ${recommendations.tithi?.deity || 'Deidad lunar'}, ${recommendations.yoga?.deity || 'Deidad del yoga'}, ${recommendations.karana?.deity || 'Deidad del karana'}
+• Yogas especiales activos: ${recommendations.specialYogas?.length || 0}
+• Estado general: ${recommendations.summary.overallMood === 'auspicious' ? 'Auspicioso' : recommendations.summary.overallMood === 'inauspicious' ? 'Inauspicioso' : 'Neutral'}
 
 # REGLAS DE LENGUAJE (OBLIGATORIO — NO IMPRIMIR)
 - SALIDA en español natural, **100% legible por TTS**: sin diacríticos raros (usar Panchanga, Nakshatra, Tithi, etc.). **Solo tildes gramaticales español**.
@@ -168,18 +183,20 @@ Tipo: ${yoga.type || 'vara+tithi_group'}
 # MOTOR DE MEZCLA (NO IMPRIMIR)
 1) **Apertura** (1–2 frases): nombra la fecha (${fullDate}) y da la **idea fuerza** del día (tono + oportunidad principal).
 2) **Lectura integrada**:
-- Nakshatra → qué impulsa hoy (en lenguaje humano).
-- Tithi (grupo si aplica, ej. Jaya) → empuje/voluntad/resultado.
-- Karana → **cómo** hacerlo (social, práctico, equipos…).
-- Vara (regente) → estilo del día (ej., Venus = estética, vínculos, acuerdos).
-- Yoga → textura del ambiente (ej., Shobhana = realce estético, reputación).
+- **Nakshatra** → qué impulsa hoy (en lenguaje humano). Incluye su clasificación (Dhruva/Ugra/Tīkṣṇa/Kṣipra/Mṛdu/Miśra/Cara), yogatara (número de estrellas), árbol sagrado, y dirección. Usa las actividades favorables/desfavorables enriquecidas.
+- **Tithi** (grupo si aplica, ej. Jaya) → empuje/voluntad/resultado.
+- **Karana** → **cómo** hacerlo (social, práctico, equipos…).
+- **Vara** (regente) → estilo del día (ej., Venus = estética, vínculos, acuerdos).
+- **Yoga** → textura del ambiente (ej., Shobhana = realce estético, reputación).
 3) **YOGAS ESPECIALES** (foco principal):
 - Di **qué abren** hoy (ejecución premium, victoria, desbloqueo…).
 - Mapea a **actividades concretas**: firmas, lanzamientos, negociaciones, viajes, mudanzas, bodas, arte/diseño, etc.
 4) **Plan práctico** (30–45 s):
 - Qué **sí** hacer hoy (2–4 acciones claras), **cuándo** (mañana/tarde si puedes inferir por tono), y **cómo** (estilo del día).
+- Integra las actividades específicas del nakshatra (ej., si es Dhruva = actividades permanentes, si es Ugra = acciones fuertes, etc.).
 5) **Precauciones** (1–2):
 - Qué **evitar o ajustar** y **alternativa** segura.
+- Usa las actividades desfavorables específicas del nakshatra.
 6) **Cierre** (1–2 frases):
 - Síntesis del propósito del día + **una línea motivadora original** (no citas famosas).
 7) **CITA CLÁSICA OBLIGATORIA**:
@@ -200,13 +217,26 @@ Genera un **reporte narrativo de 2–3 minutos** (320–450 palabras) para **${f
 
 Entrega:
 - **Apertura** con idea fuerza del día.
-- **Lectura integrada** (Nakshatra, Tithi, Karana, Vara, Yoga) en lenguaje práctico.
+- **Lectura integrada** (Nakshatra, Tithi, Karana, Vara, Yoga) en lenguaje práctico:
+  - **Nakshatra**: incluye clasificación (Dhruva/Ugra/Tīkṣṇa/Kṣipra/Mṛdu/Miśra/Cara), yogatara, árbol sagrado, dirección, y actividades específicas enriquecidas.
+  - **Tithi**: empuje emocional y de relaciones.
+  - **Karana**: riqueza, trabajo y estabilidad material.
+  - **Vara**: energía vital y tono del día.
+  - **Yoga**: motivación espiritual y propósito interior.
 - **Yogas especiales**: significado, impacto en decisiones, y actividades concretas recomendadas hoy.
 - **Plan del día**: 2–4 acciones concretas y una o dos precauciones con alternativa.
 - **Cierre motivador** (1–2 líneas).
 - **Cita clásica Vedica**: agrega al final una **cita literal en español** (≤ 25 palabras) que **resuene** con el plan del día, con **atribución** "— Obra, capítulo:verso".
 
-Recuerda: **no uses "pada/sector/subsector"**, evita placeholders, y mantén un tono claro, accesible y accionable.`
+**CONEXIÓN DE ÁNGAS**: Cada anga refleja un plano específico de la vida:
+- Nakshatra → plano mental y actividades en general (usa datos enriquecidos).
+- Tithi → plano emocional y de relaciones.
+- Karana → riqueza, trabajo y estabilidad material.
+- Vara → energía vital y tono del día.
+- Yoga solar-lunar → motivación espiritual y propósito interior.
+- Yogas especiales → integración global, muestran cómo todos los planos confluyen en actividades concretas del día.
+
+Recuerda: **no uses "pada/sector/subsector"**, evita placeholders, y mantén un tono claro, accesible y accionable. Usa las actividades específicas y detalladas de cada nakshatra enriquecido.`
 
     return prompt
   }
@@ -220,7 +250,9 @@ Recuerda: **no uses "pada/sector/subsector"**, evita placeholders, y mantén un 
         tithi: dayData.tithi,
         vara: dayData.vara,
         nakshatra: dayData.nakshatra,
-        yoga: dayData.yoga
+        yoga: dayData.yoga,
+        karana: dayData.karana,
+        specialYogas: dayData.specialYogas?.map(yoga => yoga.name) || []
       })
 
       const date = new Date(dayData.date)
@@ -244,14 +276,14 @@ Recuerda: **no uses "pada/sector/subsector"**, evita placeholders, y mantén un 
 **Estado General:** ${recommendations.summary.overallMood === 'auspicious' ? 'Auspicioso ✨' : recommendations.summary.overallMood === 'inauspicious' ? 'Desfavorable ⚠️' : 'Neutral ⚖️'}
 
 **Top 5 Actividades Recomendadas:**
-${recommendations.summary.favorableActivities.slice(0, 5).map(activity => `- ${activity}`).join('\n')}
+${Array.isArray(recommendations.summary.favorableActivities) ? recommendations.summary.favorableActivities.slice(0, 5).map(activity => `- ${activity}`).join('\n') : 'No disponibles'}
 
 **Top 5 Actividades a Evitar:**
-${recommendations.summary.avoidActivities.slice(0, 5).map(activity => `- ${activity}`).join('\n')}
+${Array.isArray(recommendations.summary.avoidActivities) ? recommendations.summary.avoidActivities.slice(0, 5).map(activity => `- ${activity}`).join('\n') : 'No disponibles'}
 
 ${dayData.specialYogas && dayData.specialYogas.length > 0 ? `
 **Yogas Especiales:**
-${dayData.specialYogas.map(yoga => `- ${yoga.name} (${yoga.polarity === 'auspicious' || yoga.polarity === 'positive' ? 'Auspicioso' : 'Desfavorable'})`).join('\n')}
+${Array.isArray(dayData.specialYogas) ? dayData.specialYogas.map(yoga => `- ${yoga.name} (${yoga.polarity === 'positive' ? 'Auspicioso' : yoga.polarity === 'negative' ? 'Desfavorable' : 'Neutral'})`).join('\n') : 'No disponibles'}
 ` : ''}
 
 Genera un análisis conciso y práctico para este día, enfocándote en las recomendaciones más importantes.`

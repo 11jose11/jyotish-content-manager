@@ -108,8 +108,8 @@ export const nameMappings: Record<string, string> = {
   'Shravana': 'Śravaṇa',
   'Dhanishtha': 'Dhaniṣṭhā',
   'Shatabhisha': 'Śatabhiṣā',
-  'Purva Bhadrapada': 'Pūrvabhādrapadā',
-  'Uttara Bhadrapada': 'Uttarabhādrapadā',
+  'Purva Bhadrapada': 'Pūrva Bhādrapadā',
+  'Uttara Bhadrapada': 'Uttara Bhādrapadā',
   'Revati': 'Revatī',
   
   // Tithis

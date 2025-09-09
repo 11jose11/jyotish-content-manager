@@ -28,7 +28,7 @@ const PanchangaDetailPanel: React.FC<PanchangaDetailPanelProps> = ({
   // Validar que panchanga sea un objeto válido
   if (!panchanga || typeof panchanga !== 'object') {
     console.error('PanchangaDetailPanel: Invalid panchanga object:', panchanga)
-    return null
+      return null
   }
 
   useEffect(() => {
@@ -48,6 +48,8 @@ const PanchangaDetailPanel: React.FC<PanchangaDetailPanelProps> = ({
         karana: panchanga.karana?.name,
         specialYogas: panchanga.specialYogas || panchanga.special_yogas || []
       })
+      console.log('🔍 Full panchanga object:', panchanga)
+      console.log('🔍 Nakshatra object:', panchanga.nakshatra)
       
       const recs = await panchangaSimplifiedService.getDayRecommendations({
         tithi: panchanga.tithi,
@@ -60,7 +62,7 @@ const PanchangaDetailPanel: React.FC<PanchangaDetailPanelProps> = ({
       
       console.log('📊 Recommendations loaded:', recs)
       setRecommendations(recs)
-    } catch (error) {
+        } catch (error) {
       console.error('Error loading recommendations:', error)
     } finally {
       setLoading(false)
@@ -113,32 +115,32 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
   }
 
   if (!isOpen) return null
-
-  return (
+  
+    return (
     <Card className="w-full max-w-4xl mx-auto">
       <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50">
-        <div className="flex items-center justify-between">
-          <div>
+          <div className="flex items-center justify-between">
+            <div>
             <CardTitle className="flex items-center gap-2 text-blue-800">
               <Calendar className="h-6 w-6" />
               Panchanga Completo - {new Date(date).toLocaleDateString('es-ES')}
-            </CardTitle>
+              </CardTitle>
             <CardDescription className="text-blue-700">
               Análisis detallado del día con recomendaciones basadas en la astrología védica
-            </CardDescription>
-          </div>
+              </CardDescription>
+            </div>
           <Button variant="outline" size="sm" onClick={onClose}>
             <X className="h-4 w-4" />
-          </Button>
-        </div>
-      </CardHeader>
-
+            </Button>
+          </div>
+        </CardHeader>
+        
       <CardContent className="p-6">
         {loading ? (
           <div className="flex items-center justify-center py-8">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
             <span className="ml-2 text-gray-600">Cargando recomendaciones...</span>
-          </div>
+            </div>
         ) : (
           <div className="space-y-6">
             {/* Botones de acción */}
@@ -156,7 +158,7 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                 <Bot className="h-4 w-4 mr-2" />
                 {generatingPrompt ? 'Generando...' : 'Generar Prompt IA'}
               </Button>
-            </div>
+          </div>
 
             {/* 1. TITHI */}
             {panchanga.tithi && recommendations?.tithi && (
@@ -171,15 +173,15 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                   </CardDescription>
                   <Badge variant="outline" className="w-fit">
                     {recommendations?.tithi?.classification || 'N/A'}
-                  </Badge>
+              </Badge>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {recommendations?.tithi?.description && (
                     <div className="text-sm text-muted-foreground">
                       <p className="font-medium text-foreground mb-2">Descripción:</p>
                       <p>{recommendations.tithi.description}</p>
-                    </div>
-                  )}
+                </div>
+              )}
                   {recommendations?.tithi?.favorables && recommendations.tithi.favorables.length > 0 && (
                     <div>
                       <p className="font-medium text-green-700 mb-2 flex items-center gap-1">
@@ -191,8 +193,8 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                           <li key={index} className="text-green-600">{activity}</li>
                         ))}
                       </ul>
-                    </div>
-                  )}
+                </div>
+              )}
                   {recommendations?.tithi?.desfavorables && recommendations.tithi.desfavorables.length > 0 && (
                     <div>
                       <p className="font-medium text-red-700 mb-2 flex items-center gap-1">
@@ -204,8 +206,8 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                           <li key={index} className="text-red-600">{activity}</li>
                         ))}
                       </ul>
-                    </div>
-                  )}
+                </div>
+              )}
                 </CardContent>
               </Card>
             )}
@@ -223,17 +225,17 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                   </CardDescription>
                   <Badge variant="outline" className="w-fit">
                     {recommendations?.nakshatra?.classification || 'N/A'}
-                  </Badge>
+                   </Badge>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {recommendations?.nakshatra?.description && (
                     <div className="text-sm text-muted-foreground">
                       <p className="font-medium text-foreground mb-2">Descripción:</p>
                       <p>{recommendations.nakshatra.description}</p>
-                    </div>
+                 </div>
                   )}
                   {recommendations?.nakshatra?.favorables && recommendations.nakshatra.favorables.length > 0 && (
-                    <div>
+                               <div>
                       <p className="font-medium text-green-700 mb-2 flex items-center gap-1">
                         <CheckCircle className="h-4 w-4" />
                         Actividades Favorables:
@@ -241,10 +243,10 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                       <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
                         {recommendations.nakshatra.favorables.map((activity: string, index: number) => (
                           <li key={index} className="text-green-600">{activity}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                                 ))}
+                               </ul>
+                           </div>
+                         )}
                   {recommendations?.nakshatra?.desfavorables && recommendations.nakshatra.desfavorables.length > 0 && (
                     <div>
                       <p className="font-medium text-red-700 mb-2 flex items-center gap-1">
@@ -254,10 +256,10 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                       <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
                         {recommendations.nakshatra.desfavorables.map((activity: string, index: number) => (
                           <li key={index} className="text-red-600">{activity}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                               ))}
+                             </ul>
+                           </div>
+                         )}
                 </CardContent>
               </Card>
             )}
@@ -283,10 +285,10 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                     <div className="text-sm text-muted-foreground">
                       <p className="font-medium text-foreground mb-2">Descripción:</p>
                       <p>{recommendations.karana.description}</p>
-                    </div>
+                </div>
                   )}
                   {recommendations?.karana?.favorables && recommendations.karana.favorables.length > 0 && (
-                    <div>
+                            <div>
                       <p className="font-medium text-green-700 mb-2 flex items-center gap-1">
                         <CheckCircle className="h-4 w-4" />
                         Actividades Favorables:
@@ -294,12 +296,12 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                       <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
                         {recommendations.karana.favorables.map((activity: string, index: number) => (
                           <li key={index} className="text-green-600">{activity}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                                ))}
+                              </ul>
+                            </div>
+                          )}
                   {recommendations?.karana?.desfavorables && recommendations.karana.desfavorables.length > 0 && (
-                    <div>
+                            <div>
                       <p className="font-medium text-red-700 mb-2 flex items-center gap-1">
                         <XCircle className="h-4 w-4" />
                         Actividades Desfavorables:
@@ -307,15 +309,15 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                       <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
                         {recommendations.karana.desfavorables.map((activity: string, index: number) => (
                           <li key={index} className="text-red-600">{activity}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                                ))}
+                              </ul>
+                            </div>
+                          )}
                   {recommendations?.karana?.recommendation && (
                     <div className="bg-purple-50 p-3 rounded-lg border border-purple-200">
                       <p className="font-medium text-purple-800 mb-1">Recomendación:</p>
                       <p className="text-sm text-purple-700">{recommendations.karana.recommendation}</p>
-                    </div>
+                      </div>
                   )}
                 </CardContent>
               </Card>
@@ -338,7 +340,7 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {recommendations?.vara?.favorables && recommendations.vara.favorables.length > 0 && (
-                    <div>
+                            <div>
                       <p className="font-medium text-green-700 mb-2 flex items-center gap-1">
                         <CheckCircle className="h-4 w-4" />
                         Actividades Favorables:
@@ -346,12 +348,12 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                       <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
                         {recommendations.vara.favorables.map((activity: string, index: number) => (
                           <li key={index} className="text-green-600">{activity}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                                ))}
+                              </ul>
+                            </div>
+                          )}
                   {recommendations?.vara?.desfavorables && recommendations.vara.desfavorables.length > 0 && (
-                    <div>
+                            <div>
                       <p className="font-medium text-red-700 mb-2 flex items-center gap-1">
                         <XCircle className="h-4 w-4" />
                         Actividades Desfavorables:
@@ -359,10 +361,10 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                       <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
                         {recommendations.vara.desfavorables.map((activity: string, index: number) => (
                           <li key={index} className="text-red-600">{activity}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                                ))}
+                              </ul>
+                            </div>
+                          )}
                 </CardContent>
               </Card>
             )}
@@ -389,7 +391,7 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                     </div>
                   )}
                   {recommendations?.yoga?.favorables && recommendations.yoga.favorables.length > 0 && (
-                    <div>
+                            <div>
                       <p className="font-medium text-green-700 mb-2 flex items-center gap-1">
                         <CheckCircle className="h-4 w-4" />
                         Actividades Favorables:
@@ -397,12 +399,12 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                       <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
                         {recommendations.yoga.favorables.map((activity: string, index: number) => (
                           <li key={index} className="text-green-600">{activity}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                                ))}
+                              </ul>
+                            </div>
+                          )}
                   {recommendations?.yoga?.desfavorables && recommendations.yoga.desfavorables.length > 0 && (
-                    <div>
+                            <div>
                       <p className="font-medium text-red-700 mb-2 flex items-center gap-1">
                         <XCircle className="h-4 w-4" />
                         Actividades Desfavorables:
@@ -410,10 +412,10 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                       <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
                         {recommendations.yoga.desfavorables.map((activity: string, index: number) => (
                           <li key={index} className="text-red-600">{activity}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                                ))}
+                              </ul>
+                            </div>
+                          )}
                 </CardContent>
               </Card>
             )}
@@ -461,11 +463,11 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                       {specialYoga.detailedDescription && (
                         <div className="p-3 bg-indigo-100 rounded-lg">
                           <p className="text-sm text-indigo-800">{specialYoga.detailedDescription}</p>
-                        </div>
-                      )}
+                      </div>
+                    )}
 
                       {specialYoga.favorables && specialYoga.favorables.length > 0 && (
-                        <div>
+                            <div>
                           <h5 className="font-medium text-green-700 mb-2 flex items-center gap-1">
                             <CheckCircle className="h-4 w-4" />
                             Actividades Favorables
@@ -477,11 +479,11 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                               </Badge>
                             ))}
                           </div>
-                        </div>
-                      )}
+                            </div>
+                          )}
 
                       {specialYoga.desfavorables && specialYoga.desfavorables.length > 0 && (
-                        <div>
+                            <div>
                           <h5 className="font-medium text-red-700 mb-2 flex items-center gap-1">
                             <XCircle className="h-4 w-4" />
                             Actividades a Evitar
@@ -493,16 +495,16 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                               </Badge>
                             ))}
                           </div>
-                        </div>
-                      )}
+                            </div>
+                          )}
 
                       {specialYoga.recommendation && (
                         <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
                           <p className="font-medium text-blue-800 mb-1">Recomendación:</p>
                           <p className="text-sm text-blue-700">{specialYoga.recommendation}</p>
-                        </div>
-                      )}
-                    </div>
+                      </div>
+                    )}
+                  </div>
                   ))}
                 </CardContent>
               </Card>
@@ -530,20 +532,20 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                          recommendations.summary.overallMood === 'inauspicious' ? 'Inauspicioso' :
                          'Neutral'}
                       </p>
-                    </div>
+                      </div>
                     <div className="text-center p-4 bg-green-50 rounded-lg">
                       <p className="text-sm text-green-600 font-medium">Actividades Favorables</p>
                       <p className="text-lg font-bold text-green-600">
                         {recommendations.summary.favorableActivities?.length || 0}
                       </p>
-                    </div>
+                      </div>
                     <div className="text-center p-4 bg-red-50 rounded-lg">
                       <p className="text-sm text-red-600 font-medium">Actividades a Evitar</p>
                       <p className="text-lg font-bold text-red-600">
                         {recommendations.summary.avoidActivities?.length || 0}
                       </p>
-                    </div>
-                  </div>
+                      </div>
+                      </div>
                 </CardContent>
               </Card>
             )}
@@ -583,7 +585,7 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-4">
+          <div className="space-y-4">
                     <div className="p-4 bg-white border border-purple-200 rounded-lg">
                       <div className="flex items-center justify-between mb-3">
                         <h4 className="font-semibold text-purple-800">Prompt Generado:</h4>
@@ -596,15 +598,15 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                             <Copy className="h-3 w-3 mr-1" />
                             Copiar Todo
                           </Button>
-                        </div>
+            </div>
                       </div>
                       <div className="max-h-96 overflow-y-auto">
                         <pre className="text-xs text-gray-700 whitespace-pre-wrap font-mono bg-gray-50 p-3 rounded border">
                           {aiPrompt}
-                        </pre>
-                      </div>
-                    </div>
-                    
+                </pre>
+              </div>
+            </div>
+            
                     <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
                       <h5 className="font-semibold text-blue-800 mb-2 flex items-center gap-2">
                         <Sparkles className="h-4 w-4" />
@@ -617,12 +619,12 @@ ${panchanga.specialYogas && panchanga.specialYogas.length > 0 ?
                         <p>4. El reporte incluirá análisis integrado, plan práctico y cita clásica védica</p>
                         <p>5. Formato optimizado para TTS (texto a voz) en español natural</p>
                       </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+            </div>
           </div>
+        </CardContent>
+      </Card>
+            )}
+    </div>
         )}
       </CardContent>
     </Card>

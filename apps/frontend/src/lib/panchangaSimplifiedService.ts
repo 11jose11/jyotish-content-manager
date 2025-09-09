@@ -9,6 +9,9 @@ export interface NakshatraData {
   classification: string
   element: string
   planet: string
+  yogatara?: number
+  tree?: string
+  direction?: string
   favorables: string[]
   desfavorables: string[]
 }
@@ -266,18 +269,26 @@ class PanchangaSimplifiedService {
     console.log(`🔍 Searching special yoga: "${name}" -> mapped: "${mappedName}"`)
     console.log(`📊 Available special yogas:`, data.specialYogas.map(y => y.name))
     
+    // Primero intentar búsqueda exacta
+    const exactMatch = data.specialYogas.find(y => 
+      y.name === name || 
+      y.name === mappedName ||
+      y.name.toLowerCase() === name.toLowerCase() ||
+      y.name.toLowerCase() === mappedName.toLowerCase()
+    )
+    
+    if (exactMatch) {
+      console.log(`✅ Found exact match:`, exactMatch.name)
+      return exactMatch
+    }
+    
+    // Si no hay coincidencia exacta, usar búsqueda por similitud
     const result = findBestMatch(data.specialYogas, mappedName)
     
     if (result) {
-      console.log(`✅ Found special yoga: ${result.name}`, result)
+      console.log(`✅ Found special yoga by similarity: ${result.name}`, result)
     } else {
       console.log(`❌ No special yoga found for: ${name}`)
-      console.log(`🔍 Trying exact match...`)
-      const exactMatch = data.specialYogas.find(y => y.name === name || y.name === mappedName)
-      if (exactMatch) {
-        console.log(`✅ Found exact match:`, exactMatch)
-        return exactMatch
-      }
     }
     
     return result
@@ -290,7 +301,7 @@ class PanchangaSimplifiedService {
     nakshatra?: { name: string }
     yoga?: { name: string }
     karana?: { name: string }
-    specialYogas?: string[]
+    specialYogas?: (string | any)[]
   }) {
     const recommendations = {
       tithi: null as TithiData | null,
@@ -328,10 +339,41 @@ class PanchangaSimplifiedService {
     // Cargar yogas especiales
     if (dayData.specialYogas && dayData.specialYogas.length > 0) {
       console.log(`🔄 Loading special yogas:`, dayData.specialYogas)
-      for (const yogaName of dayData.specialYogas) {
-        const specialYoga = await this.getSpecialYogaByName(yogaName)
-        if (specialYoga) {
-          recommendations.specialYogas.push(specialYoga)
+      for (const yogaData of dayData.specialYogas) {
+        // Si es un string, buscar en el JSON local
+        if (typeof yogaData === 'string') {
+          const specialYoga = await this.getSpecialYogaByName(yogaData)
+          if (specialYoga) {
+            recommendations.specialYogas.push(specialYoga)
+          }
+        } 
+        // Si es un objeto (viene de la API), buscar primero en el JSON local para obtener datos completos
+        else if (typeof yogaData === 'object' && yogaData.name) {
+          // Primero intentar buscar en el JSON local para obtener datos completos
+          const localYoga = await this.getSpecialYogaByName(yogaData.name)
+          
+          if (localYoga) {
+            // Si encontramos datos locales, usar esos (más completos)
+            console.log(`✅ Using local data for special yoga: ${yogaData.name}`)
+            recommendations.specialYogas.push(localYoga)
+          } else {
+            // Si no hay datos locales, mapear la estructura de la API
+            console.log(`⚠️ No local data found, using API data for: ${yogaData.name}`)
+            const mappedYoga: SpecialYogaData = {
+              name: yogaData.name || 'Unknown',
+              nameIAST: yogaData.name_IAST || yogaData.name || 'Unknown',
+              type: yogaData.type || 'unknown',
+              polarity: yogaData.polarity || 'neutral',
+              priority: yogaData.priority || 3,
+              color: yogaData.color || '#6b7280',
+              description: yogaData.description || 'Sin descripción disponible',
+              detailedDescription: yogaData.detailed_description || yogaData.description || 'Sin descripción detallada disponible',
+              favorables: yogaData.favorables || yogaData.favorable_activities || [],
+              desfavorables: yogaData.desfavorables || yogaData.avoid_activities || [],
+              recommendation: yogaData.recommendation || 'Sin recomendación específica'
+            }
+            recommendations.specialYogas.push(mappedYoga)
+          }
         }
       }
       console.log(`📋 Special yogas loaded:`, recommendations.specialYogas.length)
